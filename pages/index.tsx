@@ -1,14 +1,13 @@
-import Link from "next/link";
-import dbConnect from "../lib/dbConnect";
-import Article, { Articles } from "../models/article";
-import { GetServerSideProps } from "next";
+import Link from 'next/link';
+import dbConnect from '../lib/dbConnect';
+import Article, { Articles } from '../models/article';
+import { GetServerSideProps } from 'next';
 
 export type Props = {
   articles: Articles[];
 };
 
 const Index = ({ articles }: Props) => {
-
   return (
     <>
       {articles.length > 0 ? (

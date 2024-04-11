@@ -1,10 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import dbConnect from "../../../lib/dbConnect";
-import Article from "../../../models/article";
+import { NextApiRequest, NextApiResponse } from 'next';
+import dbConnect from '../../../lib/dbConnect';
+import Article from '../../../models/article';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   const {
     query: { id },
@@ -14,7 +14,7 @@ export default async function handler(
   await dbConnect();
 
   switch (method) {
-    case "GET" /* Get a model by its ID */:
+    case 'GET' /* Get a model by its ID */:
       try {
         const article = await Article.findById(id);
         if (!article) {
@@ -26,7 +26,7 @@ export default async function handler(
       }
       break;
 
-    case "PUT" /* Edit a model by its ID */:
+    case 'PUT' /* Edit a model by its ID */:
       try {
         const article = await Article.findByIdAndUpdate(id, req.body, {
           new: true,
@@ -41,7 +41,7 @@ export default async function handler(
       }
       break;
 
-    case "DELETE" /* Delete a model by its ID */:
+    case 'DELETE' /* Delete a model by its ID */:
       try {
         const deletedArticle = await Article.deleteOne({ _id: id });
         if (!deletedArticle) {

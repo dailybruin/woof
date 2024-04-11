@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import dbConnect from "../../../lib/dbConnect";
-import Pet from "../../../models/Pet";
+import { NextApiRequest, NextApiResponse } from 'next';
+import dbConnect from '../../../lib/dbConnect';
+import Pet from '../../../models/Pet';
 
 export default async function handler(
   req: NextApiRequest,
@@ -14,7 +14,7 @@ export default async function handler(
   await dbConnect();
 
   switch (method) {
-    case "GET" /* Get a model by its ID */:
+    case 'GET' /* Get a model by its ID */:
       try {
         const pet = await Pet.findById(id);
         if (!pet) {
@@ -26,7 +26,7 @@ export default async function handler(
       }
       break;
 
-    case "PUT" /* Edit a model by its ID */:
+    case 'PUT' /* Edit a model by its ID */:
       try {
         const pet = await Pet.findByIdAndUpdate(id, req.body, {
           new: true,
@@ -41,7 +41,7 @@ export default async function handler(
       }
       break;
 
-    case "DELETE" /* Delete a model by its ID */:
+    case 'DELETE' /* Delete a model by its ID */:
       try {
         const deletedPet = await Pet.deleteOne({ _id: id });
         if (!deletedPet) {

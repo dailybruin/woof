@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import dbConnect from "../../lib/dbConnect";
-import Article, { Articles } from "../../models/article";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { ParsedUrlQuery } from "querystring";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import dbConnect from '../../lib/dbConnect';
+import Article, { Articles } from '../../models/article';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 
 interface Params extends ParsedUrlQuery {
   id: string;
@@ -17,17 +17,17 @@ type Props = {
 /* Allows you to view pet card info and delete pet card*/
 const ArticlePage = ({ article }: Props) => {
   const router = useRouter();
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const handleDelete = async () => {
     const articleID = router.query.id;
 
     try {
       await fetch(`/api/articles/${articleID}`, {
-        method: "Delete",
+        method: 'Delete',
       });
-      router.push("/");
+      router.push('/');
     } catch (error) {
-      setMessage("Failed to delete the article.");
+      setMessage('Failed to delete the article.');
     }
   };
 
