@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Create Articles App</title>
+        <title>Woof</title>
       </Head>
 
       <div className="top-bar">
