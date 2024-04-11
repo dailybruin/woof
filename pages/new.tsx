@@ -1,14 +1,14 @@
-import Form from "../components/Form";
+import Form from '../components/Form';
 
 const NewArticle = () => {
   const articleForm = {
-    title: "",
-    author: "",
-    category: 0,
-    image_url: "",
+    title: '',
+    content: '',
+    image_url: '',
     created_date: new Date(),
     updated_date: new Date(),
-    content: "",
+    sections: [],
+    quick_link: false,
   };
 
   return <Form formId="add-article-form" articleForm={articleForm} />;

@@ -1,14 +1,15 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import { mutate } from "swr";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { mutate } from 'swr';
+import { TAGS } from '@/constants';
 
 interface FormData {
   title: string;
-  author: string;
-  category: number;
-  created_date: Date;
-  updated_date: Date;
   content: string;
+//   created_date: Date;
+//   updated_date: Date;
+  sections: string[];
+  quick_link: boolean;
   image_url: string;
 }
 
@@ -17,6 +18,7 @@ interface Error {
   owner_name?: string;
   species?: string;
   image_url?: string;
+  sections?: string;
 }
 
 type Props = {
@@ -27,25 +29,23 @@ type Props = {
 
 const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
   const router = useRouter();
-  const contentType = "application/json";
+  const contentType = 'application/json';
   const [errors, setErrors] = useState({});
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
-  const [form, setForm] = useState({
-    // title: articleForm.title,
-    // author: articleForm.author,
-    // category: articleForm.category,
+  const [form, setForm] = useState<FormData>({
     // created_date: articleForm.created_date,
     // updated_date: articleForm.updated_date,
     // content: articleForm.content,
     // image_url: articleForm.image_url,
-    title: "articleForm.title",
-    author: "articleForm.author",
-    category: 1,
-    created_date: new Date(),
-    updated_date: new Date(),
-    content: "articleForm.content",
-    image_url: "articleForm.image_url",
+    title: articleForm.title,
+    content: articleForm.content,
+    // TODO
+    // created_date: new Date(),
+    // updated_date: new Date(),
+    sections: articleForm.sections,
+    quick_link: false,
+    image_url: articleForm.image_url,
   });
 
   /* The PUT method edits an existing entry in the mongodb database. */
@@ -54,10 +54,10 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
 
     try {
       const res = await fetch(`/api/articles/${id}`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
           Accept: contentType,
-          "Content-Type": contentType,
+          'Content-Type': contentType,
         },
         body: JSON.stringify(form),
       });
@@ -70,20 +70,20 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
       const { data } = await res.json();
 
       mutate(`/api/articles/${id}`, data, false); // Update the local data without a revalidation
-      router.push("/");
+      router.push('/');
     } catch (error) {
-      setMessage("Failed to update article");
+      setMessage('Failed to update article');
     }
   };
 
   /* The POST method adds a new entry in the mongodb database. */
   const postData = async (form: FormData) => {
     try {
-      const res = await fetch("/api/articles", {
-        method: "POST",
+      const res = await fetch('/api/articles', {
+        method: 'POST',
         headers: {
           Accept: contentType,
-          "Content-Type": contentType,
+          'Content-Type': contentType,
         },
         body: JSON.stringify(form),
       });
@@ -93,20 +93,16 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
         throw new Error(res.status.toString());
       }
 
-      router.push("/");
+      router.push('/');
     } catch (error) {
-      setMessage("Failed to add article");
+      setMessage('Failed to add article');
     }
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const target = e.target;
-    // const value =
-    //   target.name === "author" // ???
-    //     ? (target as HTMLInputElement).checked
-    //     : target.value;
     const value = target.value;
     const name = target.name;
 
@@ -119,9 +115,9 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
   /* Makes sure pet info is filled for pet name, owner name, species, and image url*/
   const formValidate = () => {
     let err: Error = {};
-    if (!form.author) err.name = "Author name is required";
-    if (!form.title) err.owner_name = "Article title is required";
-    if (!form.image_url) err.image_url = "Image URL is required";
+    if (!form.content) err.name = 'Content name is required';
+    if (!form.title) err.owner_name = 'Article title is required';
+    if (!form.image_url) err.image_url = 'Image URL is required';
     return err;
   };
 
@@ -142,29 +138,19 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
         <label htmlFor="title">Title</label>
         <input
           type="text"
-          maxLength={20}
+          maxLength={30}
           name="title"
           value={form.title}
           onChange={handleChange}
           required
         />
 
-        <label htmlFor="author">Author</label>
+        <label htmlFor="content">Content</label>
         <input
           type="text"
-          maxLength={20}
-          name="author"
-          value={form.author}
-          onChange={handleChange}
-          required
-        />
-
-        <label htmlFor="category">Category</label>
-        <input
-          type="text"
-          maxLength={30}
-          name="category"
-          value={form.category}
+          maxLength={500}
+          name="content"
+          value={form.content}
           onChange={handleChange}
           required
         />
@@ -176,6 +162,37 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
           value={Date.now()}
           onChange={handleChange}
         />
+
+        {/* tags sections*/}
+
+        <label htmlFor="sections">Sections</label>
+        {TAGS.map((tag, index) => (
+          <div key={index}>
+            <label htmlFor={tag}>{tag}</label>
+            <input
+              type="checkbox"
+              name={tag}
+              value={tag}
+              checked={form.sections.includes(tag)}
+              onChange={(e) => {
+                console.log(form.sections);
+                if (e.target.checked) {
+                  setForm({
+                    ...form,
+                    sections: [...form.sections, tag],
+                  });
+                } else {
+                  setForm({
+                    ...form,
+                    sections: form.sections.filter(
+                      (section) => section !== tag,
+                    ),
+                  });
+                }
+              }}
+            />
+          </div>
+        ))}
 
         <label htmlFor="image_url">Image URL</label>
         <input

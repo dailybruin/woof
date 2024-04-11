@@ -1,6 +1,6 @@
-import { useRouter } from "next/router";
-import useSWR from "swr";
-import Form from "../../components/Form";
+import { useRouter } from 'next/router';
+import useSWR from 'swr';
+import Form from '../../components/Form';
 
 const fetcher = (url: string) =>
   fetch(url)
@@ -22,12 +22,13 @@ const EditArticle = () => {
 
   const articleForm = {
     title: article.title,
-    author: article.author,
-    category: article.category,
+    content: article.content,
     created_date: article.created_date,
     updated_date: article.updated_date,
-    content: article.content,
     image_url: article.image_url,
+    quick_link: article.quick_link,
+    // TODO
+    sections: article.sections,
   };
 
   return (

@@ -37,8 +37,7 @@ const ArticlePage = ({ article }: Props) => {
         <img src={article.image_url} />
         <h5 className="article-title">{article.title}</h5>
         <div className="main-content">
-          <p className="article-author">{article.author}</p>
-          <p className="category">Category: {article.category}</p>
+          <p className="article-content">{article.content}</p>
 
           {/* Extra Pet Info: Likes and Dislikes
           <div className="likes info">
