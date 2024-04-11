@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 export interface Articles extends mongoose.Document {
   title: string;
@@ -18,13 +18,6 @@ const ArticleSchema = new mongoose.Schema<Articles>({
     type: String,
     required: [true, 'Please provide a title.'],
     maxlength: [80, 'Name cannot be more than 80 characters'],
-  },
-  content: {
-    /* List of  contents */
-
-    type: String,
-    required: [true, "Please provide the content's name"],
-    maxlength: [60, "Content's Name cannot be more than 60 characters"],
   },
   created_date: {
     /* Created date */
@@ -59,4 +52,4 @@ const ArticleSchema = new mongoose.Schema<Articles>({
 });
 
 export default mongoose.models.Article ||
-  mongoose.model<Articles>("Article", ArticleSchema);
+  mongoose.model<Articles>('Article', ArticleSchema);
