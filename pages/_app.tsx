@@ -1,5 +1,6 @@
 import '../css/style.css';
-import '../css/form.css';
+import '../css/form.css'; // todo: move to globals
+import '../styles/globals.css';
 import Head from 'next/head';
 import Link from 'next/link';
 import type { AppProps } from 'next/app';
