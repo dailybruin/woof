@@ -1,54 +1,56 @@
-import Link from "next/link";
-import dbConnect from "../lib/dbConnect";
-import Pet, { Pets } from "../models/Pet";
-import { GetServerSideProps } from "next";
+import Link from 'next/link';
+import dbConnect from '../lib/dbConnect';
+import Article, { Articles } from '../models/article';
+import { GetServerSideProps } from 'next';
 
-type Props = {
-  pets: Pets[];
+export type Props = {
+  articles: Articles[];
 };
 
-const Index = ({ pets }: Props) => {
+const Index = ({ articles }: Props) => {
   return (
     <>
-      {pets.map((pet) => (
-        <div key={pet._id}>
-          <div className="card">
-            <img src={pet.image_url} />
-            <h5 className="pet-name">{pet.name}</h5>
-            <div className="main-content">
-              <p className="pet-name">{pet.name}</p>
-              <p className="owner">Owner: {pet.owner_name}</p>
+      {articles.length > 0 ? (
+        articles.map((article) => (
+          <div key={article._id}>
+            <div className="card">
+              {/* <img src={article.image_url} /> */}
+              {/* take out later ^ */}
+              <b>
+                <h5 className="title">{article.title}</h5>
+              </b>
+              <div className="main-content">
+                <p className="title">{article.title}</p>
+                <p className="content">Content: {article.content}</p>
+                <p className="quick_link">
+                  quick_link: {String(article.quick_link)}
+                </p>
+                <p className="sections">
+                  Sections: {article.sections.join(', ')}
+                </p>
 
-              {/* Extra Pet Info: Likes and Dislikes */}
-              <div className="likes info">
-                <p className="label">Likes</p>
-                <ul>
-                  {pet.likes.map((data, index) => (
-                    <li key={index}>{data} </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="dislikes info">
-                <p className="label">Dislikes</p>
-                <ul>
-                  {pet.dislikes.map((data, index) => (
-                    <li key={index}>{data} </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="btn-container">
-                <Link href={{ pathname: "/[id]/edit", query: { id: pet._id } }}>
-                  <button className="btn edit">Edit</button>
-                </Link>
-                <Link href={{ pathname: "/[id]", query: { id: pet._id } }}>
-                  <button className="btn view">View</button>
-                </Link>
+                <div className="btn-container">
+                  <Link
+                    href={{
+                      pathname: '/[id]/edit',
+                      query: { id: article._id },
+                    }}
+                  >
+                    <button className="btn edit">Edit</button>
+                  </Link>
+                  <Link
+                    href={{ pathname: '/[id]', query: { id: article._id } }}
+                  >
+                    <button className="btn view">View</button>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p>No articles available.</p>
+      )}
     </>
   );
 };
@@ -58,15 +60,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
   await dbConnect();
 
   /* find all the data in our database */
-  const result = await Pet.find({});
+  const result = await Article.find({});
 
   /* Ensures all objectIds and nested objectIds are serialized as JSON data */
-  const pets = result.map((doc) => {
-    const pet = JSON.parse(JSON.stringify(doc));
-    return pet;
+  const articles = result.map((doc) => {
+    const article = JSON.parse(JSON.stringify(doc));
+    return article;
   });
 
-  return { props: { pets: pets } };
+  return { props: { articles: articles } };
 };
 
 export default Index;

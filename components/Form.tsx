@@ -1,17 +1,16 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import { mutate } from "swr";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { mutate } from 'swr';
+import { TAGS } from '@/constants';
 
 interface FormData {
-  name: string;
-  owner_name: string;
-  species: string;
-  age: number;
-  poddy_trained: boolean;
-  diet: string[];
+  title: string;
+  content: string;
+//   created_date: Date;
+//   updated_date: Date;
+  sections: string[];
+  quick_link: boolean;
   image_url: string;
-  likes: string[];
-  dislikes: string[];
 }
 
 interface Error {
@@ -19,30 +18,34 @@ interface Error {
   owner_name?: string;
   species?: string;
   image_url?: string;
+  sections?: string;
 }
 
 type Props = {
   formId: string;
-  petForm: FormData;
-  forNewPet?: boolean;
+  articleForm: FormData;
+  forNewArticle?: boolean;
 };
 
-const Form = ({ formId, petForm, forNewPet = true }: Props) => {
+const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
   const router = useRouter();
-  const contentType = "application/json";
+  const contentType = 'application/json';
   const [errors, setErrors] = useState({});
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
-  const [form, setForm] = useState({
-    name: petForm.name,
-    owner_name: petForm.owner_name,
-    species: petForm.species,
-    age: petForm.age,
-    poddy_trained: petForm.poddy_trained,
-    diet: petForm.diet,
-    image_url: petForm.image_url,
-    likes: petForm.likes,
-    dislikes: petForm.dislikes,
+  const [form, setForm] = useState<FormData>({
+    // created_date: articleForm.created_date,
+    // updated_date: articleForm.updated_date,
+    // content: articleForm.content,
+    // image_url: articleForm.image_url,
+    title: articleForm.title,
+    content: articleForm.content,
+    // TODO
+    // created_date: new Date(),
+    // updated_date: new Date(),
+    sections: articleForm.sections,
+    quick_link: false,
+    image_url: articleForm.image_url,
   });
 
   /* The PUT method edits an existing entry in the mongodb database. */
@@ -50,11 +53,11 @@ const Form = ({ formId, petForm, forNewPet = true }: Props) => {
     const { id } = router.query;
 
     try {
-      const res = await fetch(`/api/pets/${id}`, {
-        method: "PUT",
+      const res = await fetch(`/api/articles/${id}`, {
+        method: 'PUT',
         headers: {
           Accept: contentType,
-          "Content-Type": contentType,
+          'Content-Type': contentType,
         },
         body: JSON.stringify(form),
       });
@@ -66,21 +69,21 @@ const Form = ({ formId, petForm, forNewPet = true }: Props) => {
 
       const { data } = await res.json();
 
-      mutate(`/api/pets/${id}`, data, false); // Update the local data without a revalidation
-      router.push("/");
+      mutate(`/api/articles/${id}`, data, false); // Update the local data without a revalidation
+      router.push('/');
     } catch (error) {
-      setMessage("Failed to update pet");
+      setMessage('Failed to update article');
     }
   };
 
   /* The POST method adds a new entry in the mongodb database. */
   const postData = async (form: FormData) => {
     try {
-      const res = await fetch("/api/pets", {
-        method: "POST",
+      const res = await fetch('/api/articles', {
+        method: 'POST',
         headers: {
           Accept: contentType,
-          "Content-Type": contentType,
+          'Content-Type': contentType,
         },
         body: JSON.stringify(form),
       });
@@ -90,9 +93,9 @@ const Form = ({ formId, petForm, forNewPet = true }: Props) => {
         throw new Error(res.status.toString());
       }
 
-      router.push("/");
+      router.push('/');
     } catch (error) {
-      setMessage("Failed to add pet");
+      setMessage('Failed to add article');
     }
   };
 
@@ -100,10 +103,7 @@ const Form = ({ formId, petForm, forNewPet = true }: Props) => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const target = e.target;
-    const value =
-      target.name === "poddy_trained"
-        ? (target as HTMLInputElement).checked
-        : target.value;
+    const value = target.value;
     const name = target.name;
 
     setForm({
@@ -115,10 +115,9 @@ const Form = ({ formId, petForm, forNewPet = true }: Props) => {
   /* Makes sure pet info is filled for pet name, owner name, species, and image url*/
   const formValidate = () => {
     let err: Error = {};
-    if (!form.name) err.name = "Name is required";
-    if (!form.owner_name) err.owner_name = "Owner is required";
-    if (!form.species) err.species = "Species is required";
-    if (!form.image_url) err.image_url = "Image URL is required";
+    if (!form.content) err.name = 'Content name is required';
+    if (!form.title) err.owner_name = 'Article title is required';
+    if (!form.image_url) err.image_url = 'Image URL is required';
     return err;
   };
 
@@ -127,7 +126,7 @@ const Form = ({ formId, petForm, forNewPet = true }: Props) => {
     const errs = formValidate();
 
     if (Object.keys(errs).length === 0) {
-      forNewPet ? postData(form) : putData(form);
+      forNewArticle ? postData(form) : putData(form);
     } else {
       setErrors({ errs });
     }
@@ -136,59 +135,64 @@ const Form = ({ formId, petForm, forNewPet = true }: Props) => {
   return (
     <>
       <form id={formId} onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          maxLength={20}
-          name="name"
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
-
-        <label htmlFor="owner_name">Owner</label>
-        <input
-          type="text"
-          maxLength={20}
-          name="owner_name"
-          value={form.owner_name}
-          onChange={handleChange}
-          required
-        />
-
-        <label htmlFor="species">Species</label>
+        <label htmlFor="title">Title</label>
         <input
           type="text"
           maxLength={30}
-          name="species"
-          value={form.species}
+          name="title"
+          value={form.title}
           onChange={handleChange}
           required
         />
 
-        <label htmlFor="age">Age</label>
+        <label htmlFor="content">Content</label>
         <input
-          type="number"
-          name="age"
-          value={form.age}
+          type="text"
+          maxLength={500}
+          name="content"
+          value={form.content}
+          onChange={handleChange}
+          required
+        />
+
+        <label htmlFor="date">Date</label>
+        <input
+          type="date"
+          name="created_date"
+          value={Date.now()}
           onChange={handleChange}
         />
 
-        <label htmlFor="poddy_trained">Potty Trained</label>
-        <input
-          type="checkbox"
-          name="poddy_trained"
-          checked={form.poddy_trained}
-          onChange={handleChange}
-        />
+        {/* tags sections*/}
 
-        <label htmlFor="diet">Diet</label>
-        <textarea
-          name="diet"
-          maxLength={60}
-          value={form.diet}
-          onChange={handleChange}
-        />
+        <label htmlFor="sections">Sections</label>
+        {TAGS.map((tag, index) => (
+          <div key={index}>
+            <label htmlFor={tag}>{tag}</label>
+            <input
+              type="checkbox"
+              name={tag}
+              value={tag}
+              checked={form.sections.includes(tag)}
+              onChange={(e) => {
+                console.log(form.sections);
+                if (e.target.checked) {
+                  setForm({
+                    ...form,
+                    sections: [...form.sections, tag],
+                  });
+                } else {
+                  setForm({
+                    ...form,
+                    sections: form.sections.filter(
+                      (section) => section !== tag,
+                    ),
+                  });
+                }
+              }}
+            />
+          </div>
+        ))}
 
         <label htmlFor="image_url">Image URL</label>
         <input
@@ -197,22 +201,6 @@ const Form = ({ formId, petForm, forNewPet = true }: Props) => {
           value={form.image_url}
           onChange={handleChange}
           required
-        />
-
-        <label htmlFor="likes">Likes</label>
-        <textarea
-          name="likes"
-          maxLength={60}
-          value={form.likes}
-          onChange={handleChange}
-        />
-
-        <label htmlFor="dislikes">Dislikes</label>
-        <textarea
-          name="dislikes"
-          maxLength={60}
-          value={form.dislikes}
-          onChange={handleChange}
         />
 
         <button type="submit" className="btn">

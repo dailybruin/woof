@@ -1,46 +1,45 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import dbConnect from "../../lib/dbConnect";
-import Pet, { Pets } from "../../models/Pet";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { ParsedUrlQuery } from "querystring";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import dbConnect from '../../lib/dbConnect';
+import Article, { Articles } from '../../models/article';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 
 interface Params extends ParsedUrlQuery {
   id: string;
 }
 
 type Props = {
-  pet: Pets;
+  article: Articles;
 };
 
 /* Allows you to view pet card info and delete pet card*/
-const PetPage = ({ pet }: Props) => {
+const ArticlePage = ({ article }: Props) => {
   const router = useRouter();
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const handleDelete = async () => {
-    const petID = router.query.id;
+    const articleID = router.query.id;
 
     try {
-      await fetch(`/api/pets/${petID}`, {
-        method: "Delete",
+      await fetch(`/api/articles/${articleID}`, {
+        method: 'Delete',
       });
-      router.push("/");
+      router.push('/');
     } catch (error) {
-      setMessage("Failed to delete the pet.");
+      setMessage('Failed to delete the article.');
     }
   };
 
   return (
-    <div key={pet._id}>
+    <div key={article._id}>
       <div className="card">
-        <img src={pet.image_url} />
-        <h5 className="pet-name">{pet.name}</h5>
+        <img src={article.image_url} />
+        <h5 className="article-title">{article.title}</h5>
         <div className="main-content">
-          <p className="pet-name">{pet.name}</p>
-          <p className="owner">Owner: {pet.owner_name}</p>
+          <p className="article-content">{article.content}</p>
 
-          {/* Extra Pet Info: Likes and Dislikes */}
+          {/* Extra Pet Info: Likes and Dislikes
           <div className="likes info">
             <p className="label">Likes</p>
             <ul>
@@ -56,10 +55,10 @@ const PetPage = ({ pet }: Props) => {
                 <li key={index}>{data} </li>
               ))}
             </ul>
-          </div>
+          </div> */}
 
           <div className="btn-container">
-            <Link href={`/${pet._id}/edit`}>
+            <Link href={`/${article._id}/edit`}>
               <button className="btn edit">Edit</button>
             </Link>
             <button className="btn delete" onClick={handleDelete}>
@@ -84,22 +83,22 @@ export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
     };
   }
 
-  const pet = await Pet.findById(params.id).lean();
+  const article = await Article.findById(params.id).lean();
 
-  if (!pet) {
+  if (!article) {
     return {
       notFound: true,
     };
   }
 
   /* Ensures all objectIds and nested objectIds are serialized as JSON data */
-  const serializedPet = JSON.parse(JSON.stringify(pet));
+  const serializedArticle = JSON.parse(JSON.stringify(article));
 
   return {
     props: {
-      pet: serializedPet,
+      article: serializedArticle,
     },
   };
 };
 
-export default PetPage;
+export default ArticlePage;
