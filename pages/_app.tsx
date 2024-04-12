@@ -3,10 +3,11 @@ import '../css/form.css';
 import Head from 'next/head';
 import Link from 'next/link';
 import type { AppProps } from 'next/app';
+import { SessionProvider } from 'next-auth/react';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <>
+    <SessionProvider session={session}>
       <Head>
         <title>Woof</title>
       </Head>
@@ -22,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <div className="wrapper grid">
         <Component {...pageProps} />
       </div>
-    </>
+    </SessionProvider>
   );
 }
 
