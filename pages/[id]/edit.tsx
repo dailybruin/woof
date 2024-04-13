@@ -24,7 +24,7 @@ const EditArticle = () => {
     title: article.title,
     content: article.content,
     created_date: article.created_date,
-    updated_date: article.updated_date,
+    updated_date: new Date(),
     image_url: article.image_url,
     quick_link: article.quick_link,
     // TODO

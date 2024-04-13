@@ -6,8 +6,8 @@ import { TAGS } from '@/constants';
 interface FormData {
   title: string;
   content: string;
-//   created_date: Date;
-//   updated_date: Date;
+  //   created_date: Date;
+  updated_date: Date;
   sections: string[];
   quick_link: boolean;
   image_url: string;
@@ -34,15 +34,9 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
   const [message, setMessage] = useState('');
 
   const [form, setForm] = useState<FormData>({
-    // created_date: articleForm.created_date,
-    // updated_date: articleForm.updated_date,
-    // content: articleForm.content,
-    // image_url: articleForm.image_url,
     title: articleForm.title,
     content: articleForm.content,
-    // TODO
-    // created_date: new Date(),
-    // updated_date: new Date(),
+    updated_date: new Date(),
     sections: articleForm.sections,
     quick_link: false,
     image_url: articleForm.image_url,
@@ -154,16 +148,6 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
           onChange={handleChange}
           required
         />
-
-        <label htmlFor="date">Date</label>
-        <input
-          type="date"
-          name="created_date"
-          value={Date.now()}
-          onChange={handleChange}
-        />
-
-        {/* tags sections*/}
 
         <label htmlFor="sections">Sections</label>
         {TAGS.map((tag, index) => (

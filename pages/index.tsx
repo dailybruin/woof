@@ -28,6 +28,12 @@ const Index = ({ articles }: Props) => {
                 <p className="sections">
                   Sections: {article.sections.join(', ')}
                 </p>
+                <p className="created_date">
+                  Created date: {article.created_date.toLocaleString()}
+                </p>
+                <p className="updated_date">
+                  Updated date: {article.updated_date.toLocaleString()}
+                </p>
 
                 <div className="btn-container">
                   <Link
