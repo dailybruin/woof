@@ -5,6 +5,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
+import SearchBar from './searchbar/SearchBar';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
@@ -12,9 +13,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       <Head>
         <title>Woof</title>
       </Head>
-
       <div className="top-bar">
         <div className="nav">
+          <SearchBar articles={pageProps}/>
           <Link href="/">Home</Link>
           <Link href="/new">Add Article</Link>
         </div>
