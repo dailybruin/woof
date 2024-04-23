@@ -1,6 +1,7 @@
 * {
   font-family: 'Open Sans', sans-serif;
   box-sizing: border-box;
+  background-color: #FFFEE4;
 }
 
 /* Nav Area */
@@ -103,6 +104,7 @@
 .lower-header {
   height: 100%;
   display: inline-block;
+  border-bottom: 3px solid black;
 }
 .lower-header a {
   margin: 0 20px;
@@ -260,4 +262,27 @@ li {
 
 .confirmation-box.show {
   display: block;
+}
+
+
+/* Change Article Styling */
+.edit-article { 
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.edit-heading{
+  color: #000;
+  font-size: 120%;
+  font-family: 'Rockwell', sans-serif;
+}
+
+.edit-link {
+  text-decoration: none;
+  color: #C077CC;
+  font-weight: bold;
+  font-size: 100%;
+  font-family: 'Rockwell', sans-serif;
 }
