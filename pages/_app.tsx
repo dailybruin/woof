@@ -8,8 +8,8 @@ import { SessionProvider } from 'next-auth/react';
 import SearchBar from './SearchBar';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  console.log(session, 'session')
-  console.log(pageProps, 'pageProps')
+  // console.log(session, 'session')
+  // console.log(pageProps, 'pageProps')
 
   return (
     <SessionProvider session={session}>

@@ -1,43 +1,67 @@
+
 import Link from 'next/link';
 import dbConnect from '../lib/dbConnect';
 import Article, { Articles } from '../models/article';
 import { GetServerSideProps } from 'next';
 import { GetStaticProps } from 'next';
+import { useEffect, useState } from 'react';
 
 export type Props = {
   articles: Articles[];
 };
 
 const SearchBar = ({ articles }: Props) => {
-  return (
-    <>
-      {articles.length > 0 ? (
-        articles.map((article) => (
-          <div key={article._id}>
-            <div className="card">
-              {/* <img src={article.image_url} /> */}
-              {/* take out later ^ */}
-              <b>
-                <h5 className="title">{article.title}</h5>
-              </b>
-              <div className="main-content">
-                <p className="title">{article.title}</p>
-                <p className="content">Content: {article.content}</p>
-                <p className="quick_link">
-                  quick_link: {String(article.quick_link)}
-                </p>
-                <p className="sections">
-                  Sections: {article.sections.join(', ')}
-                </p>
-              </div>
-            </div>
-          </div>
-        ))
-      ) : (
-        <p>No articles available.</p>
-      )}
-    </>
-  );
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredArticles, setFilteredArticles] = useState<Articles[]>([]);
+  
+    
+
+    useEffect(() => {
+        if (!searchTerm) {  
+            setFilteredArticles([]);
+            return;
+            }
+
+        if (!articles) return;
+
+        const filtered = articles.filter(article =>
+            article.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+    
+        setFilteredArticles(filtered);
+    }, [searchTerm, articles]);
+
+
+    return (
+        <div className="text-3xl font-bold leading-10 text-left">
+            <input
+                type="text"
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+                placeholder="Search articles..."
+            />
+            {/* {filteredArticles.map((article) => (
+                <div key={article._id}>
+                <Link href={{
+                      pathname: '/[id]/edit',
+                      query: { id: article._id },
+                    }}>
+                    {article.title}
+                </Link>
+                </div>
+            ))} */}
+            {searchTerm && filteredArticles.map((article) => (
+                <div key={article._id}>
+                    <Link href={{
+                    pathname: '/[id]',
+                    query: { id: article._id },
+                    }}>
+                    {article.title}
+                    </Link>
+                </div>
+            ))}
+        </div>
+    );
 };
 
 /* Retrieves pet(s) data from mongodb database */
