@@ -7,9 +7,11 @@
 .top-bar {
   width: 100%;
   margin-top: 0;
-  position: relative;
+  position: static;
   height: 80px;
   text-align: right;
+  display: flex; 
+  flex-direction: column;
   /* font-family: 'Rockwell', sans-serif; */
 }
 
@@ -48,18 +50,59 @@
   font-family: 'Rockwell', sans-serif;
 }
 
-.header { 
+.higher-header { 
   display: flex;
   justify-content: space-between;
   padding: 10px;
 }
 
+.page-title {
+  font-size: 200%;
+  font-weight: bold;
+  font-family: 'Rockwell', sans-serif;
+  margin: 0;
+  padding: 10px;
+}
 
-.nav {
+.woof-img-container { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+
+.nav { 
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: 10px;
+  /* font-family: 'Rockwell', sans-serif; */
+}
+
+.nav-component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  /* font-family: 'Rockwell', sans-serif; */
+}
+
+.nav-link { 
+  text-decoration: none;
+  color: black;
+  font-size: 120%;
+  padding: 10px;
+  font-family: 'Rockwell', sans-serif;
+
+}
+
+
+.lower-header {
   height: 100%;
   display: inline-block;
 }
-.nav a {
+.lower-header a {
   margin: 0 20px;
   font-size: 120%;
   height: 100%;

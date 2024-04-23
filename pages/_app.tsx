@@ -7,6 +7,8 @@ import Image from 'next/image';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import SearchBar from './SearchBar';
+import NavBar from '../components/NavBar';
+import ChangeArticle from '../components/ChangeArticle';
 // import './_app.scss';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
@@ -19,16 +21,15 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         <title>Woof</title>
       </Head>
       <div className="top-bar">
-        <div className="header">
+        <div className="higher-header">
           <div className="woof-img-container">
+            <div className="page-title">Woof.</div>
             <Image id="title" src="/Woof-Logo.png" width={150} height={150} alt="Woof logo"></Image>
           </div>
           <SearchBar articles={pageProps.articles}/>
         </div>
-        <div className="nav">
-          <Link href="/">Home</Link>
-          <Link href="/new">Add Article</Link>
-        </div>
+        <NavBar />
+        <ChangeArticle />
       </div>
       <div className="wrapper grid">
         <Component {...pageProps} />
