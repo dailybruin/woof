@@ -20,19 +20,23 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       <Head>
         <title>Woof</title>
       </Head>
-      <div className="top-bar">
-        <div className="higher-header">
-          <div className="woof-img-container">
-            <div className="page-title">Woof.</div>
-            <Image id="title" src="/Woof-Logo.png" width={150} height={150} alt="Woof logo"></Image>
+      <div className="stack"> 
+        <div className="top-bar">
+          <div className="higher-header">
+            <div className="woof-img-container">
+              <Link className="page-title" href="/">Woof.</Link>
+              <Image id="title" src="/Woof-Logo-Bigger.png" width={75} height={75} alt="Woof logo"></Image>
+            </div>
+            <SearchBar articles={pageProps.articles}/>
           </div>
-          <SearchBar articles={pageProps.articles}/>
+          <div className="lower-header">
+            <NavBar />
+          </div>
         </div>
-        <NavBar />
-        <ChangeArticle />
-      </div>
-      <div className="wrapper grid">
-        <Component {...pageProps} />
+        <div className="wrapper grid">
+          <Component {...pageProps} />
+          <ChangeArticle />
+        </div>
       </div>
     </SessionProvider>
   );

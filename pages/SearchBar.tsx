@@ -35,7 +35,7 @@ const SearchBar = ({ articles }: Props) => {
 
 
     return (
-        <div className="w-1/3">
+        <div className="w-1/3 search-bar-main">
             <div className="full-search-bar">
                 <input
                     className="search-bar"
