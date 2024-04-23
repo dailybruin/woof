@@ -8,7 +8,7 @@ export type Props = {
   articles: Articles[];
 };
 
-const Index = ({ articles }: Props) => {
+const SearchBar = ({ articles }: Props) => {
   return (
     <>
       {articles.length > 0 ? (
@@ -29,22 +29,6 @@ const Index = ({ articles }: Props) => {
                 <p className="sections">
                   Sections: {article.sections.join(', ')}
                 </p>
-
-                <div className="btn-container">
-                  <Link
-                    href={{
-                      pathname: '/[id]/edit',
-                      query: { id: article._id },
-                    }}
-                  >
-                    <button className="btn edit">Edit</button>
-                  </Link>
-                  <Link
-                    href={{ pathname: '/[id]', query: { id: article._id } }}
-                  >
-                    <button className="btn view">View</button>
-                  </Link>
-                </div>
               </div>
             </div>
           </div>
@@ -74,4 +58,4 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   return { props: { articles: articles } };
 };
 
-export default Index;
+export default SearchBar;
