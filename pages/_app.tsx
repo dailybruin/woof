@@ -7,7 +7,7 @@ import Image from 'next/image';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import SearchBar from './SearchBar';
-import './_app.scss';
+// import './_app.scss';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   // console.log(session, 'session')
