@@ -73,24 +73,24 @@ const SearchBar = ({ articles }: Props) => {
     );
 };
 
-/* Retrieves pet(s) data from mongodb database */
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  await dbConnect();
+// /* Retrieves pet(s) data from mongodb database */
+// export const getStaticProps: GetStaticProps<Props> = async () => {
+//   await dbConnect();
 
-  /* find all the data in our database */
-  const result = await Article.find({});
+//   /* find all the data in our database */
+//   const result = await Article.find({});
 
-  /* Ensures all objectIds and nested objectIds are serialized as JSON data */
-  const articles = result.map((doc) => {
-    const article = JSON.parse(JSON.stringify(doc));
-    return article;
-  });
+//   /* Ensures all objectIds and nested objectIds are serialized as JSON data */
+//   const articles = result.map((doc) => {
+//     const article = JSON.parse(JSON.stringify(doc));
+//     return article;
+//   });
 
-  console.log("Success in retrieving data from database");
+//   console.log("Success in retrieving data from database");
 
-  // console.log(articles, 'articles')
+//   // console.log(articles, 'articles')
 
-  return { props: { articles: articles } };
-};
+//   return { props: { articles: articles } };
+// };
 
 export default SearchBar;
