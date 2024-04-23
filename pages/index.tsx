@@ -9,6 +9,7 @@ export type Props = {
 };
 
 const Index = ({ articles }: Props) => {
+  
   return (
     <>
       {articles.length > 0 ? (

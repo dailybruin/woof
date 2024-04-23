@@ -53,6 +53,8 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     return article;
   });
 
+  console.log("Success in retrieving data from database");
+
   // console.log(articles, 'articles')
 
   return { props: { articles: articles } };
