@@ -2,12 +2,14 @@ import Link from 'next/link';
 import dbConnect from '../lib/dbConnect';
 import Article, { Articles } from '../models/article';
 import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 
 export type Props = {
   articles: Articles[];
 };
 
 const Index = ({ articles }: Props) => {
+  
   return (
     <>
       {articles.length > 0 ? (
@@ -56,7 +58,7 @@ const Index = ({ articles }: Props) => {
 };
 
 /* Retrieves pet(s) data from mongodb database */
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   await dbConnect();
 
   /* find all the data in our database */
@@ -67,6 +69,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
     const article = JSON.parse(JSON.stringify(doc));
     return article;
   });
+
+  // console.log(articles, 'articles')
 
   return { props: { articles: articles } };
 };
