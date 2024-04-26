@@ -8,6 +8,49 @@ export type Props = {
   articles: Articles[];
 };
 
+const parseDateString = (str: string) => {
+  let year: string = str.slice(0, 4);
+  let month: string = str.slice(5, 7);
+  let day: string = str.slice(8, 10);
+  let hour = str.slice(11, 13);
+  let min: string = str.slice(14, 16);
+
+  let hour_num = Number(hour);
+  hour_num -= 7;
+
+  if (hour_num < 0) {
+    hour_num = 24 + hour_num;
+  }
+
+  let ampm: string = 'XM';
+  if (hour_num > 12) {
+    ampm = 'PM';
+    hour_num -= 12;
+  } else {
+    ampm = 'AM';
+  }
+
+  let time: string = String(hour_num) + ':' + min + ' ' + ampm;
+
+  var monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  let monthName = monthNames[Number(month)];
+  return monthName + ' ' + day + ', ' + year + ' at ' + time;
+};
+
 const Index = ({ articles }: Props) => {
   
   return (
@@ -29,6 +72,14 @@ const Index = ({ articles }: Props) => {
                 </p>
                 <p className="sections">
                   Sections: {article.sections.join(', ')}
+                </p>
+                <p className="created_date">
+                  Created date:{' '}
+                  {parseDateString(article.created_date.toLocaleString())}
+                </p>
+                <p className="updated_date">
+                  Updated date:{' '}
+                  {parseDateString(article.updated_date.toLocaleString())}
                 </p>
 
                 <div className="btn-container">
