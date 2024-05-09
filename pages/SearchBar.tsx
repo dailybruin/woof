@@ -5,6 +5,7 @@ import Article, { Articles } from '../models/article';
 import { GetServerSideProps } from 'next';
 import { GetStaticProps } from 'next';
 import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 // import bootstrap from 'bootstrap';
 
 
@@ -12,11 +13,9 @@ export type Props = {
   articles: Articles[];
 };
 
-const SearchBar = ({ articles }: Props) => {
+const SearchBar = ({ articles}: Props) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredArticles, setFilteredArticles] = useState<Articles[]>([]);
-  
-    
 
     useEffect(() => {
         if (!searchTerm) {  
@@ -35,8 +34,8 @@ const SearchBar = ({ articles }: Props) => {
 
 
     return (
-        <div className="w-1/3 search-bar-main">
-            <div className="full-search-bar">
+        <div className={`w-1/3 search-bar-main`}>
+            <div className={`full-search-bar`}>
                 <input
                     className="search-bar"
                     type="text"

@@ -27,6 +27,8 @@
   font-family: 'Rockwell', sans-serif;
 }
 
+
+
 .search-bar {
   display: flex;
   justify-content: center;
@@ -78,7 +80,7 @@
   display: flex;
   justify-content: left;
   align-items: center;
-  /* padding: 10px; */
+  padding: 10px;
   /* font-family: 'Rockwell', sans-serif; */
 }
 
@@ -114,6 +116,66 @@
   justify-content: center;
   align-items: center;
 }
+
+
+.lower-header.All {
+  /* background-color: #C077CC; */
+  border-bottom: 3px solid #C077CC;
+  color: #C077CC;
+}
+
+.lower-header.News {
+  /* background-color: #0A97D0; */
+  border-bottom: 3px solid #0A97D0;
+}
+
+.lower-header.Opinion {
+  background-color: #6DA81E;
+  border-bottom: 3px solid #6DA81E;
+}
+
+.lower-header.Arts {
+  background-color: #E98C1B;
+  border-bottom: 3px solid #E98C1B;
+}
+
+.lower-header.Sports {
+  background-color:  #3744B5;
+  border-bottom: 3px solid #3744B5;
+}
+
+.lower-header.Misc {
+  background-color: #1B8E50;
+  border-bottom: 3px solid #1B8E50;
+}
+
+.lower-header.Troubleshooting {
+  background-color: #D249BC;
+  border-bottom: 3px solid #D249BC;
+}
+
+.nav-component.All.selected > .nav-link{
+  color: #C077CC;
+}
+.nav-component.News.selected > .nav-link{
+  color: #0A97D0; 
+}
+.nav-component.Opinion.selected > .nav-link{
+  color: #6DA81E;
+}
+.nav-component.Arts.selected > .nav-link {
+  color: #E98C1B;
+}
+.nav-component.Sports.selected > .nav-link{
+  color:  #3744B5;
+}
+.nav-component.Misc.selected > .nav-link{
+  color: #1B8E50;
+}
+.nav-component.Troubleshooting.selected > .nav-link{
+  color: #D249BC;
+}
+
 
 /* .grid {
   /* display: flex; */

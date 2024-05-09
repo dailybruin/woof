@@ -9,11 +9,14 @@ import { SessionProvider } from 'next-auth/react';
 import SearchBar from './SearchBar';
 import NavBar from '../components/NavBar';
 import ChangeArticle from '../components/ChangeArticle';
+import { useState } from 'react';
 // import './_app.scss';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   // console.log(session, 'session')
   // console.log(pageProps, 'pageProps')
+
+  const [selectedItem, setSelectedItem] = useState('');
 
   return (
     <SessionProvider session={session}>
@@ -27,10 +30,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
               <Link className="page-title" href="/">Woof.</Link>
               <Image id="title" src="/Woof-Logo-Bigger.png" width={75} height={75} alt="Woof logo"></Image>
             </div>
-            <SearchBar articles={pageProps.articles}/>
+            <SearchBar articles={pageProps.articles} />
           </div>
-          <div className="lower-header">
-            <NavBar />
+          <div className={`lower-header ${selectedItem}`}>
+            <NavBar selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
           </div>
         </div>
         <div className="wrapper grid">
