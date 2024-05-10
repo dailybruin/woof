@@ -58,7 +58,7 @@ const Index = ({ articles }: Props) => {
 };
 
 /* Retrieves pet(s) data from mongodb database */
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
   await dbConnect();
 
   /* find all the data in our database */
