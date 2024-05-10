@@ -9,6 +9,9 @@ import { SessionProvider } from 'next-auth/react';
 import SearchBar from './SearchBar';
 import NavBar from '../components/NavBar';
 import ChangeArticle from '../components/ChangeArticle';
+import Box from '../components/Box';
+import QuickLinksBox from '../components/QuickLinksBox';
+
 // import './_app.scss';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
@@ -24,7 +27,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         <div className="top-bar">
           <div className="higher-header">
             <div className="woof-img-container">
-              <Link className="page-title" href="/">Woof.</Link>
+              <Link className="page-title" href="/">woof.</Link>
               <Image id="title" src="/Woof-Logo-Bigger.png" width={75} height={75} alt="Woof logo"></Image>
             </div>
             <SearchBar articles={pageProps.articles}/>
@@ -33,10 +36,15 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
             <NavBar />
           </div>
         </div>
+        <div className=" flex justify-between">
+        <div><Box /></div>
+        <div className="ml-8"><QuickLinksBox /></div>
+        </div>
         <div className="wrapper grid">
           <Component {...pageProps} />
           <ChangeArticle />
         </div>
+        
       </div>
     </SessionProvider>
   );
