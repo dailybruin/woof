@@ -15,10 +15,12 @@ const parseDateString = (str: string) => {
   let min: string = str.slice(14, 16);
 
   let hour_num = Number(hour);
+  let day_num = Number(day);
   hour_num -= 7;
 
   if (hour_num < 0) {
     hour_num = 24 + hour_num;
+    day_num -= 1;
   }
 
   let ampm: string = 'XM';
@@ -29,9 +31,9 @@ const parseDateString = (str: string) => {
     ampm = 'AM';
   }
 
-  let time: string = String(hour_num) + ':' + min + ' ' + ampm;
+  let time: string = `${hour_num}:${min} ${ampm}`;
 
-  var monthNames = [
+  const monthNames = [
     'January',
     'February',
     'March',
@@ -46,8 +48,8 @@ const parseDateString = (str: string) => {
     'December',
   ];
 
-  let monthName = monthNames[Number(month)];
-  return monthName + ' ' + day + ', ' + year + ' at ' + time;
+  let monthName = monthNames[Number(month) - 1];
+  return `${monthName} ${day_num}, ${year} at ${time}`;
 };
 
 const Index = ({ articles }: Props) => {
