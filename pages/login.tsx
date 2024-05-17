@@ -29,17 +29,22 @@ const LoginPage = () => {
     };
 
     return (
-        <div>
+        <div className="form-container">
             <form onSubmit={handleSubmit}>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter password"
-                />
+                <div className="password-container">
+                    <label className="password-label" htmlFor="password">Please enter the correct password.</label>
+                    <input
+                        type="password"
+                        id="password"
+                        className="password-input"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
+                    />
+                </div>
+                {error && <p className="error-message">{error}</p>}
                 <button type="submit">Login</button>
             </form>
-            {error && <p>{error}</p>}
         </div>
     );
 };
