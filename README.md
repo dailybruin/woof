@@ -1,3 +1,9 @@
+# Woof 
+Woof is a website that contains style guides and information about how to design each element of the Daily Bruin newspaper. It will be used by the Design section to teach new designers how to design the paper and keep designs consistent over time.
+
+## Daily Bruin Design: Woof Features List
+
+
 # MongoDB and Mongoose with Next.js
 
 This example shows how you can use a MongoDB database to support your Next.js application.

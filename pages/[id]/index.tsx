@@ -30,7 +30,7 @@ const ArticlePage = ({ article }: Props) => {
       setMessage('Failed to delete the article.');
     }
   };
-
+// this is where users are taken if they click on the view button of a specific article
   return (
     <div key={article._id}>
       <div className="card">
