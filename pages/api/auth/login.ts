@@ -2,16 +2,18 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import bcrypt from 'bcrypt';
 import atob from 'atob';
 import { serialize } from 'cookie';
+import cookieSignature from 'cookie-signature';
 
 const HASHED_PASSWORD_BASE64 = process.env.HASHED_PASSWORD;
+const COOKIE_SECRET = process.env.COOKIE_SECRET;
 
-if (!HASHED_PASSWORD_BASE64) {
-    throw new Error('Environment variable HASHED_PASSWORD is not defined');
+if (!HASHED_PASSWORD_BASE64 || !COOKIE_SECRET) {
+    throw new Error('Environment variable HASHED_PASSWORD or COOKIE_SECRET is not defined');
 }
 
 const HASHED_PASSWORD = atob(HASHED_PASSWORD_BASE64);
 
-console.log('Loaded ADMIN_PASSWORD:', HASHED_PASSWORD); // Debug log
+// console.log('Loaded ADMIN_PASSWORD:', HASHED_PASSWORD); // Debug log
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method !== 'POST') {
@@ -29,7 +31,8 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
             return res.status(500).json({ error: 'Error occurred' });
         }
         if (result) {
-            const cookie = serialize('auth', 'logged-in', {
+            const signedValue = cookieSignature.sign('logged-in', COOKIE_SECRET);
+            const cookie = serialize('auth', signedValue, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
                 sameSite: 'strict',

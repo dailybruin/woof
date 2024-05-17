@@ -8,3 +8,7 @@ bcrypt.hash(password, 10, (err, hash) => {
     const base64Encoded = btoa(hash);
     console.log('Base64 Encoded Hashed Password:', base64Encoded);
 });
+
+const crypto = require('crypto');
+const secret = crypto.randomBytes(64).toString('hex');
+console.log('COOKIE:', secret);
