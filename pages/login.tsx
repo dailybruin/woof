@@ -19,7 +19,7 @@ const LoginPage = () => {
 
             const data = await response.json();
             if (response.status === 200) {
-                router.push('/edit');
+                router.push('/new');
             } else {
                 setError(data.error || 'Wrong password. Please try again.');
             }

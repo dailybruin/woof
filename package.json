@@ -9,7 +9,9 @@
     "@types/node": "^20.4.7",
     "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.7",
+    "atob": "^2.1.2",
     "bcrypt": "^5.1.1",
+    "btoa": "^1.2.1",
     "dotenv": "^16.4.5",
     "mongodb": "^6.5.0",
     "mongoose": "^7.4.2",
@@ -23,6 +25,7 @@
     "typescript": "^5.1.6"
   },
   "devDependencies": {
+    "@types/atob": "^2.1.4",
     "@types/bcrypt": "^5.0.2",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
