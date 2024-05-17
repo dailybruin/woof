@@ -43,7 +43,6 @@ const LoginPage = () => {
                     />
                 </div>
                 {error && <p className="error-message">{error}</p>}
-                <button type="submit">Login</button>
             </form>
         </div>
     );

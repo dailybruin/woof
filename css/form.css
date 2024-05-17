@@ -52,6 +52,7 @@ form button {
   color: red;
   margin-top: 10px;
   font-size: 90%;
+  font-family: 'Rockwell', sans-serif;
 }
 
 /* Styles for password form */
@@ -63,6 +64,7 @@ form button {
   margin-bottom: 5px;
   display: block;
   font-weight: bold;
+  font-family: 'Rockwell', sans-serif;
 }
 
 .password-input {
@@ -72,4 +74,5 @@ form button {
   width: 100%;
   max-width: 300px;
   font-size: 16px;
+  margin: auto;
 }
