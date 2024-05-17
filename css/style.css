@@ -267,6 +267,9 @@ li {
 
 /* Change Article Styling */
 .edit-article { 
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   display: flex; 
   justify-content: center;
   align-items: center;
@@ -285,15 +288,4 @@ li {
   font-weight: bold;
   font-size: 100%;
   font-family: 'Rockwell', sans-serif;
-}
-
-.floating-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #fff;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }

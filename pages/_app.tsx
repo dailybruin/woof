@@ -9,7 +9,6 @@ import { SessionProvider } from 'next-auth/react';
 import SearchBar from './SearchBar';
 import NavBar from '../components/NavBar';
 import ChangeArticle from '../components/ChangeArticle';
-import FloatingButton from '../components/FloatingButton';
 // import './_app.scss';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
@@ -37,7 +36,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         <div className="wrapper grid">
           <Component {...pageProps} />
           <ChangeArticle />
-          <FloatingButton />
         </div>
       </div>
     </SessionProvider>
