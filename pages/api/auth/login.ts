@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import bcrypt from 'bcrypt';
 import atob from 'atob';
+import { serialize } from 'cookie';
 
 const HASHED_PASSWORD_BASE64 = process.env.HASHED_PASSWORD;
 
@@ -28,6 +29,14 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
             return res.status(500).json({ error: 'Error occurred' });
         }
         if (result) {
+            const cookie = serialize('auth', 'logged-in', {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                maxAge: 60 * 60 * 24, // 1 day
+                path: '/',
+            });
+            res.setHeader('Set-Cookie', cookie);
             return res.status(200).json({ message: 'Login successful' });
         } else {
             return res.status(401).json({ error: 'Wrong password. Please try again.' });

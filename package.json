@@ -12,6 +12,7 @@
     "atob": "^2.1.2",
     "bcrypt": "^5.1.1",
     "btoa": "^1.2.1",
+    "cookie": "^0.6.0",
     "dotenv": "^16.4.5",
     "mongodb": "^6.5.0",
     "mongoose": "^7.4.2",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@types/atob": "^2.1.4",
     "@types/bcrypt": "^5.0.2",
+    "@types/cookie": "^0.6.0",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "prettier": "3.2.5",
