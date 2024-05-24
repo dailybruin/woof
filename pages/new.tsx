@@ -1,5 +1,6 @@
 import Form from '../components/Form';
 
+
 const NewArticle = () => {
   const articleForm = {
     title: '',
