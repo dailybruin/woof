@@ -33,15 +33,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           </div>
           <div className="lower-header">
             <nav className="bg-background-500 py-4 font-bold text-black border-b-4 border-line-500">
-              <div className="flex items-center justify-between ml-6 mr-6">
-                <div className="ml-auto">
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className="p-2 border-b-4 border-black"
-                  />
-                </div>
-              </div>
               <ul className="flex items-center space-x-8 ml-6 mt-2 ">
                 <li>
                   <a href="/" className="nav-link group">
