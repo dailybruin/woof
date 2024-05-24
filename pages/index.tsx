@@ -2,8 +2,6 @@ import Link from 'next/link';
 import { GetServerSideProps } from 'next';
 import dbConnect from '../lib/dbConnect';
 import Article, { Articles } from '../models/article';
-import Texts from './texts';
-
 
 type Props = {
   articles: Articles[];
@@ -14,8 +12,6 @@ const Index = ({ articles }: Props) => {
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24`}
     >
-      <Texts />
-
       {articles.length > 0 ? (
         articles.map((article) => (
           <div key={article._id} className="card">

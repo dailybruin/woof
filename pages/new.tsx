@@ -1,5 +1,4 @@
 import Form from '../components/Form';
-import Texts from "./texts";
 
 
 const NewArticle = () => {
