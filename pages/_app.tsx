@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
               </div>
               <ul className="flex items-center space-x-8 ml-6 mt-2 ">
                 <li>
-                  <a href="/all" className="nav-link group">
+                  <a href="/" className="nav-link group">
                     <span className="group-hover:text-line-500 relative ">
                       All
                       <span className="absolute top-4 left-0 w-full h-0 bg-line-500"></span>
