@@ -3,16 +3,12 @@ import '../css/form.css'; // todo: move to globals
 import '../styles/globals.css';
 import Head from 'next/head';
 import Link from 'next/link';
-import Image from 'next/image';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import SearchBar from './SearchBar';
 import ChangeArticle from '../components/ChangeArticle';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  // console.log(session, 'session')
-  // console.log(pageProps, 'pageProps')
-
   return (
     <SessionProvider session={session}>
       <Head>
