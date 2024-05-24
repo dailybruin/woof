@@ -1,10 +1,7 @@
 import Link from 'next/link';
 import { GetServerSideProps } from 'next';
-import Image from 'next/image';
 import dbConnect from '../lib/dbConnect';
 import Article, { Articles } from '../models/article';
-import { Inter } from 'next/font/google';
-
 import Texts from './texts';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -13,7 +10,8 @@ type Props = {
   articles: Articles[];
 };
 
-const Home = ({ articles }: Props) => {
+const Index = ({ articles }: Props) => {
+
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}>
 
@@ -55,6 +53,13 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
   await dbConnect();
   const result = await Article.find({});
   const articles = result.map((doc) => JSON.parse(JSON.stringify(doc)));
+
+  /* Ensures all objectIds and nested objectIds are serialized as JSON data */
+  const articles = result.map((doc) => {
+    const article = JSON.parse(JSON.stringify(doc));
+    return article;
+  });
+
   return { props: { articles: articles } };
 };
 
