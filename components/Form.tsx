@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { mutate } from 'swr';
 import { TAGS } from '@/constants';
+import Markdown from 'react-markdown';
 
 interface FormData {
   title: string;
@@ -134,6 +135,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
 
   return (
     <>
+      <Markdown className='something'>{form.content}</Markdown>
       <form id={formId} onSubmit={handleSubmit}>
         <label htmlFor="title">Title</label>
         <input
