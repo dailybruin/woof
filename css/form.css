@@ -1,20 +1,23 @@
+/* Center the form on the page */
 form {
   width: 90%;
   margin: auto;
   max-width: 550px;
+  text-align: center;
 }
+
+/* Style the input, button, and label */
 input,
 form button,
 label {
   display: block;
+  margin: auto;
+  text-align: center;
 }
-form button,
+
 input,
 textarea {
   outline: none;
-}
-input,
-textarea {
   border: 1px solid rgb(199, 199, 199);
   border-radius: 10px;
   padding: 10px;
@@ -23,12 +26,17 @@ textarea {
   height: 30px;
   color: rgb(53, 53, 53);
 }
+
 textarea {
   height: 50px;
 }
+
 label {
   margin-top: 10px;
+  font-weight: bold;
+  color: #000;
 }
+
 form button {
   --accent: rgb(0, 162, 255);
   margin-top: 20px;
@@ -36,4 +44,41 @@ form button {
 
 .form-container {
   width: 90%;
+  margin: auto;
+}
+
+/* Style for error messages */
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 90%;
+  font-family: 'Rockwell', sans-serif;
+}
+
+/* Styles for password form */
+.password-container {
+  margin-top: 20px;
+}
+
+.password-label {
+  margin-bottom: 5px;
+  display: block;
+  font-weight: bold;
+  font-size: 90%;
+  font-family: 'Rockwell', sans-serif;
+}
+
+.password-input {
+  padding: 15px;
+  background-color: #FCFCFC;
+  border: 2px solid #000000;
+  border-bottom: 3.5px solid #000000;
+  border-right: 3.5px solid #000000;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 300px;
+  font-size: 80%;
+  font-family: 'Rockwell', sans-serif;
+  text-align: left;
+  margin: auto;
 }
