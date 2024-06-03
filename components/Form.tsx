@@ -152,7 +152,10 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
 
   return (
     <div style={{ ...styles.container, flexDirection: 'row' }}>
-      <div style={styles.boxContainer} className="border-8 border-sky-500">
+      <div
+        style={styles.boxContainer}
+        className="border-4 border-black bg-white"
+      >
         <Box title={form.title} innerText="">
           <Markdown
             className="prose"
