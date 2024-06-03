@@ -155,12 +155,14 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
       <div style={styles.boxContainer} className="border-8 border-sky-500">
         <Box title={form.title} innerText="">
           <Markdown
-          // components={{
-          //   p(props) {
-          //     const { node, ...rest } = props;
-          //     return <p style={{ backgroundColor: 'red' }} {...rest} />;
-          //   },
-          // }}
+            className="prose"
+
+            // components={{
+            //   p(props) {
+            //     const { node, ...rest } = props;
+            //     return <p style={{ backgroundColor: 'red' }} {...rest} />;
+            //   },
+            // }}
           >
             {form.content}
           </Markdown>
