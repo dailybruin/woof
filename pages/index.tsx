@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { GetServerSideProps } from 'next';
 import dbConnect from '../lib/dbConnect';
 import Article, { Articles } from '../models/article';
+import Box from '../components/Box';
+import Markdown from 'react-markdown';
 
 type Props = {
   articles: Articles[];
@@ -15,11 +17,9 @@ const Index = ({ articles }: Props) => {
       {articles.length > 0 ? (
         articles.map((article) => (
           <div key={article._id} className="card">
-            {/* <img src={article.image_url} /> */}
-            {/* take out later ^ */}
-            <b>
-              <h5 className="title">{article.title}</h5>
-            </b>
+            <Box title={article.title} innerText="">
+              <Markdown className="prose">{article.content}</Markdown>
+            </Box>
             <div className="main-content">
               <p className="title">{article.title}</p>
               <p className="content">Content: {article.content}</p>
