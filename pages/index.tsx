@@ -21,14 +21,6 @@ const Index = ({ articles }: Props) => {
               <Markdown className="prose">{article.content}</Markdown>
             </Box>
             <div className="main-content">
-              <p className="title">{article.title}</p>
-              <p className="content">Content: {article.content}</p>
-              <p className="quick_link">
-                quick_link: {String(article.quick_link)}
-              </p>
-              <p className="sections">
-                Sections: {article.sections.join(', ')}
-              </p>
               <div className="btn-container">
                 <Link
                   href={{ pathname: '/[id]/edit', query: { id: article._id } }}
