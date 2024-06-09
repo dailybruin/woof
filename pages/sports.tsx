@@ -1,9 +1,20 @@
+import { GetServerSideProps } from 'next';
+import { Articles } from '../models/article';
+import { fetchArticles } from '@/fetchArticles';
+import ArticleList from '../components/ArticleList';
+import { SPORTS } from '@/constants';
 
+type Props = {
+  articles: Articles[];
+};
 
-export default function Sports() {
-  return (
-    <div>
+const Sports = ({ articles }: Props) => {
+  return <ArticleList articles={articles} />;
+};
 
-    </div>
-  )
-}
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const articles = await fetchArticles(SPORTS);
+  return { props: { articles } };
+};
+
+export default Sports;
