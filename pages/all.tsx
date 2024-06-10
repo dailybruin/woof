@@ -7,7 +7,7 @@ type Props = {
   articles: Articles[];
 };
 
-const Index = ({ articles }: Props) => {
+const All = ({ articles }: Props) => {
   return <ArticleList articles={articles} />;
 };
 
@@ -16,4 +16,4 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
   return { props: { articles: articles } };
 };
 
-export default Index;
+export default All;
