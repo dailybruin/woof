@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Articles } from '../models/article';
 type Props = {
   articles: Articles[];
@@ -15,10 +16,17 @@ const Quicklink = ({ articles }: Props) => {
         <div className="py-[1.2vmin] px-[3.7vmin] rounded-b-lg">
           {articles && articles?.length > 0 ? (
             articles
-              .filter((a) => a.quick_link)
-              .map((a) => (
+              .filter((article) => article.quick_link)
+              .map((article) => (
                 <p className="text-black py-[0.5vmin] text-[1.8vmin] font-bold bg-transparent quick-links">
-                  <a href={a.image_url}>{a.title}</a>
+                  <Link
+                    href={{
+                      pathname: '/[id]',
+                      query: { id: article._id },
+                    }}
+                  >
+                    {article.title}
+                  </Link>
                 </p>
               ))
           ) : (
