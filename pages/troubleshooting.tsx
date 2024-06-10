@@ -1,9 +1,20 @@
+import { GetServerSideProps } from 'next';
+import { Articles } from '../models/article';
+import { fetchArticles } from '@/fetchArticles';
+import ArticleList from '../components/ArticleList';
+import { TROUBLESHOOTING } from '@/constants';
 
+type Props = {
+  articles: Articles[];
+};
 
-export default function TroubleShooting() {
-  return (
-    <div>
+const Troubleshooting = ({ articles }: Props) => {
+  return <ArticleList articles={articles} />;
+};
 
-    </div>
-  )
-}
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const articles = await fetchArticles(TROUBLESHOOTING);
+  return { props: { articles } };
+};
+
+export default Troubleshooting;

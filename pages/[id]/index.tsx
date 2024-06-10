@@ -34,23 +34,39 @@ const ArticlePage = ({ article }: Props) => {
   };
   // this is where users are taken if they click on the view button of a specific article
   return (
-    <div key={article._id} className="card">
-      <Box title={article.title} innerText="">
-        <Markdown className="prose">{article.content}</Markdown>
-      </Box>
-      <div className="main-content">
-        <p className="article-content">{article.content}</p>
-
-        <div className="btn-container">
-          <Link href={`/${article._id}/edit`}>
-            <button className="btn edit">Edit</button>
-          </Link>
-          <button className="btn delete" onClick={handleDelete}>
-            Delete
-          </button>
+    <div>
+      <div key={article._id} className="card">
+        <Box title={article.title} innerText="">
+          <Markdown className="prose">{article.content}</Markdown>
+        </Box>
+        <div className="main-content">
+          <div className="btn-container">
+            <Link href={`/${article._id}/edit`}>
+              <button className="btn edit">Edit</button>
+            </Link>
+            <button className="btn delete" onClick={handleDelete}>
+              Delete
+            </button>
+          </div>
         </div>
+        {message && <p>{message}</p>}
       </div>
-      {message && <p>{message}</p>}
+      <div key={article._id} className="card">
+        <Box title={'Raw Text:'} innerText="">
+          {article.content}
+        </Box>
+        <div className="main-content">
+          <div className="btn-container">
+            <Link href={`/${article._id}/edit`}>
+              <button className="btn edit">Edit</button>
+            </Link>
+            <button className="btn delete" onClick={handleDelete}>
+              Delete
+            </button>
+          </div>
+        </div>
+        {message && <p>{message}</p>}
+      </div>
     </div>
   );
 };
