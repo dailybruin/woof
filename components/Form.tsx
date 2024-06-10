@@ -208,55 +208,58 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
             Sections
           </label>
           {TAGS.map((tag, index) => (
-            <div key={index}>
-              <label htmlFor={tag}>{tag}</label>
-              <input
-                type="checkbox"
-                name={tag}
-                value={tag}
-                checked={form.sections.includes(tag)}
-                onChange={(e) => {
-                  console.log(form.sections);
-                  if (e.target.checked) {
-                    setForm({
-                      ...form,
-                      sections: [...form.sections, tag],
-                    });
-                  } else {
-                    setForm({
-                      ...form,
-                      sections: form.sections.filter(
-                        (section) => section !== tag,
-                      ),
-                    });
-                  }
-                }}
-              />
-              <input
-                type="checkbox"
-                name={tag}
-                value={tag}
-                checked={form.pinned_sections?.includes(tag)}
-                onChange={(e) => {
-                  console.log(form.sections);
-                  if (e.target.checked) {
-                    setForm({
-                      ...form,
-                      sections: [...form.sections, tag],
-                    });
-                  } else {
-                    setForm({
-                      ...form,
-                      sections: form.sections.filter(
-                        (section) => section !== tag,
-                      ),
-                    });
-                  }
-                }}
-              />
+            <div key={index} className="flex justify-between items-center mb-2">
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name={tag}
+                  value={tag}
+                  checked={form.sections.includes(tag)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setForm({
+                        ...form,
+                        sections: [...form.sections, tag],
+                      });
+                    } else {
+                      setForm({
+                        ...form,
+                        sections: form.sections.filter(
+                          (section) => section !== tag,
+                        ),
+                        pinned_sections: form.pinned_sections.filter(
+                          (section) => section !== tag,
+                        ),
+                      });
+                    }
+                  }}
+                />
+                <label htmlFor={tag}>{tag}</label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  checked={form.pinned_sections.includes(tag)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setForm({
+                        ...form,
+                        pinned_sections: [...form.pinned_sections, tag],
+                      });
+                    } else {
+                      setForm({
+                        ...form,
+                        pinned_sections: form.pinned_sections.filter(
+                          (section) => section !== tag,
+                        ),
+                      });
+                    }
+                  }}
+                />
+                <label>Pinned?</label>
+              </div>
             </div>
           ))}
-
           <label htmlFor="quick_link">Quick Link?</label>
           <input
             type="checkbox"
