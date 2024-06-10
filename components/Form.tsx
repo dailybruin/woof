@@ -232,15 +232,6 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
             </div>
           ))}
 
-          <label htmlFor="image_url">Image URL</label>
-          <input
-            type="url"
-            name="image_url"
-            value={form.image_url}
-            onChange={handleChange}
-            required
-          />
-
           <button type="submit" className="btn">
             Submit
           </button>
