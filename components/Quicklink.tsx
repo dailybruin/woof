@@ -2,13 +2,16 @@ import Link from 'next/link';
 import { Articles } from '../models/article';
 type Props = {
   articles: Articles[];
+  color?: string;
 };
 
-const Quicklink = ({ articles }: Props) => {
+const Quicklink = ({ articles, color = 'accent-purple' }: Props) => {
   return (
     <>
-      <div className="rounded-2xl border-black border-t-[0.5vmin] border-l-[0.5vmin] border-b-[0.8vmin] border-r-[0.8vmin] w-[40vmin] absolute right-[7vmin] top-[18vmin]">
-        <div className="border-black border-b-[0.5vmin] bg-purple-400 h-[8vmin] w-full rounded-t-lg items-center pl-[3vmin] flex">
+      <div className="rounded-2xl border-black border-t-[0.5vmin] border-l-[0.5vmin] border-b-[0.8vmin] border-r-[0.8vmin] w-[40vmin] ">
+        <div
+          className={`border-black border-b-[0.5vmin] bg-${color} h-[8vmin] w-full rounded-t-lg items-center pl-[3vmin] flex`}
+        >
           <p className="font-semibold text-center text-[4vmin] justify-center text-white bg-transparent quick-links pt-[1vmin]">
             Quick Links
           </p>
