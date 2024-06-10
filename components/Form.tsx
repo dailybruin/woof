@@ -11,6 +11,7 @@ interface FormData {
   //   created_date: Date;
   //   updated_date: Date;
   sections: string[];
+  pinned_sections: string[];
   quick_link: boolean;
   image_url: string;
 }
@@ -46,7 +47,8 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
     // created_date: new Date(),
     // updated_date: new Date(),
     sections: articleForm.sections,
-    quick_link: false,
+    pinned_sections: articleForm.pinned_sections,
+    quick_link: articleForm.quick_link,
     image_url: articleForm.image_url,
   });
 
@@ -202,8 +204,9 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
           />
 
           {/* tags sections*/}
-
-          <label htmlFor="sections">Sections</label>
+          <label htmlFor="sections" className="font-bold">
+            Sections
+          </label>
           {TAGS.map((tag, index) => (
             <div key={index}>
               <label htmlFor={tag}>{tag}</label>
@@ -229,9 +232,43 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
                   }
                 }}
               />
+              <input
+                type="checkbox"
+                name={tag}
+                value={tag}
+                checked={form.pinned_sections?.includes(tag)}
+                onChange={(e) => {
+                  console.log(form.sections);
+                  if (e.target.checked) {
+                    setForm({
+                      ...form,
+                      sections: [...form.sections, tag],
+                    });
+                  } else {
+                    setForm({
+                      ...form,
+                      sections: form.sections.filter(
+                        (section) => section !== tag,
+                      ),
+                    });
+                  }
+                }}
+              />
             </div>
           ))}
 
+          <label htmlFor="quick_link">Quick Link?</label>
+          <input
+            type="checkbox"
+            name="quick_link"
+            checked={form.quick_link}
+            onChange={(e) => {
+              setForm({
+                ...form,
+                quick_link: e.target.checked,
+              });
+            }}
+          />
           <button type="submit" className="btn">
             Submit
           </button>
