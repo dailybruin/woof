@@ -18,16 +18,18 @@ const Quicklink = ({ articles }: Props) => {
             articles
               .filter((article) => article.quick_link)
               .map((article) => (
-                <p className="text-black py-[0.5vmin] text-[1.8vmin] font-bold bg-transparent quick-links">
-                  <Link
-                    href={{
-                      pathname: '/[id]',
-                      query: { id: article._id },
-                    }}
-                  >
-                    {article.title}
-                  </Link>
-                </p>
+                <div key={article._id}>
+                  <p className="text-black py-[0.5vmin] text-[1.8vmin] font-bold bg-transparent quick-links">
+                    <Link
+                      href={{
+                        pathname: '/[id]',
+                        query: { id: article._id },
+                      }}
+                    >
+                      {article.title}
+                    </Link>
+                  </p>
+                </div>
               ))
           ) : (
             <p className="py-[0.5vmin] text-[1.8vmin] font-bold text-black bg-transparent quick-links">
