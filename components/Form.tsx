@@ -39,8 +39,6 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
   const [form, setForm] = useState<FormData>({
     // created_date: articleForm.created_date,
     // updated_date: articleForm.updated_date,
-    // content: articleForm.content,
-    // image_url: articleForm.image_url,
     title: articleForm.title,
     content: articleForm.content,
     // TODO
@@ -116,7 +114,6 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
     });
   };
 
-  /* Makes sure pet info is filled for pet name, owner name, species, and image url*/
   const formValidate = () => {
     let err: Error = {};
     if (!form.content) err.name = 'Content name is required';
@@ -203,7 +200,6 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
             onChange={handleChange}
           />
 
-          {/* tags sections*/}
           <label htmlFor="sections" className="font-bold">
             Sections
           </label>
