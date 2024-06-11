@@ -155,7 +155,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
         style={styles.boxContainer}
         className="border-4 border-black bg-white"
       >
-        <Box title={form.title} innerText="">
+        <Box title={form.title} innerText="" color="accent-purple">
           <Markdown
             className="prose"
 
