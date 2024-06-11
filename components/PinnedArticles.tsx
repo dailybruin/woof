@@ -15,9 +15,9 @@ const PinnedArticles = ({
     articles?.filter((article) => article.pinned_sections?.includes(section)) ||
     [];
   return (
-    <div className="rounded-2xl border-black border-t-[0.5vmin] border-l-[0.5vmin] border-b-[0.8vmin] border-r-[0.8vmin] w-[40vmin]">
+    <div className="rounded-2xl border-black border-t-[0.5vmin] border-l-[0.5vmin] border-b-[0.8vmin] border-r-[0.8vmin] ">
       <div
-        className={`border-black border-b-[0.5vmin] bg-${color} h-[8vmin] w-full rounded-t-lg items-center pl-[3vmin] flex`}
+        className={`border-black border-b-[0.5vmin] bg-${color} h-[8vmin] w-full rounded-t-lg items-center pl-[3vmin] flex p-[1vmin]`}
       >
         <svg
           width="22"
