@@ -6,10 +6,11 @@ import {
 } from '../components/ArticleSectionDisplay';
 import { NEWS } from '@/constants';
 
-const News = ({ articles }: ArticlesProps) => {
+const News = ({ articles, allArticles }: ArticlesProps) => {
   return (
     <ArticleSectionDisplay
       articles={articles}
+      allArticles={allArticles}
       section={NEWS}
       color="news-color"
     />
@@ -19,8 +20,11 @@ const News = ({ articles }: ArticlesProps) => {
 export const getServerSideProps: GetServerSideProps<
   ArticlesProps
 > = async () => {
-  const articles = await fetchArticles(NEWS);
-  return { props: { articles } };
+  const allArticles = await fetchArticles();
+  const articles = allArticles.filter((article) =>
+    article.sections.includes(NEWS),
+  );
+  return { props: { articles, allArticles } };
 };
 
 export default News;

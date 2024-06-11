@@ -6,10 +6,11 @@ import {
 } from '../components/ArticleSectionDisplay';
 import { TROUBLESHOOTING } from '@/constants';
 
-const Troubleshooting = ({ articles }: ArticlesProps) => {
+const Troubleshooting = ({ articles, allArticles }: ArticlesProps) => {
   return (
     <ArticleSectionDisplay
       articles={articles}
+      allArticles={allArticles}
       section={TROUBLESHOOTING}
       color="troubleshooting-color"
     />
@@ -19,8 +20,11 @@ const Troubleshooting = ({ articles }: ArticlesProps) => {
 export const getServerSideProps: GetServerSideProps<
   ArticlesProps
 > = async () => {
-  const articles = await fetchArticles(TROUBLESHOOTING);
-  return { props: { articles } };
+  const allArticles = await fetchArticles();
+  const articles = allArticles.filter((article) =>
+    article.sections.includes(TROUBLESHOOTING),
+  );
+  return { props: { articles, allArticles } };
 };
 
 export default Troubleshooting;

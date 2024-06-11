@@ -6,6 +6,8 @@ type Props = {
 };
 
 const Quicklink = ({ articles, color = 'accent-purple' }: Props) => {
+  const quickLinks = articles?.filter((article) => article.quick_link) || [];
+
   return (
     <>
       <div className="rounded-2xl border-black border-t-[0.5vmin] border-l-[0.5vmin] border-b-[0.8vmin] border-r-[0.8vmin] w-[40vmin] ">
@@ -17,7 +19,7 @@ const Quicklink = ({ articles, color = 'accent-purple' }: Props) => {
           </p>
         </div>
         <div className="py-[1.2vmin] px-[3.7vmin] rounded-b-lg">
-          {articles && articles?.length > 0 ? (
+          {quickLinks.length > 0 ? (
             articles
               .filter((article) => article.quick_link)
               .map((article) => (
