@@ -5,7 +5,12 @@ interface BoxProps {
   children?: React.ReactNode;
 }
 
-const Box: React.FC<BoxProps> = ({ title, innerText, children, color }) => {
+const Box: React.FC<BoxProps> = ({
+  title,
+  innerText,
+  children,
+  color = 'accent-purple',
+}) => {
   return (
     <div className="rounded-2xl">
       <div
