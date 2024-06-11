@@ -1,8 +1,11 @@
 import { TAGS } from '@/constants';
 
 export default function NavBar({ pathname }: { pathname: string }) {
+  const section = pathname.slice(1);
   return (
-    <nav className="bg-background-500 py-4 font-bold text-black border-b-4 border-line-500">
+    <nav
+      className={`py-4 font-bold text-black border-b-4 border-${section}-color`}
+    >
       <ul className="flex items-center space-x-8 ml-6 mt-2 ">
         <li>
           <a href="/all" className="nav-link group">
