@@ -8,6 +8,7 @@ const NewArticle = () => {
     created_date: new Date(),
     updated_date: new Date(),
     sections: [],
+    pinned_sections: [],
     quick_link: false,
   };
 

@@ -11,6 +11,7 @@ interface FormData {
   //   created_date: Date;
   //   updated_date: Date;
   sections: string[];
+  pinned_sections: string[];
   quick_link: boolean;
   image_url: string;
 }
@@ -38,15 +39,14 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
   const [form, setForm] = useState<FormData>({
     // created_date: articleForm.created_date,
     // updated_date: articleForm.updated_date,
-    // content: articleForm.content,
-    // image_url: articleForm.image_url,
     title: articleForm.title,
     content: articleForm.content,
     // TODO
     // created_date: new Date(),
     // updated_date: new Date(),
     sections: articleForm.sections,
-    quick_link: false,
+    pinned_sections: articleForm.pinned_sections,
+    quick_link: articleForm.quick_link,
     image_url: articleForm.image_url,
   });
 
@@ -114,7 +114,6 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
     });
   };
 
-  /* Makes sure pet info is filled for pet name, owner name, species, and image url*/
   const formValidate = () => {
     let err: Error = {};
     if (!form.content) err.name = 'Content name is required';
@@ -201,46 +200,74 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
             onChange={handleChange}
           />
 
-          {/* tags sections*/}
-
-          <label htmlFor="sections">Sections</label>
+          <label htmlFor="sections" className="font-bold">
+            Sections
+          </label>
           {TAGS.map((tag, index) => (
-            <div key={index}>
-              <label htmlFor={tag}>{tag}</label>
-              <input
-                type="checkbox"
-                name={tag}
-                value={tag}
-                checked={form.sections.includes(tag)}
-                onChange={(e) => {
-                  console.log(form.sections);
-                  if (e.target.checked) {
-                    setForm({
-                      ...form,
-                      sections: [...form.sections, tag],
-                    });
-                  } else {
-                    setForm({
-                      ...form,
-                      sections: form.sections.filter(
-                        (section) => section !== tag,
-                      ),
-                    });
-                  }
-                }}
-              />
+            <div key={index} className="flex justify-between items-center mb-2">
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name={tag}
+                  value={tag}
+                  checked={form.sections.includes(tag)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setForm({
+                        ...form,
+                        sections: [...form.sections, tag],
+                      });
+                    } else {
+                      setForm({
+                        ...form,
+                        sections: form.sections.filter(
+                          (section) => section !== tag,
+                        ),
+                        pinned_sections: form.pinned_sections.filter(
+                          (section) => section !== tag,
+                        ),
+                      });
+                    }
+                  }}
+                />
+                <label htmlFor={tag}>{tag}</label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  checked={form.pinned_sections.includes(tag)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setForm({
+                        ...form,
+                        pinned_sections: [...form.pinned_sections, tag],
+                      });
+                    } else {
+                      setForm({
+                        ...form,
+                        pinned_sections: form.pinned_sections.filter(
+                          (section) => section !== tag,
+                        ),
+                      });
+                    }
+                  }}
+                />
+                <label>Pinned?</label>
+              </div>
             </div>
           ))}
-
-          <label htmlFor="image_url">Image URL</label>
+          <label htmlFor="quick_link">Quick Link?</label>
           <input
-            type="url"
-            name="image_url"
-            value={form.image_url}
-            onChange={handleChange}
-            required
+            type="checkbox"
+            name="quick_link"
+            checked={form.quick_link}
+            onChange={(e) => {
+              setForm({
+                ...form,
+                quick_link: e.target.checked,
+              });
+            }}
           />
-
           <button type="submit" className="btn">
             Submit
           </button>
