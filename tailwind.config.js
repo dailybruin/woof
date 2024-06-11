@@ -27,6 +27,9 @@ module.exports = {
   theme: {
     extend: {
       colors: colors,
+      fontFamily: {
+        display: ['Rockwell', 'Courier New', 'Times New Roman'],
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],
