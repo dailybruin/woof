@@ -2,6 +2,7 @@
 
 const sectionColors = {
   'accent-purple': ' #C077CC',
+  'all-color': ' #C077CC',
   'news-color': '#0A97D0',
   'opinion-color': '#6DA81E',
   'arts-color': '#E98C1B',
@@ -23,6 +24,7 @@ module.exports = {
     `bg-${color}`,
     `group-hover:text-${color}`,
     `text-${color}`,
+    `border-${color}`,
   ]),
   theme: {
     extend: {
