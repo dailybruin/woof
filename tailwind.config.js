@@ -15,7 +15,11 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  safelist: Object.keys(colors).map((color) => `bg-${color}`),
+  safelist: Object.keys(colors).flatMap((color) => [
+    `bg-${color}`,
+    `group-hover:text-${color}`,
+    `text-${color}`,
+  ]),
   theme: {
     extend: {
       colors: colors,
