@@ -14,9 +14,9 @@ const Box: React.FC<BoxProps> = ({
   return (
     <div className="rounded-2xl">
       <div
-        className={`border-black border-b-[0.5vmin] bg-${color} h-[8vmin] w-full items-center flex`}
+        className={`border-black border-b-[0.5vmin] bg-${color} w-full items-center flex`}
       >
-        <p className="font-semibold text-center text-[4vmin] justify-center text-white bg-transparent quick-links pt-[1vmin]">
+        <p className="font-semibold text-center text-[3vmin] justify-center text-white bg-transparent quick-links pt-[1vmin]">
           {title}
         </p>
       </div>
