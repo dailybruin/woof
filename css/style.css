@@ -99,7 +99,6 @@
 .lower-header {
   height: 100%;
   display: inline-block;
-  border-bottom: 3px solid black;
 }
 .lower-header a {
   margin: 0 20px;
