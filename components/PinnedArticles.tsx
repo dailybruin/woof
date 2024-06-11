@@ -11,6 +11,9 @@ const PinnedArticles = ({
   section = '',
   color = 'accent-purple',
 }: Props) => {
+  const pinnedArticles =
+    articles?.filter((article) => article.pinned_sections?.includes(section)) ||
+    [];
   return (
     <div className="rounded-2xl border-black border-t-[0.5vmin] border-l-[0.5vmin] border-b-[0.8vmin] border-r-[0.8vmin] w-[40vmin]">
       <div
@@ -21,8 +24,8 @@ const PinnedArticles = ({
         </p>
       </div>
       <div className="py-[1.2vmin] px-[3.7vmin] rounded-b-lg">
-        {articles && articles?.length > 0 ? (
-          articles
+        {pinnedArticles.length > 0 ? (
+          pinnedArticles
             .filter((article) => article.pinned_sections?.includes(section))
             .map((article) => (
               <p className="text-black py-[0.5vmin] text-[1.8vmin] font-bold bg-transparent quick-links">
