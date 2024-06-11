@@ -2,20 +2,28 @@ import Link from 'next/link';
 import Box from './Box';
 import Markdown from 'react-markdown';
 import { Articles } from '../models/article';
+import PinnedArticles from './PinnedArticles';
 
 type Props = {
   articles: Articles[];
+  section?: string;
+  color?: string;
 };
 
-const ArticleList = ({ articles }: Props) => {
+const ArticleList = ({
+  articles,
+  section = '',
+  color = 'accent-purple',
+}: Props) => {
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24`}
     >
+      <PinnedArticles articles={articles} section={section} color={color} />
       {articles.length > 0 ? (
         articles.map((article) => (
           <div key={article._id} className="card">
-            <Box title={article.title} innerText="">
+            <Box title={article.title} innerText="" color={color}>
               <Markdown className="prose">{article.content}</Markdown>
             </Box>
             <div className="main-content">

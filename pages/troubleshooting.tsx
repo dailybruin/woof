@@ -1,18 +1,24 @@
 import { GetServerSideProps } from 'next';
-import { Articles } from '../models/article';
 import { fetchArticles } from '@/fetchArticles';
-import ArticleList from '../components/ArticleList';
+import {
+  ArticleSectionDisplay,
+  ArticlesProps,
+} from '../components/ArticleSectionDisplay';
 import { TROUBLESHOOTING } from '@/constants';
 
-type Props = {
-  articles: Articles[];
+const Troubleshooting = ({ articles }: ArticlesProps) => {
+  return (
+    <ArticleSectionDisplay
+      articles={articles}
+      section={TROUBLESHOOTING}
+      color="troubleshooting-color"
+    />
+  );
 };
 
-const Troubleshooting = ({ articles }: Props) => {
-  return <ArticleList articles={articles} />;
-};
-
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<
+  ArticlesProps
+> = async () => {
   const articles = await fetchArticles(TROUBLESHOOTING);
   return { props: { articles } };
 };
