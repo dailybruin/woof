@@ -118,7 +118,6 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
     let err: Error = {};
     if (!form.content) err.name = 'Content name is required';
     if (!form.title) err.owner_name = 'Article title is required';
-    if (!form.image_url) err.image_url = 'Image URL is required';
     return err;
   };
 

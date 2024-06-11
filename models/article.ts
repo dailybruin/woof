@@ -50,9 +50,6 @@ const ArticleSchema = new mongoose.Schema<Articles>({
     required: [true, 'Please provide a quickLink value for this article.'],
   },
   image_url: {
-    /* Url to article image */
-
-    required: [true, 'Please provide an image url for this article.'],
     type: String,
   },
 });
