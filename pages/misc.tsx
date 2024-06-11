@@ -6,10 +6,11 @@ import {
 } from '../components/ArticleSectionDisplay';
 import { MISC } from '@/constants';
 
-const Misc = ({ articles }: ArticlesProps) => {
+const Misc = ({ articles, allArticles }: ArticlesProps) => {
   return (
     <ArticleSectionDisplay
       articles={articles}
+      allArticles={allArticles}
       section={MISC}
       color="misc-color"
     />
@@ -19,8 +20,11 @@ const Misc = ({ articles }: ArticlesProps) => {
 export const getServerSideProps: GetServerSideProps<
   ArticlesProps
 > = async () => {
-  const articles = await fetchArticles(MISC);
-  return { props: { articles } };
+  const allArticles = await fetchArticles();
+  const articles = allArticles.filter((article) =>
+    article.sections.includes(MISC),
+  );
+  return { props: { articles, allArticles } };
 };
 
 export default Misc;

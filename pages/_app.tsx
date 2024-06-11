@@ -25,7 +25,7 @@ function MyApp({
           <div className="higher-header">
             <div className="woof-img-container">
               <Link className="page-title" href="/">
-                Woof.
+                woof.
               </Link>
               <img
                 id="title"
