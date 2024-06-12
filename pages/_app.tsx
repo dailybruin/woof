@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           <div className="higher-header">
             <div className="woof-img-container">
               <Link className="page-title" href="/">Woof.</Link>
-              <Image id="title" src="/Woof-Logo-Bigger.png" width={75} height={75} alt="Woof logo"></Image>
+              <img id="title" src="/Woof-Logo-Bigger.png" width={75} height={75} alt="Woof logo"></img>
             </div>
             <SearchBar articles={pageProps.articles}/>
           </div>
