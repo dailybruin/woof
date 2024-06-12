@@ -3,40 +3,48 @@ import '../css/form.css'; // todo: move to globals
 import '../styles/globals.css';
 import Head from 'next/head';
 import Link from 'next/link';
-import Image from 'next/image';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import SearchBar from './SearchBar';
-import NavBar from '../components/NavBar';
 import ChangeArticle from '../components/ChangeArticle';
-// import './_app.scss';
+import NavBar from '../components/NavBar';
+import { NextRouter } from 'next/router';
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  // console.log(session, 'session')
-  // console.log(pageProps, 'pageProps')
-
+function MyApp({
+  Component,
+  pageProps: { session, ...pageProps },
+  router,
+}: AppProps & { router: NextRouter }) {
   return (
     <SessionProvider session={session}>
       <Head>
         <title>Woof</title>
       </Head>
-      <div className="stack"> 
+      <div className="stack">
         <div className="top-bar">
           <div className="higher-header">
             <div className="woof-img-container">
-              <Link className="page-title" href="/">Woof.</Link>
-              <img id="title" src="/Woof-Logo-Bigger.png" width={75} height={75} alt="Woof logo"></img>
+              <Link className="page-title" href="/">
+                woof.
+              </Link>
+              <img
+                id="title"
+                src="/Woof-Logo-Bigger.png"
+                width={75}
+                height={75}
+                alt="Woof logo"
+              ></img>
             </div>
-            <SearchBar articles={pageProps.articles}/>
+            <SearchBar articles={pageProps.articles} />
           </div>
           <div className="lower-header">
-            <NavBar />
+            <NavBar pathname={router.pathname} />
           </div>
         </div>
-        <div className="wrapper grid">
-          <Component {...pageProps} />
-          <ChangeArticle />
-        </div>
+      </div>
+      <div className="wrapper grid">
+        <Component {...pageProps} />
+        <ChangeArticle />
       </div>
     </SessionProvider>
   );

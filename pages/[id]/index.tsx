@@ -5,6 +5,8 @@ import dbConnect from '../../lib/dbConnect';
 import Article, { Articles } from '../../models/article';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
+import Box from '../../components/Box';
+import Markdown from 'react-markdown';
 
 interface Params extends ParsedUrlQuery {
   id: string;
@@ -30,33 +32,14 @@ const ArticlePage = ({ article }: Props) => {
       setMessage('Failed to delete the article.');
     }
   };
-// this is where users are taken if they click on the view button of a specific article
+  // this is where users are taken if they click on the view button of a specific article
   return (
-    <div key={article._id}>
-      <div className="card">
-        <img src={article.image_url} />
-        <h5 className="article-title">{article.title}</h5>
+    <div>
+      <div key={article._id} className="card">
+        <Box title={article.title} innerText="">
+          <Markdown className="prose">{article.content}</Markdown>
+        </Box>
         <div className="main-content">
-          <p className="article-content">{article.content}</p>
-
-          {/* Extra Pet Info: Likes and Dislikes
-          <div className="likes info">
-            <p className="label">Likes</p>
-            <ul>
-              {pet.likes.map((data, index) => (
-                <li key={index}>{data} </li>
-              ))}
-            </ul>
-          </div>
-          <div className="dislikes info">
-            <p className="label">Dislikes</p>
-            <ul>
-              {pet.dislikes.map((data, index) => (
-                <li key={index}>{data} </li>
-              ))}
-            </ul>
-          </div> */}
-
           <div className="btn-container">
             <Link href={`/${article._id}/edit`}>
               <button className="btn edit">Edit</button>
@@ -66,8 +49,24 @@ const ArticlePage = ({ article }: Props) => {
             </button>
           </div>
         </div>
+        {message && <p>{message}</p>}
       </div>
-      {message && <p>{message}</p>}
+      <div key={article._id} className="card">
+        <Box title={'Raw Text:'} innerText="">
+          {article.content}
+        </Box>
+        <div className="main-content">
+          <div className="btn-container">
+            <Link href={`/${article._id}/edit`}>
+              <button className="btn edit">Edit</button>
+            </Link>
+            <button className="btn delete" onClick={handleDelete}>
+              Delete
+            </button>
+          </div>
+        </div>
+        {message && <p>{message}</p>}
+      </div>
     </div>
   );
 };

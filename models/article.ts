@@ -7,6 +7,7 @@ export interface Articles extends mongoose.Document {
   updated_date: Date;
   sections: string[];
   quick_link: boolean;
+  pinned_sections: string[];
   image_url: string;
 }
 
@@ -38,15 +39,17 @@ const ArticleSchema = new mongoose.Schema<Articles>({
   },
   sections: {
     type: [String],
+    required: [true, 'Please provide sections for this article.'],
+  },
+  pinned_sections: {
+    type: [String],
+    required: [true, 'Please provide pinned_sections for this article.'],
   },
   quick_link: {
     type: Boolean,
     required: [true, 'Please provide a quickLink value for this article.'],
   },
   image_url: {
-    /* Url to article image */
-
-    required: [true, 'Please provide an image url for this article.'],
     type: String,
   },
 });

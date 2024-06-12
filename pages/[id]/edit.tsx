@@ -26,9 +26,9 @@ const EditArticle = () => {
     created_date: article.created_date,
     updated_date: article.updated_date,
     image_url: article.image_url,
-    quick_link: article.quick_link,
-    // TODO
     sections: article.sections,
+    pinned_sections: article.pinned_sections,
+    quick_link: article.quick_link,
   };
 
   return (

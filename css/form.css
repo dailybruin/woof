@@ -1,3 +1,8 @@
+.something {
+  font-size: initial;
+  font-weight: initial;
+}
+
 form {
   width: 90%;
   margin: auto;
