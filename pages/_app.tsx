@@ -5,7 +5,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
-import SearchBar from './SearchBar';
+import SearchBar from '../components/SearchBar';
 import ChangeArticle from '../components/ChangeArticle';
 import NavBar from '../components/NavBar';
 import { NextRouter } from 'next/router';
