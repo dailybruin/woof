@@ -85,3 +85,36 @@ To deploy your local project to Vercel, push it to GitHub/GitLab/Bitbucket and [
 Alternatively, you can deploy using our template by clicking on the Deploy button below.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-mongodb-mongoose&project-name=with-mongodb-mongoose&repository-name=with-mongodb-mongoose&env=MONGODB_URI&envDescription=Required%20to%20connect%20the%20app%20with%20MongoDB&envLink=https://github.com/vercel/next.js/tree/canary/examples/with-mongodb-mongoose%23step-2-set-up-environment-variables)
+
+
+MongoDB and JavaScript on the backend 
+
+File Structure 
+
+
+Development 
+Configured the docker file 
+
+Docker is a
+
+
+`docker build -t woof .`
+- builds a docker image based on the dockerfile in the root directory with a tag called woof 
+
+# docker does need the docker daemon (host) running. This is required by docker in order to create containers from the image template that was just built 
+# the docker daemon in this case is the docker desktop app. 
+
+`docker run --name woof_contain -p 3000:3000 woof:latest`
+- runs a docker container based on the image we just created with the previous `docker build` command. 
+- the -d tag runs the container in detached mode (container runs in the background, allowing you to still use the terminal)
+- the -p option maps the port 3000 on the docker host to port 3000 on the container. 
+- `woof:latest` is the name of the docker image to use for the container, latest specifies the latest version of the image. 
+- `--name woof_contain` is to name the container woof_contain
+- to build up a new container 
+
+# stopping the container from running 
+`docker stop <container_name>` 
+
+
+`docker start <container_name>`
+- to start an existing container 
