@@ -1,8 +1,17 @@
 # Woof 
 Woof is a website that contains style guides and information about how to design each element of the Daily Bruin newspaper. It will be used by the Design section to teach new designers how to design the paper and keep designs consistent over time.
 
+# Technology Stack
+
+MongoDB and JavaScript on the backend 
+
+### File Structure 
+- pages 
+-> mongodb+srv://woof:<db_password>@cluster0.awg9zpj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+
 ## Daily Bruin Design
-![Woof Image](./Woof_HomePage.png)
+![Woof Image](./public/Woof_HomePage.png)
 
 Visit the <a href="https://www.figma.com/design/bQuRZ1C2EDqgNmCYui8iqE/woof?node-id=0-1&node-type=canvas">Figma</a> to see more about the Design of Woof. 
 To see the requirements guide, visit <a href="https://docs.google.com/document/d/1S7moCvya6fsls2iWeL_YoR239hYyv1JbMTDSRk3CNsk/edit?tab=t.0">doc</a>
@@ -12,12 +21,6 @@ To see the requirements guide, visit <a href="https://docs.google.com/document/d
 This example shows how you can use a MongoDB database to support your Next.js application.
 
 **Pet** is an application that allows users to add their pets' information (e.g., name, owner's name, diet, age, dislikes, likes, and photo). They can also delete it or edit it anytime.
-
-## Deploy your own
-
-Once you have access to [the environment variables you'll need](#step-2-set-up-environment-variables), deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-mongodb-mongoose&project-name=with-mongodb-mongoose&repository-name=with-mongodb-mongoose&env=MONGODB_URI&envDescription=Required%20to%20connect%20the%20app%20with%20MongoDB&envLink=https://github.com/vercel/next.js/tree/canary/examples/with-mongodb-mongoose%23step-2-set-up-environment-variables)
 
 ## How to use
 
@@ -73,9 +76,6 @@ yarn dev
 
 Your app should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
 
-## Deploy on Vercel
-
-You can deploy this app to the cloud with [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
 
 #### Deploy Your Local Project
 
@@ -83,29 +83,20 @@ To deploy your local project to Vercel, push it to GitHub/GitLab/Bitbucket and [
 
 **Important**: When you import your project on Vercel, make sure to click on **Environment Variables** and set them to match your `.env.local` file.
 
-#### Deploy from Our Template
-
-Alternatively, you can deploy using our template by clicking on the Deploy button below.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-mongodb-mongoose&project-name=with-mongodb-mongoose&repository-name=with-mongodb-mongoose&env=MONGODB_URI&envDescription=Required%20to%20connect%20the%20app%20with%20MongoDB&envLink=https://github.com/vercel/next.js/tree/canary/examples/with-mongodb-mongoose%23step-2-set-up-environment-variables)
 
 
-MongoDB and JavaScript on the backend 
-
-File Structure 
-
+# Docker
 
 Development 
 Configured the docker file 
 
-Docker is a
 
 
 `docker build -t woof .`
 - builds a docker image based on the dockerfile in the root directory with a tag called woof 
 
-# docker does need the docker daemon (host) running. This is required by docker in order to create containers from the image template that was just built 
-# the docker daemon in this case is the docker desktop app. 
+docker does need the docker daemon (host) running. This is required by docker in order to create containers from the image template that was just built 
+the docker daemon in this case is the docker desktop app. 
 
 `docker run --name woof_contain -p 3000:3000 woof:latest`
 - runs a docker container based on the image we just created with the previous `docker build` command. 

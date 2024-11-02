@@ -1,7 +1,7 @@
 FROM node:18.17.0
 
 # Create app directory, setting the working directory inside the container
-WORKDIR /app
+WORKDIR /usr/src/app
 
 # Copying the package.json and package-lock.json files into the container
 COPY package.json package-lock.json ./
