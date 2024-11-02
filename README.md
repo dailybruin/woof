@@ -1,6 +1,12 @@
 # Woof 
 Woof is a website that contains style guides and information about how to design each element of the Daily Bruin newspaper. It will be used by the Design section to teach new designers how to design the paper and keep designs consistent over time.
 
+## Daily Bruin Design
+![Woof Image](./public/Woof_HomePage.png)
+
+Visit the <a href="https://www.figma.com/design/bQuRZ1C2EDqgNmCYui8iqE/woof?node-id=0-1&node-type=canvas">Figma</a> to see more about the Design of Woof. 
+To see the requirements guide, visit <a href="https://docs.google.com/document/d/1S7moCvya6fsls2iWeL_YoR239hYyv1JbMTDSRk3CNsk/edit?tab=t.0">doc</a>.
+
 ## Technology Stack
 
 **Frontend:**
@@ -60,12 +66,6 @@ woof/
 ├── .gitignore
 └── .prettierignore
 ```
-
-## Daily Bruin Design
-![Woof Image](./public/Woof_HomePage.png)
-
-Visit the <a href="https://www.figma.com/design/bQuRZ1C2EDqgNmCYui8iqE/woof?node-id=0-1&node-type=canvas">Figma</a> to see more about the Design of Woof. 
-To see the requirements guide, visit <a href="https://docs.google.com/document/d/1S7moCvya6fsls2iWeL_YoR239hYyv1JbMTDSRk3CNsk/edit?tab=t.0">doc</a>.
 
 ## Docker 
 We use docker for two reasons. First reason is to allow for development irrespective of a developers operating system. Second reason is for ease of development. Developers only need to run two simple commands to be able to immediately start developing on Woof.
