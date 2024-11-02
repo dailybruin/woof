@@ -132,9 +132,15 @@ git checkout -b <Ticket_Number>
 ```
 git add .
 git commit -m "<Ticket_Number> : <commit message">
-git push --upstream <branch_name> # this command will probably be suggested to you
+git push
 ```
+*The first push will require a push upstream 
+```git push --set-upstream origin <branch_name>```
+
+
 3. Make a Pull Request (PR) on GitHub, usually you will need to visit the exact branch in GitHub and then creating a PR. 
+![PR Image](./public/PR_instructions.png)
+Hit Create Pull Request. Then await for approval from an administrator.
 
 4. Once approved, your changes will be merged and you've made a contribution into production!
 
