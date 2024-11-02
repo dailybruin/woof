@@ -1,42 +1,107 @@
 # Woof 
 Woof is a website that contains style guides and information about how to design each element of the Daily Bruin newspaper. It will be used by the Design section to teach new designers how to design the paper and keep designs consistent over time.
 
-# Technology Stack
+## Technology Stack
 
-MongoDB and JavaScript on the backend 
+**Frontend:**
+![TypeScript](https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white) 
+![Next.js](https://img.shields.io/badge/-Next.js-000000?style=flat-square&logo=next.js&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/-TailwindCSS-38B2AC?style=flat-square&logo=tailwindcss&logoColor=white)
 
-### File Structure 
-- pages 
--> mongodb+srv://woof:<db_password>@cluster0.awg9zpj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+**Backend:**
+![MongoDB](https://img.shields.io/badge/-MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white) 
+![Docker](https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=docker&logoColor=white) 
+![Netlify](https://img.shields.io/badge/-Netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white)
 
+## File Structure 
+```
+woof/
+├── .vscode/
+│   └── extensions.json
+├── components/
+│   ├── ArticleList.tsx
+│   ├── ArticleSectionDisplay.tsx
+│   ├── Box.tsx
+│   ├── ChangeArticle.tsx
+│   ├── Form.tsx
+│   ├── NavBar.tsx
+│   ├── PinnedArticles.tsx
+│   ├── Quicklink.tsx
+│   └── SearchBar.tsx
+├── lib/
+├── models/
+│   ├── article.ts
+│   └── Pet.ts
+├── node_modules/
+├── pages/
+│   ├── [id]/
+│   │   ├── edit.tsx
+│   │   └── index.tsx
+│   ├── api/
+│   │   ├── articles/
+│   │   ├── auth/
+│   │   └── pets/
+│   ├── _app.tsx
+│   ├── _document.tsx
+│   ├── all.tsx
+│   ├── arts.tsx
+│   ├── index.tsx
+│   ├── misc.tsx
+│   ├── new.tsx
+│   ├── news.tsx
+│   ├── opinion.tsx
+│   ├── sports.tsx
+│   └── troubleshooting.tsx
+├── public/
+├── styles/
+├── types/
+│   └── next-auth.d.ts
+├── .env
+├── .gitignore
+└── .prettierignore
+```
 
 ## Daily Bruin Design
 ![Woof Image](./public/Woof_HomePage.png)
 
 Visit the <a href="https://www.figma.com/design/bQuRZ1C2EDqgNmCYui8iqE/woof?node-id=0-1&node-type=canvas">Figma</a> to see more about the Design of Woof. 
-To see the requirements guide, visit <a href="https://docs.google.com/document/d/1S7moCvya6fsls2iWeL_YoR239hYyv1JbMTDSRk3CNsk/edit?tab=t.0">doc</a>
+To see the requirements guide, visit <a href="https://docs.google.com/document/d/1S7moCvya6fsls2iWeL_YoR239hYyv1JbMTDSRk3CNsk/edit?tab=t.0">doc</a>.
 
-# MongoDB and Mongoose with Next.js
+## Docker 
+We use docker for two reasons. First reason is to allow for development irrespective of a developers operating system. Second reason is for ease of development. Developers only need to run two simple commands to be able to immediately start developing on Woof.
 
-This example shows how you can use a MongoDB database to support your Next.js application.
+![Docker Image](./public/Docker_Diagram.png)
 
-**Pet** is an application that allows users to add their pets' information (e.g., name, owner's name, diet, age, dislikes, likes, and photo). They can also delete it or edit it anytime.
+### Docker Volume-Mounted 
+1. Run the command `docker-compose build` 
+- This command builds the image (install all necessary node versions and packages), port forwards it (3000), and volume mounts it (usr/src/app).
+2. Run the command `docker-compose up`
+- This command builds the containers based of the image created and actually runs our process. 
+3. Open `http://localhost:3000`
 
-## How to use
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+### Docker Manual 
 
-```bash
-npx create-next-app --example with-mongodb-mongoose with-mongodb-mongoose-app
-```
+1. Run the command: `docker build -t woof .`
+This command builds a docker image based on the dockerfile in the root directory with a tag called woof 
+- docker does need the docker daemon (host) running. This is required by docker in order to create containers from the image template that was just built. Often, the docker daemon is the docker desktop app. 
 
-```bash
-yarn create next-app --example with-mongodb-mongoose with-mongodb-mongoose-app
-```
+2. Next run: `docker run --name woof_contain -p 3000:3000 woof:latest`
+- runs a docker container based on the image we just created with the previous `docker build` command. 
+- the -d tag runs the container in detached mode (container runs in the background, allowing you to still use the terminal)
+- the -p option maps the port 3000 on the docker host to port 3000 on the container. 
+- `woof:latest` is the name of the docker image to use for the container, latest specifies the latest version of the image. 
+- `--name woof_contain` is to name the container woof_contain
+- to build up a new container 
 
-```bash
-pnpm create next-app --example with-mongodb-mongoose with-mongodb-mongoose-app
-```
+3. stopping the container from running `docker stop <container_name>` 
+
+4. Optionally* to start an existing container run: `docker start <container_name>`
+
+
+
+# Default Documentation
+You don't need to read the documentation below to develop the application. It is kept just in-case someone needs a reference point to the original documentation. This project is built off of this <a href="https://github.com/vercel/mongodb-starter">mongodb-nextjs template</a>.
 
 ## Configuration
 
@@ -67,11 +132,6 @@ Then set each variable on `.env.local`:
 ```bash
 npm install
 npm run dev
-
-# or
-
-yarn install
-yarn dev
 ```
 
 Your app should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
@@ -85,30 +145,3 @@ To deploy your local project to Vercel, push it to GitHub/GitLab/Bitbucket and [
 
 
 
-# Docker
-
-Development 
-Configured the docker file 
-
-
-
-`docker build -t woof .`
-- builds a docker image based on the dockerfile in the root directory with a tag called woof 
-
-docker does need the docker daemon (host) running. This is required by docker in order to create containers from the image template that was just built 
-the docker daemon in this case is the docker desktop app. 
-
-`docker run --name woof_contain -p 3000:3000 woof:latest`
-- runs a docker container based on the image we just created with the previous `docker build` command. 
-- the -d tag runs the container in detached mode (container runs in the background, allowing you to still use the terminal)
-- the -p option maps the port 3000 on the docker host to port 3000 on the container. 
-- `woof:latest` is the name of the docker image to use for the container, latest specifies the latest version of the image. 
-- `--name woof_contain` is to name the container woof_contain
-- to build up a new container 
-
-# stopping the container from running 
-`docker stop <container_name>` 
-
-
-`docker start <container_name>`
-- to start an existing container 
