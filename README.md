@@ -19,6 +19,29 @@ To see the requirements guide, visit <a href="https://docs.google.com/document/d
 ![Docker](https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=docker&logoColor=white) 
 ![Netlify](https://img.shields.io/badge/-Netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white)
 
+## How do I install Woof?
+To install woof onto your local machine. 
+1. Clone the Repository
+```
+git clone https://github.com/dailybruin/woof.git
+```
+2. Go into the /woof directory
+```
+cd woof
+```
+3. Install all dependencies
+```
+npm install 
+```
+4. Configure your `.env` file
+```
+EMAIL_DOMAIN=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=http://localhost:3000
+```
+
 ## File Structure 
 ```
 woof/
@@ -97,30 +120,6 @@ This command builds a docker image based on the dockerfile in the root directory
 3. stopping the container from running `docker stop <container_name>` 
 
 4. Optionally* to start an existing container run: `docker start <container_name>`
-
-## How do I install Woof?
-To install woof onto your local machine. 
-1. Clone the Repository
-```
-git clone https://github.com/dailybruin/woof.git
-```
-2. Go into the /woof directory
-```
-cd woof
-```
-3. Install all dependencies
-```
-npm install 
-```
-4. Configure your `.env` file
-```
-EMAIL_DOMAIN=
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-NEXTAUTH_SECRET=
-NEXTAUTH_URL=http://localhost:3000
-```
-
 
 ## How do I contribute?
 If you'd like to contribute:
