@@ -98,6 +98,45 @@ This command builds a docker image based on the dockerfile in the root directory
 
 4. Optionally* to start an existing container run: `docker start <container_name>`
 
+## How do I install Woof?
+To install woof onto your local machine. 
+1. Clone the Repository
+```
+git clone https://github.com/dailybruin/woof.git
+```
+2. Go into the /woof directory
+```
+cd woof
+```
+3. Install all dependencies
+```
+npm install 
+```
+4. Configure your `.env` file
+```
+EMAIL_DOMAIN=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=http://localhost:3000
+```
+
+
+## How do I contribute?
+If you'd like to contribute:
+1. Create a branch, to standardize branch naming conventions; branches are usually named after the ticket number assigned to it.
+```
+git checkout -b <Ticket_Number>
+```
+2. Develop on the branch, stage, commit, and push the code to the branch
+```
+git add .
+git commit -m "<Ticket_Number> : <commit message">
+git push --upstream <branch_name> # this command will probably be suggested to you
+```
+3. Make a Pull Request (PR) on GitHub, usually you will need to visit the exact branch in GitHub and then creating a PR. 
+
+4. Once approved, your changes will be merged and you've made a contribution into production!
 
 
 # Default Documentation
