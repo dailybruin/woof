@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Articles } from '../models/article';
+import { Articles } from '../../models/article';
 type Props = {
   articles: Articles[];
   color?: string;
