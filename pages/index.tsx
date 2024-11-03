@@ -1,28 +1,27 @@
-import { GetServerSideProps } from 'next';
-import { Articles } from '../models/article';
-import { fetchArticles } from '@/fetchArticles';
-import ArticleList from '../components/ArticleList';
-import Quicklink from '../components/Quicklink';
-import PinnedArticles from '../components/PinnedArticles';
+// import { GetServerSideProps } from 'next';
+// import { fetchArticles } from '@/fetchArticles';
+// import Quicklink from '../components/Quicklink';
+import Woof_Logo from '../public/Woof-Logo-Bigger.png'
+import Image from 'next/image'
 
-type Props = {
-  articles: Articles[];
-};
+const Index = () => {
+  // this is the root page, see article section display for the other pages
 
-const Index = ({ articles }: Props) => {
   return (
     <div>
-      <div className="flex justify-between">
-        <ArticleList articles={articles} />
-        <Quicklink articles={articles} />
-      </div>
+        {/* Logo */}
+        <Image src={Woof_Logo} alt="woof logo"></Image>
+        <input>Woof</input>
+        {/* Smaller nav bar with routes*/}
+        {/* Search Bar */}
+        {/* Quicklinks */}
     </div>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const articles = await fetchArticles();
-  return { props: { articles: articles } };
-};
+// export const getServerSideProps: GetServerSideProps<Props> = async () => {
+//   const articles = await fetchArticles();
+//   return { props: { articles: articles } };
+// };
 
 export default Index;

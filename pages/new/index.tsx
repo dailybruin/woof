@@ -1,4 +1,4 @@
-import Form from '../components/Form';
+import Form from '../../components/edit/Form';
 
 const NewArticle = () => {
   const articleForm = {

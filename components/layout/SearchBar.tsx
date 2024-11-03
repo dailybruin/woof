@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import { Articles } from '../models/article';
+import { Articles } from '../../models/article';
 import { useEffect, useState } from 'react';
-// import bootstrap from 'bootstrap';
 
 export type Props = {
   articles: Articles[];
@@ -46,18 +45,7 @@ const SearchBar = ({ articles }: Props) => {
         >
           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
         </svg>
-        {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg> */}
       </div>
-      {/* {filteredArticles.map((article) => (
-                <div key={article._id}>
-                <Link href={{
-                      pathname: '/[id]/edit',
-                      query: { id: article._id },
-                    }}>
-                    {article.title}
-                </Link>
-                </div>
-            ))} */}
       {searchTerm &&
         filteredArticles.map((article) => (
           <div key={article._id} className="search-results">

@@ -1,5 +1,4 @@
 import Link from 'next/link';
-// import '../css/body.css';
 
 export default function ChangeArticle() {
   return (
