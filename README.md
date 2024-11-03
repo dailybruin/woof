@@ -7,6 +7,7 @@ Woof is a website that contains style guides and information about how to design
 Visit the <a href="https://www.figma.com/design/bQuRZ1C2EDqgNmCYui8iqE/woof?node-id=0-1&node-type=canvas" target="_blank">Figma</a> to see more about the Design of Woof. 
 To see the requirements guide, visit <a href="https://docs.google.com/document/d/1S7moCvya6fsls2iWeL_YoR239hYyv1JbMTDSRk3CNsk/edit?tab=t.0" target="_blank">doc</a>.
 
+
 ## Technology Stack
 
 **Frontend:**
@@ -41,47 +42,47 @@ GOOGLE_CLIENT_SECRET=
 NEXTAUTH_SECRET=
 NEXTAUTH_URL=http://localhost:3000
 ```
+5. Run the Application 
+```
+npm run dev
+```
 
 ## File Structure 
 ```
 woof/
+├── .next/
 ├── .vscode/
 │   └── extensions.json
 ├── components/
-│   ├── ArticleList.tsx
-│   ├── ArticleSectionDisplay.tsx
+│   ├── body/
+│   │   ├── ArticleList.tsx
+│   │   ├── ArticleSectionDisplay.tsx
+│   │   └── Quicklink.tsx
+│   ├── edit/
+│   │   ├── ChangeArticle.tsx
+│   │   └── Form.tsx
+│   ├── layout/
+│   │   ├── NavBar.tsx
+│   │   └── SearchBar.tsx
 │   ├── Box.tsx
-│   ├── ChangeArticle.tsx
-│   ├── Form.tsx
-│   ├── NavBar.tsx
-│   ├── PinnedArticles.tsx
-│   ├── Quicklink.tsx
-│   └── SearchBar.tsx
+│   └── PinnedArticles.tsx
+├── css/
 ├── lib/
 ├── models/
 │   ├── article.ts
 │   └── Pet.ts
 ├── node_modules/
 ├── pages/
-│   ├── [id]/
-│   │   ├── edit.tsx
+│   ├── all/
 │   │   └── index.tsx
 │   ├── api/
-│   │   ├── articles/
-│   │   ├── auth/
-│   │   └── pets/
-│   ├── _app.tsx
-│   ├── _document.tsx
-│   ├── all.tsx
-│   ├── arts.tsx
-│   ├── index.tsx
-│   ├── misc.tsx
-│   ├── new.tsx
-│   ├── news.tsx
-│   ├── opinion.tsx
-│   ├── sports.tsx
-│   └── troubleshooting.tsx
-├── public/
+│   ├── arts/
+│   ├── misc/
+│   ├── new/
+│   ├── news/
+│   ├── opinion/
+│   └── sports/
+│       └── index.tsx
 ├── styles/
 ├── types/
 │   └── next-auth.d.ts
@@ -120,6 +121,7 @@ This command builds a docker image based on the dockerfile in the root directory
 3. stopping the container from running `docker stop <container_name>` 
 
 4. Optionally* to start an existing container run: `docker start <container_name>`
+
 
 ## How do I contribute?
 If you'd like to contribute:

@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import Box from './Box';
+import Box from '../Box';
 import Markdown from 'react-markdown';
-import { Articles } from '../models/article';
-import PinnedArticles from './PinnedArticles';
+import { Articles } from '../../models/article';
+import PinnedArticles from '../PinnedArticles';
 
 type Props = {
   articles: Articles[];

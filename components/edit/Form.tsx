@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { mutate } from 'swr';
 import { TAGS } from '@/constants';
 import Markdown from 'react-markdown';
-import Box from './Box';
+import Box from '../Box';
 
 interface FormData {
   title: string;
