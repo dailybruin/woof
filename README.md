@@ -4,8 +4,9 @@ Woof is a website that contains style guides and information about how to design
 ## Daily Bruin Design
 ![Woof Image](./public/Woof_HomePage.png)
 
-Visit the <a href="https://www.figma.com/design/bQuRZ1C2EDqgNmCYui8iqE/woof?node-id=0-1&node-type=canvas">Figma</a> to see more about the Design of Woof. 
-To see the requirements guide, visit <a href="https://docs.google.com/document/d/1S7moCvya6fsls2iWeL_YoR239hYyv1JbMTDSRk3CNsk/edit?tab=t.0">doc</a>.
+Visit the <a href="https://www.figma.com/design/bQuRZ1C2EDqgNmCYui8iqE/woof?node-id=0-1&node-type=canvas" target="_blank">Figma</a> to see more about the Design of Woof. 
+To see the requirements guide, visit <a href="https://docs.google.com/document/d/1S7moCvya6fsls2iWeL_YoR239hYyv1JbMTDSRk3CNsk/edit?tab=t.0" target="_blank">doc</a>.
+
 
 ## Technology Stack
 
@@ -19,46 +20,69 @@ To see the requirements guide, visit <a href="https://docs.google.com/document/d
 ![Docker](https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=docker&logoColor=white) 
 ![Netlify](https://img.shields.io/badge/-Netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white)
 
+## How do I install Woof?
+To install woof onto your local machine. 
+1. Clone the Repository
+```
+git clone https://github.com/dailybruin/woof.git
+```
+2. Go into the /woof directory
+```
+cd woof
+```
+3. Install all dependencies
+```
+npm install 
+```
+4. Configure your `.env` file
+```
+EMAIL_DOMAIN=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=http://localhost:3000
+```
+5. Run the Application 
+```
+npm run dev
+```
+
 ## File Structure 
 ```
 woof/
+├── .next/
 ├── .vscode/
 │   └── extensions.json
 ├── components/
-│   ├── ArticleList.tsx
-│   ├── ArticleSectionDisplay.tsx
+│   ├── body/
+│   │   ├── ArticleList.tsx
+│   │   ├── ArticleSectionDisplay.tsx
+│   │   └── Quicklink.tsx
+│   ├── edit/
+│   │   ├── ChangeArticle.tsx
+│   │   └── Form.tsx
+│   ├── layout/
+│   │   ├── NavBar.tsx
+│   │   └── SearchBar.tsx
 │   ├── Box.tsx
-│   ├── ChangeArticle.tsx
-│   ├── Form.tsx
-│   ├── NavBar.tsx
-│   ├── PinnedArticles.tsx
-│   ├── Quicklink.tsx
-│   └── SearchBar.tsx
+│   └── PinnedArticles.tsx
+├── css/
 ├── lib/
 ├── models/
 │   ├── article.ts
 │   └── Pet.ts
 ├── node_modules/
 ├── pages/
-│   ├── [id]/
-│   │   ├── edit.tsx
+│   ├── all/
 │   │   └── index.tsx
 │   ├── api/
-│   │   ├── articles/
-│   │   ├── auth/
-│   │   └── pets/
-│   ├── _app.tsx
-│   ├── _document.tsx
-│   ├── all.tsx
-│   ├── arts.tsx
-│   ├── index.tsx
-│   ├── misc.tsx
-│   ├── new.tsx
-│   ├── news.tsx
-│   ├── opinion.tsx
-│   ├── sports.tsx
-│   └── troubleshooting.tsx
-├── public/
+│   ├── arts/
+│   ├── misc/
+│   ├── new/
+│   ├── news/
+│   ├── opinion/
+│   └── sports/
+│       └── index.tsx
 ├── styles/
 ├── types/
 │   └── next-auth.d.ts
@@ -97,29 +121,6 @@ This command builds a docker image based on the dockerfile in the root directory
 3. stopping the container from running `docker stop <container_name>` 
 
 4. Optionally* to start an existing container run: `docker start <container_name>`
-
-## How do I install Woof?
-To install woof onto your local machine. 
-1. Clone the Repository
-```
-git clone https://github.com/dailybruin/woof.git
-```
-2. Go into the /woof directory
-```
-cd woof
-```
-3. Install all dependencies
-```
-npm install 
-```
-4. Configure your `.env` file
-```
-EMAIL_DOMAIN=
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-NEXTAUTH_SECRET=
-NEXTAUTH_URL=http://localhost:3000
-```
 
 
 ## How do I contribute?
