@@ -10,11 +10,11 @@ const Quicklink = ({ articles, color = 'accent-purple' }: Props) => {
 
   return (
     <>
-      <div className="rounded-2xl border-black border-t-[0.5vmin] border-l-[0.5vmin] border-b-[0.8vmin] border-r-[0.8vmin] w-[40vmin] ">
+      <div className="rounded-2xl bg-white border-black border-t-[0.5vmin] border-l-[0.5vmin] border-b-[0.8vmin] border-r-[0.8vmin] w-[45vmin] h-[30vmin] mx-9 my-9">
         <div
-          className={`border-black border-b-[0.5vmin] bg-${color} h-[8vmin] w-full rounded-t-lg items-center pl-[3vmin] flex`}
+          className={`rounded-t-xl border-black border-b-[0.5vmin] bg-${color} h-[7vmin] w-full items-center pl-[3vmin] flex`}
         >
-          <p className="font-semibold text-center text-[4vmin] justify-center text-white bg-transparent quick-links pt-[1vmin]">
+          <p className="font-semibold text-center text-[3vmin] justify-center text-white bg-transparent quick-links">
             Quick Links
           </p>
         </div>
