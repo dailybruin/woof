@@ -189,10 +189,10 @@ const handleIconClick = () => {
   const [previousSections, setPreviousSections] = useState<string[]>([]);
 
   return (
-    <div style={{ ...styles.container, flexDirection: 'row', padding: '30px' }}>
+    <div style={{ ...styles.container, flexDirection: 'row', padding: '25px' }}>
       <div
         style={styles.boxContainer}
-        className="border-4 border-black bg-white rounded-2xl h-full"
+        className="border-4 border-black bg-white rounded-2xl"
       >
         <Box title={
             
