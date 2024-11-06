@@ -139,7 +139,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
       overflow: 'hidden',
     },
     boxContainer: {
-      flex: 1,
+      flex: 4,
       overflow: 'hidden',
     },
     formContainer: {
@@ -149,13 +149,51 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
   };
 
   return (
-    <div style={{ ...styles.container, flexDirection: 'row' }}>
+    <div style={{ ...styles.container, flexDirection: 'row', padding: '25px' }}>
       <div
         style={styles.boxContainer}
-        className="border-4 border-black bg-white"
+        className="border-4 border-black bg-white rounded-2xl"
       >
-        <Box title={form.title} innerText="" color="accent-purple">
-          <Markdown
+        <Box title={
+            <input
+              type="text"
+              maxLength={30}
+              name="title"
+              value={form.title}
+              onChange={handleChange}
+              required
+              style={{
+                backgroundColor: 'transparent', 
+                border: 'none',                 
+                outline: 'none',                
+                color: 'white',                 
+                fontSize: 'inherit',            
+                width: '100%',                  
+                borderRadius: '0',
+                height: '100%',
+                paddingBottom: '5px',
+                paddingTop: '5px',
+              }}
+            />
+          }
+             innerText="" color="accent-purple">
+          
+          <textarea
+              maxLength={500}
+              name="content"
+              value={form.content}
+              onChange={handleChange}
+              style={{ 
+                height: '100%', 
+                width: '100%',
+                backgroundColor: 'transparent', 
+                border: 'none',                 
+                outline: 'none',
+              }}
+              required
+            />
+
+          {/* <Markdown
             className="prose"
 
             // components={{
@@ -166,111 +204,102 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
             // }}
           >
             {form.content}
-          </Markdown>
+          </Markdown> */}
         </Box>
       </div>
-      <div style={styles.formContainer}>
-        <form id={formId} onSubmit={handleSubmit}>
-          <label htmlFor="title">Title</label>
-          <input
-            type="text"
-            maxLength={30}
-            name="title"
-            value={form.title}
-            onChange={handleChange}
-            required
-          />
 
-          <label htmlFor="content">Content</label>
-          <textarea
-            maxLength={500}
-            name="content"
-            value={form.content}
-            onChange={handleChange}
-            style={{ height: '300px', width: '100%' }}
-            required
-          />
+      <div style={{ flex: 0.1 }}></div>
 
-          <label htmlFor="date">Date</label>
-          <input
-            type="date"
-            name="created_date"
-            value={Date.now()}
-            onChange={handleChange}
-          />
+      <div style={styles.formContainer} className="border-4 border-black bg-white rounded-2xl">
+        <Box title = "Tags" innerText="">
+          <form id={formId} onSubmit={handleSubmit}>
+            <label htmlFor="title">Title</label>
+            
 
-          <label htmlFor="sections" className="font-bold">
-            Sections
-          </label>
-          {TAGS.map((tag, index) => (
-            <div key={index} className="flex justify-between items-center mb-2">
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  name={tag}
-                  value={tag}
-                  checked={form.sections.includes(tag)}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      setForm({
-                        ...form,
-                        sections: [...form.sections, tag],
-                      });
-                    } else {
-                      setForm({
-                        ...form,
-                        sections: form.sections.filter(
-                          (section) => section !== tag,
-                        ),
-                        pinned_sections: form.pinned_sections.filter(
-                          (section) => section !== tag,
-                        ),
-                      });
-                    }
-                  }}
-                />
-                <label htmlFor={tag}>{tag}</label>
+            <label htmlFor="content">Content</label>
+            
+
+            <label htmlFor="date">Date</label>
+            <input
+              type="date"
+              name="created_date"
+              value={Date.now()}
+              onChange={handleChange}
+            />
+
+            <label htmlFor="sections" className="font-bold">
+              Sections
+            </label>
+            {TAGS.map((tag, index) => (
+              <div key={index} className="flex justify-between items-center mb-2">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    name={tag}
+                    value={tag}
+                    checked={form.sections.includes(tag)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setForm({
+                          ...form,
+                          sections: [...form.sections, tag],
+                        });
+                      } else {
+                        setForm({
+                          ...form,
+                          sections: form.sections.filter(
+                            (section) => section !== tag,
+                          ),
+                          pinned_sections: form.pinned_sections.filter(
+                            (section) => section !== tag,
+                          ),
+                        });
+                      }
+                    }}
+                  />
+                  <label htmlFor={tag}>{tag}</label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    checked={form.pinned_sections.includes(tag)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setForm({
+                          ...form,
+                          pinned_sections: [...form.pinned_sections, tag],
+                        });
+                      } else {
+                        setForm({
+                          ...form,
+                          pinned_sections: form.pinned_sections.filter(
+                            (section) => section !== tag,
+                          ),
+                        });
+                      }
+                    }}
+                  />
+                  <label>Pinned?</label>
+                </div>
               </div>
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={form.pinned_sections.includes(tag)}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      setForm({
-                        ...form,
-                        pinned_sections: [...form.pinned_sections, tag],
-                      });
-                    } else {
-                      setForm({
-                        ...form,
-                        pinned_sections: form.pinned_sections.filter(
-                          (section) => section !== tag,
-                        ),
-                      });
-                    }
-                  }}
-                />
-                <label>Pinned?</label>
-              </div>
-            </div>
-          ))}
-          <label htmlFor="quick_link">Quick Link?</label>
-          <input
-            type="checkbox"
-            name="quick_link"
-            checked={form.quick_link}
-            onChange={(e) => {
-              setForm({
-                ...form,
-                quick_link: e.target.checked,
-              });
-            }}
-          />
-          <button type="submit" className="btn">
-            Submit
-          </button>
-        </form>
+            ))}
+            <label htmlFor="quick_link">Quick Link?</label>
+            <input
+              type="checkbox"
+              name="quick_link"
+              checked={form.quick_link}
+              onChange={(e) => {
+                setForm({
+                  ...form,
+                  quick_link: e.target.checked,
+                });
+              }}
+            />
+            <button type="submit" className="btn">
+              Submit
+            </button>
+          </form>
+        </Box>
         <p>{message}</p>
         <div>
           {Object.keys(errors).map((err, index) => (

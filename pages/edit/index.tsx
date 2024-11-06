@@ -1,9 +1,9 @@
 import Form from '../../components/edit/Form';
 
-const NewArticle = () => {
+const EditArticle = () => {
   const articleForm = {
-    title: 'Title goes here...',
-    content: 'Title goes here...',
+    title: '',
+    content: '',
     image_url: '',
     created_date: new Date(),
     updated_date: new Date(),
@@ -15,4 +15,4 @@ const NewArticle = () => {
   return <Form formId="add-article-form" articleForm={articleForm} />;
 };
 
-export default NewArticle;
+export default EditArticle;

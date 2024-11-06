@@ -1,5 +1,5 @@
 interface BoxProps {
-  title: string;
+  title: string | React.ReactNode;
   innerText: string;
   color?: string;
   children?: React.ReactNode;
