@@ -11,7 +11,8 @@ const Index = () => {
     <div>
         {/* Logo */}
         <Image src={Woof_Logo} alt="woof logo"></Image>
-        <input>Woof</input>
+        <title>Woof</title>
+        <input/>
         {/* Smaller nav bar with routes*/}
         {/* Search Bar */}
         {/* Quicklinks */}
