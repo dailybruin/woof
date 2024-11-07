@@ -39,6 +39,7 @@ const Index = () => {
             top: '228px',
           }}
         >
+        <div></div>
         <a href="#All" style={navLinkStyle}>All</a>
         <a href="#News" style={navLinkStyle}>News</a>
         <a href="#Opinion" style={navLinkStyle}>Opinion</a>
