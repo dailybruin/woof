@@ -1,29 +1,40 @@
 import Link from 'next/link';
-import { Articles } from '../../models/article';
-import { useEffect, useState } from 'react';
+import data from './SearchTests.json';  // import json data
 
-export type Props = {
-  articles: Articles[];
+import { useEffect, useState } from 'react';
+// declare article type
+type Article = {
+  _id: { $oid: string };
+  title: string;
+  created_date: { $date: { $numberLong: string } };
+  content: string;
+  quick_link: boolean;
+  image_url: string;
+  updated_date: { $date: { $numberLong: string } };
+  __v: { $numberInt: string };
+  pinned_sections: string[];
+  sections: string[];
 };
 
-const SearchBar = ({ articles }: Props) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filteredArticles, setFilteredArticles] = useState<Articles[]>([]);
+// initialize data structures
+const SearchBar = () => {
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
+  const [allArticles, setAllArticles] = useState<Article[]>(data);  
 
+  // filter the articles based on the search term
   useEffect(() => {
     if (!searchTerm) {
       setFilteredArticles([]);
       return;
     }
 
-    if (!articles) return;
-
-    const filtered = articles.filter((article) =>
-      article.title.toLowerCase().includes(searchTerm.toLowerCase()),
+    const filtered = allArticles.filter((article) =>
+      article.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     setFilteredArticles(filtered);
-  }, [searchTerm, articles]);
+  }, [searchTerm, allArticles]);
 
   return (
     <div className="w-1/3 search-bar-main">
@@ -46,41 +57,26 @@ const SearchBar = ({ articles }: Props) => {
           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
         </svg>
       </div>
-      {searchTerm &&
-        filteredArticles.map((article) => (
-          <div key={article._id} className="search-results">
-            <Link
-              href={{
-                pathname: '/[id]',
-                query: { id: article._id },
-              }}
-            >
-              {article.title}
-            </Link>
-          </div>
-        ))}
+      
+      
+      {searchTerm && filteredArticles.length > 0 && (
+        <div className="suggestions">
+          {filteredArticles.map((article) => (
+            <div key={article._id.$oid} className="search-results">
+              <Link
+                href={{
+                  pathname: '/[id]',
+                  query: { id: article._id.$oid },
+                }}
+              >
+                {article.title}
+              </Link>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
-
-// /* Retrieves pet(s) data from mongodb database */
-// export const getStaticProps: GetStaticProps<Props> = async () => {
-//   await dbConnect();
-
-//   /* find all the data in our database */
-//   const result = await Article.find({});
-
-//   /* Ensures all objectIds and nested objectIds are serialized as JSON data */
-//   const articles = result.map((doc) => {
-//     const article = JSON.parse(JSON.stringify(doc));
-//     return article;
-//   });
-
-//   console.log("Success in retrieving data from database");
-
-//   // console.log(articles, 'articles')
-
-//   return { props: { articles: articles } };
-// };
 
 export default SearchBar;
