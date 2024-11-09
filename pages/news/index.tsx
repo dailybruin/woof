@@ -11,7 +11,6 @@ import { useRouter } from 'next/router';
 const News = ({ articles, allArticles }: ArticlesProps) => {
   const route = useRouter();
 
-
   return (
     <Woof_layout pageProps={articles} router={route.route}>
       <ArticleSectionDisplay
@@ -23,7 +22,7 @@ const News = ({ articles, allArticles }: ArticlesProps) => {
     </Woof_layout>
   );
 };
-// calling fetchArticles on the server to be exposed to the client 
+// calling fetchArticles on the server to be exposed to the client
 export const getServerSideProps: GetServerSideProps<
   ArticlesProps
 > = async () => {
