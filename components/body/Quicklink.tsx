@@ -40,7 +40,31 @@ const Quicklink = ({ articles, color = 'accent-purple' }: Props) => {
             <p className="py-[0.5vmin] text-[1.8vmin] font-bold text-black bg-transparent quick-links">
               No Quick Links Available
             </p>
-          )}
+          </div>
+          <div className="py-[1.2vmin] px-[3.7vmin] rounded-b-lg">
+            {quickLinks.length > 0 ? (
+              articles
+                .filter((article) => article.quick_link)
+                .map((article) => (
+                  <div key={article._id}>
+                    <p className="text-black py-[0.5vmin] text-[1.8vmin] font-bold bg-transparent quick-links">
+                      <Link
+                        href={{
+                          pathname: '/[id]',
+                          query: { id: article._id },
+                        }}
+                      >
+                        {article.title}
+                      </Link>
+                    </p>
+                  </div>
+                ))
+            ) : (
+              <p className="py-[0.5vmin] text-[1.8vmin] font-bold text-black bg-transparent quick-links">
+                No Quick Links Available
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </>
