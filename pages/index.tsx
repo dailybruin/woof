@@ -40,13 +40,13 @@ const Index = () => {
           }}
         >
         <div></div>
-        <a href="#All" style={navLinkStyle}>All</a>
-        <a href="#News" style={navLinkStyle}>News</a>
-        <a href="#Opinion" style={navLinkStyle}>Opinion</a>
-        <a href="#Arts" style={navLinkStyle}>Arts</a>
-        <a href="#Sports" style={navLinkStyle}>Sports</a>
-        <a href="#Misc" style={navLinkStyle}>Misc</a>
-        <a href="#Troubleshooting" style={navLinkStyle}>Troubleshooting</a>
+        <a href="/all" style={navLinkStyle}>All</a>
+        <a href="/news" style={navLinkStyle}>News</a>
+        <a href="/opinion" style={navLinkStyle}>Opinion</a>
+        <a href="/arts" style={navLinkStyle}>Arts</a>
+        <a href="/sports" style={navLinkStyle}>Sports</a>
+        <a href="/misc" style={navLinkStyle}>Misc</a>
+        <a href="/troubleshooting" style={navLinkStyle}>Troubleshooting</a>
       </nav>
 
         {/* Search Bar */}
