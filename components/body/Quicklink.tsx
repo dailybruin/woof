@@ -40,6 +40,7 @@ const Quicklink = ({ articles, color = 'accent-purple' }: Props) => {
             <p className="py-[0.5vmin] text-[1.8vmin] font-bold text-black bg-transparent quick-links">
               No Quick Links Available
             </p>
+          )}
           </div>
           <div className="py-[1.2vmin] px-[3.7vmin] rounded-b-lg">
             {quickLinks.length > 0 ? (
@@ -66,7 +67,6 @@ const Quicklink = ({ articles, color = 'accent-purple' }: Props) => {
             )}
           </div>
         </div>
-      </div>
     </>
   );
 };
