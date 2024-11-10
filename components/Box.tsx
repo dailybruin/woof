@@ -12,13 +12,11 @@ const Box: React.FC<BoxProps> = ({
   color = 'accent-purple',
 }) => {
   return (
-    <div className="rounded-2xl">
-      <div
-        className={`border-black border-b-[0.5vmin] bg-${color} w-full items-center flex`}
-      >
-        <p className="font-semibold text-center text-[3vmin] justify-center text-white bg-transparent quick-links pt-[1vmin]">
+    <div className="rounded-2xl h-full">
+      <div  className={`border-black border-b-[0.5vmin] bg-${color} w-full items-center flex`}>
+        <div className="font-semibold text-center text-[3vmin] justify-center text-white bg-transparent quick-links pt-[1vmin] w-full">
           {title}
-        </p>
+        </div>
       </div>
       <div>
         {innerText}

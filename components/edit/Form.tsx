@@ -4,6 +4,8 @@ import { mutate } from 'swr';
 import { TAGS } from '@/constants';
 import Markdown from 'react-markdown';
 import Box from '../Box';
+import DeleteIcon from '@mui/icons-material/Delete';
+import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop';
 
 interface FormData {
   title: string;
@@ -132,6 +134,10 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
     }
   };
 
+  const handleDelete = () => {
+
+  };
+
   const styles = {
     container: {
       display: 'flex',
@@ -143,18 +149,22 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
       overflow: 'hidden',
     },
     formContainer: {
-      width: '300px',
-      flexShrink: 0,
+      flex: 1,
+      overflow: 'hidden',
     },
   };
 
+  const [previousSections, setPreviousSections] = useState<string[]>([]);
+
   return (
-    <div style={{ ...styles.container, flexDirection: 'row', padding: '25px' }}>
+    <div style={{ ...styles.container, flexDirection: 'row', padding: '30px' }}>
       <div
         style={styles.boxContainer}
-        className="border-4 border-black bg-white rounded-2xl"
+        className="border-4 border-black bg-white rounded-2xl h-full"
       >
         <Box title={
+            
+            <div className="flex items-center w-full">
             <input
               type="text"
               maxLength={30}
@@ -162,19 +172,14 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
               value={form.title}
               onChange={handleChange}
               required
-              style={{
-                backgroundColor: 'transparent', 
-                border: 'none',                 
-                outline: 'none',                
-                color: 'white',                 
-                fontSize: 'inherit',            
-                width: '100%',                  
-                borderRadius: '0',
-                height: '100%',
-                paddingBottom: '5px',
-                paddingTop: '5px',
-              }}
+              className="bg-transparent border-none outline-none text-white p-5 w-full"
             />
+            
+            <div className="flex gap-2 p-[15px]">
+              <DeleteIcon onClick={() => handleDelete()} />
+              <LocalPrintshopIcon onClick={() => handleSubmit} />
+            </div>
+          </div>
           }
              innerText="" color="accent-purple">
           
@@ -184,52 +189,35 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
               value={form.content}
               onChange={handleChange}
               style={{ 
-                height: '100%', 
+                height: '70vh', 
                 width: '100%',
                 backgroundColor: 'transparent', 
                 border: 'none',                 
                 outline: 'none',
+                padding: '5px',
               }}
               required
             />
-
-          {/* <Markdown
-            className="prose"
-
-            // components={{
-            //   p(props) {
-            //     const { node, ...rest } = props;
-            //     return <p style={{ backgroundColor: 'red' }} {...rest} />;
-            //   },
-            // }}
-          >
-            {form.content}
-          </Markdown> */}
         </Box>
       </div>
 
       <div style={{ flex: 0.1 }}></div>
 
       <div style={styles.formContainer} className="border-4 border-black bg-white rounded-2xl">
-        <Box title = "Tags" innerText="">
+        <Box 
+          title = {
+            <div className="flex items-center w-full">
+              <p className="bg-transparent border-none outline-none text-white px-2 w-full text-left">
+                Tags
+              </p>
+              
+            </div>
+            
+          } 
+          innerText=""
+        >
           <form id={formId} onSubmit={handleSubmit}>
-            <label htmlFor="title">Title</label>
-            
 
-            <label htmlFor="content">Content</label>
-            
-
-            <label htmlFor="date">Date</label>
-            <input
-              type="date"
-              name="created_date"
-              value={Date.now()}
-              onChange={handleChange}
-            />
-
-            <label htmlFor="sections" className="font-bold">
-              Sections
-            </label>
             {TAGS.map((tag, index) => (
               <div key={index} className="flex justify-between items-center mb-2">
                 <div className="flex items-center space-x-2">
@@ -244,6 +232,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
                           ...form,
                           sections: [...form.sections, tag],
                         });
+                        setPreviousSections([...form.sections, tag]);
                       } else {
                         setForm({
                           ...form,
@@ -279,25 +268,53 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
                       }
                     }}
                   />
-                  <label>Pinned?</label>
+                  <label>Pinned</label>
                 </div>
               </div>
             ))}
-            <label htmlFor="quick_link">Quick Link?</label>
-            <input
-              type="checkbox"
-              name="quick_link"
-              checked={form.quick_link}
-              onChange={(e) => {
-                setForm({
-                  ...form,
-                  quick_link: e.target.checked,
-                });
-              }}
-            />
-            <button type="submit" className="btn">
-              Submit
-            </button>
+            
+            <div className="flex justify-start items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name="allTags"
+                  className="w-3 h-3"
+                  checked={form.sections.length === TAGS.length} // Check if all tags are selected
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setPreviousSections(form.sections); // Save current selections
+                      setForm({
+                        ...form,
+                        sections: TAGS, // Select all tags
+                      });
+                    } else {
+                      setForm({
+                        ...form,
+                        sections: previousSections, // Restore previously selected tags
+                        pinned_sections: form.pinned_sections.filter(
+                          (section) => previousSections.includes(section)
+                        ),
+                      });
+                    }
+                  }}
+                />
+                <label htmlFor="pinned_to_all">Pinned to All</label>
+            </div>
+            
+            <div className="flex justify-start items-center space-x-2">
+              <input
+                type="checkbox"
+                name="quick_link"
+                className="w-3 h-3"
+                checked={form.quick_link}
+                onChange={(e) => {
+                  setForm({
+                    ...form,
+                    quick_link: e.target.checked,
+                  });
+                }}
+              />
+              <label htmlFor="quick_link">Add to Quick Links</label>
+            </div>
           </form>
         </Box>
         <p>{message}</p>
