@@ -12,7 +12,7 @@ const EditArticle = () => {
     quick_link: false,
   };
 
-  return <Form formId="add-article-form" articleForm={articleForm} />;
+  return <Form formId="add-article-form" articleForm={articleForm} forNewArticle= {false} />;
 };
 
 export default EditArticle;
