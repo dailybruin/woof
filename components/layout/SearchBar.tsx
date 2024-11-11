@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import data from './SearchTests.json';  // import json data
+import { useSearch } from "../context/SearchContext";
 
 import { useEffect, useState } from 'react';
 // declare article type
@@ -18,23 +19,7 @@ type Article = {
 
 // initialize data structures
 const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
-  const [allArticles, setAllArticles] = useState<Article[]>(data);  
-
-  // filter the articles based on the search term
-  useEffect(() => {
-    if (!searchTerm) {
-      setFilteredArticles([]);
-      return;
-    }
-
-    const filtered = allArticles.filter((article) =>
-      article.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    setFilteredArticles(filtered);
-  }, [searchTerm, allArticles]);
+  const { searchTerm, setSearchTerm } = useSearch();
 
   return (
     <div className="w-1/3 search-bar-main">
@@ -57,24 +42,6 @@ const SearchBar = () => {
           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
         </svg>
       </div>
-      
-      
-      {searchTerm && filteredArticles.length > 0 && (
-        <div className="suggestions">
-          {filteredArticles.map((article) => (
-            <div key={article._id.$oid} className="search-results">
-              <Link
-                href={{
-                  pathname: '/[id]',
-                  query: { id: article._id.$oid },
-                }}
-              >
-                {article.title}
-              </Link>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 };
