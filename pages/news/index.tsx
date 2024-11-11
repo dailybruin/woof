@@ -26,7 +26,7 @@ const News = ({ articles, allArticles }: ArticlesProps) => {
     </SearchProvider>
   );
 };
-// calling fetchArticles on the server to be exposed to the client 
+// calling fetchArticles on the server to be exposed to the client
 export const getServerSideProps: GetServerSideProps<
   ArticlesProps
 > = async () => {
