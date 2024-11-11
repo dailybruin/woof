@@ -244,6 +244,13 @@ li {
 }
 
 /* Change Article Styling */
+.change-article {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 0rem 4.25rem;
+}
+
 .edit-article {
   display: flex;
   justify-content: center;
@@ -253,7 +260,8 @@ li {
 
 .edit-heading {
   color: #000;
-  font-size: 120%;
+  font-size: 90%;
+  font-weight: bold;
   font-family: 'Rockwell', sans-serif;
 }
 
@@ -261,7 +269,7 @@ li {
   text-decoration: none;
   color: #c077cc;
   font-weight: bold;
-  font-size: 100%;
+  font-size: 85%;
   font-family: 'Rockwell', sans-serif;
 }
 
