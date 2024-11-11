@@ -55,6 +55,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
   /* The PUT method edits an existing entry in the mongodb database. */
   const putData = async (form: FormData) => {
     const { id } = router.query;
+    console.log(id);
 
     try {
       const res = await fetch(`/api/articles/${id}`, {
@@ -82,6 +83,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
 
   /* The POST method adds a new entry in the mongodb database. */
   const postData = async (form: FormData) => {
+
     try {
       const res = await fetch('/api/articles', {
         method: 'POST',
@@ -124,6 +126,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("Submit button clicked!")
     e.preventDefault();
     const errs = formValidate();
 
@@ -134,8 +137,31 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
     }
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
+    const { id } = router.query;
+    console.log("Delete button clicked!")
+    try {
+      const res = await fetch(`/api/articles/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Accept: contentType,
+          'Content-Type': contentType,
+        },
+      });
+      if (!res.ok) {
+        throw new Error(res.status.toString());
+      }
+      setMessage('Article deleted successfully');
+      router.push('/'); // Navigate back to the articles list or homepage
+    } catch (error) {
+      setMessage('Failed to delete article');
+    }
+  };
 
+  const confirmDelete = () => {
+    if (window.confirm("Are you sure you want to delete this article? This action cannot be undone.")) {
+      handleDelete();
+    }
   };
 
   const styles = {
@@ -176,8 +202,10 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
             />
             
             <div className="flex gap-2 p-[15px]">
-              <DeleteIcon onClick={() => handleDelete()} />
-              <LocalPrintshopIcon onClick={() => handleSubmit} />
+              {/* <DeleteIcon onClick={() => handleDelete()} /> */}
+              <DeleteIcon onClick={confirmDelete} />
+              <LocalPrintshopIcon onClick={handleSubmit} />
+              {/* <LocalPrintshopIcon onClick={() => console.log("Submit clicked!")} /> */}
             </div>
           </div>
           }
