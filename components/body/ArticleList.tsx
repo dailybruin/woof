@@ -20,6 +20,7 @@ const ArticleList = ({
     <main
       className={`flex-grow flex min-h-screen flex-col justify-between pt-8 pl-8 pb-8 pr-0`}
     >
+      <SearchResults section={section} color={color}></SearchResults>
       <div className="rounded-2xl border-black border-t-[0.5vmin] border-l-[0.5vmin] border-b-[0.8vmin] border-r-[0.8vmin] bg-white">
         <div
           className={`border-black border-b-[0.5vmin] bg-${color} h-[8vmin] w-full rounded-t-lg items-center pl-[3vmin] flex p-[1vmin]`}
@@ -28,8 +29,8 @@ const ArticleList = ({
             {section || 'All'}
           </p>
         </div>
+
         
-        <SearchResults section={section} color={color}></SearchResults>
         <PinnedArticles articles={articles} section={section} color={color} />
         {/* {articles.length > 0 ? (
           articles.map((article) => (
