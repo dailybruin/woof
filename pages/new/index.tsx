@@ -2,8 +2,8 @@ import Form from '../../components/edit/Form';
 
 const NewArticle = () => {
   const articleForm = {
-    title: '',
-    content: '',
+    title: 'Title goes here...',
+    content: 'Title goes here...',
     image_url: '',
     created_date: new Date(),
     updated_date: new Date(),
