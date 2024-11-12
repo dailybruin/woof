@@ -179,10 +179,19 @@ const handleIconClick = () => {
     boxContainer: {
       flex: 4,
       overflow: 'hidden',
+      borderBottomWidth: '1vmin',
+      borderRightWidth: '1vmin',
+      borderTopWidth: '0.5vmin',
+      borderLeftWidth: '0.5vmin',
     },
     formContainer: {
       flex: 1,
       overflow: 'hidden',
+      maxHeight: '41vh',
+      borderBottomWidth: '1vmin',
+      borderRightWidth: '1vmin',
+      borderTopWidth: '0.5vmin',
+      borderLeftWidth: '0.5vmin',
     },
   };
 
@@ -228,7 +237,7 @@ const handleIconClick = () => {
                 backgroundColor: 'transparent', 
                 border: 'none',                 
                 outline: 'none',
-                padding: '5px',
+                padding: '20px',
               }}
               required
             />
@@ -241,7 +250,7 @@ const handleIconClick = () => {
         <Box 
           title = {
             <div className="flex items-center w-full">
-              <p className="bg-transparent border-none outline-none text-white px-2 w-full text-left">
+              <p className="bg-transparent border-none outline-none text-white px-5 p-1 w-full text-left">
                 Tags
               </p>
               
@@ -250,10 +259,10 @@ const handleIconClick = () => {
           } 
           innerText=""
         >
-          <form id={formId} onSubmit={handleSubmit}>
-
+          <form id={formId} onSubmit={handleSubmit} className="grid gap-1">
             {TAGS.map((tag, index) => (
-              <div key={index} className="flex justify-between items-center mb-2">
+              <div key={index} className="flex justify-between items-center">
+                {/* Left Column: Main Tag Checkbox */}
                 <div className="flex items-center space-x-2">
                   <input
                     type="checkbox"
@@ -271,17 +280,20 @@ const handleIconClick = () => {
                         setForm({
                           ...form,
                           sections: form.sections.filter(
-                            (section) => section !== tag,
+                            (section) => section !== tag
                           ),
                           pinned_sections: form.pinned_sections.filter(
-                            (section) => section !== tag,
+                            (section) => section !== tag
                           ),
                         });
                       }
                     }}
+                    className="w-4 h-4" 
                   />
-                  <label htmlFor={tag}>{tag}</label>
+                  <label className="text-gray-800 flex items-center">{tag}</label>
                 </div>
+
+                {/* Right Column: Pinned Checkbox */}
                 <div className="flex items-center space-x-2">
                   <input
                     type="checkbox"
@@ -296,49 +308,52 @@ const handleIconClick = () => {
                         setForm({
                           ...form,
                           pinned_sections: form.pinned_sections.filter(
-                            (section) => section !== tag,
+                            (section) => section !== tag
                           ),
                         });
                       }
                     }}
+                    className="w-4 h-4" // Square checkbox for Pinned
                   />
-                  <label>Pinned</label>
+                  <label className="text-gray-800">Pinned</label>
                 </div>
               </div>
             ))}
-            
+
+            {/* "Pinned to All" Checkbox */}
             <div className="flex justify-start items-center space-x-2">
-                <input
-                  type="checkbox"
-                  name="allTags"
-                  className="w-3 h-3"
-                  checked={form.sections.length === TAGS.length} // Check if all tags are selected
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      setPreviousSections(form.sections); // Save current selections
-                      setForm({
-                        ...form,
-                        sections: TAGS, // Select all tags
-                      });
-                    } else {
-                      setForm({
-                        ...form,
-                        sections: previousSections, // Restore previously selected tags
-                        pinned_sections: form.pinned_sections.filter(
-                          (section) => previousSections.includes(section)
-                        ),
-                      });
-                    }
-                  }}
-                />
-                <label htmlFor="pinned_to_all">Pinned to All</label>
+              <input
+                type="checkbox"
+                name="allTags"
+                className="w-4 h-4"
+                checked={form.sections.length === TAGS.length} // Check if all tags are selected
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setPreviousSections(form.sections); // Save current selections
+                    setForm({
+                      ...form,
+                      sections: TAGS, // Select all tags
+                    });
+                  } else {
+                    setForm({
+                      ...form,
+                      sections: previousSections, // Restore previously selected tags
+                      pinned_sections: form.pinned_sections.filter(
+                        (section) => previousSections.includes(section)
+                      ),
+                    });
+                  }
+                }}
+              />
+              <label htmlFor="allTags" className="text-gray-800">Pinned to All</label>
             </div>
-            
+
+            {/* "Add to Quick Links" Checkbox */}
             <div className="flex justify-start items-center space-x-2">
               <input
                 type="checkbox"
                 name="quick_link"
-                className="w-3 h-3"
+                className="w-4 h-4"
                 checked={form.quick_link}
                 onChange={(e) => {
                   setForm({
@@ -347,9 +362,10 @@ const handleIconClick = () => {
                   });
                 }}
               />
-              <label htmlFor="quick_link">Add to Quick Links</label>
+              <label htmlFor="quick_link" className="text-gray-800">Add to Quick Links</label>
             </div>
           </form>
+
         </Box>
         <p>{message}</p>
         <div>
