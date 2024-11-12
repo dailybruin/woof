@@ -17,8 +17,12 @@ type Article = {
   sections: string[];
 };
 
+interface Props {
+  articles: Article[]
+}
+
 // initialize data structures
-const SearchBar = () => {
+const SearchBar = ({articles}: Props) => {
   const { searchTerm, setSearchTerm } = useSearch();
 
   return (
