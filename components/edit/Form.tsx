@@ -136,6 +136,12 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
       setErrors({ errs });
     }
   };
+// Icon click handler
+const handleIconClick = () => {
+  // Manually submit the form
+  const form = document.querySelector('form');
+  form?.dispatchEvent(new Event('submit', { cancelable: true }));
+};
 
   const handleDelete = async () => {
     const { id } = router.query;
@@ -204,7 +210,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
             <div className="flex gap-2 p-[15px]">
               {/* <DeleteIcon onClick={() => handleDelete()} /> */}
               <DeleteIcon onClick={confirmDelete} />
-              <LocalPrintshopIcon onClick={handleSubmit} />
+              <div onClick={handleSubmit}><LocalPrintshopIcon /></div>
               {/* <LocalPrintshopIcon onClick={() => console.log("Submit clicked!")} /> */}
             </div>
           </div>

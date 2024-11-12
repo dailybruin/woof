@@ -29,7 +29,7 @@ const ArticleList = ({
         </div>
 
         <PinnedArticles articles={articles} section={section} color={color} />
-        {/* {articles.length > 0 ? (
+        {articles.length > 0 ? (
           articles.map((article) => (
             <div key={article._id}>
               <Box title={article.title} innerText="" color={color}>
@@ -56,9 +56,9 @@ const ArticleList = ({
           ))
         ) : (
           <p>No articles available.</p>
-        )} */}
+        )}
 
-        <div className="p-8">
+        {/* <div className="p-8">
           <ul>
             <li>How to use InDesign</li>
             <li>Link 1</li>
@@ -73,7 +73,7 @@ const ArticleList = ({
             <li>Link 4</li>
             <li>Link 5</li>
           </ul>
-        </div>
+        </div> */}
       </div>
     </main>
   );
