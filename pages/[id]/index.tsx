@@ -1,103 +1,67 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+// pages/[id]/index.tsx
+
+import { GetServerSideProps } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 import dbConnect from '../../lib/dbConnect';
 import Article, { Articles } from '../../models/article';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { ParsedUrlQuery } from 'querystring';
-import Box from '../../components/Box';
-import Markdown from 'react-markdown';
+// import ArticleView from '../../components/view/ArticleView'; TODO
+import React from 'react';
 
 interface Params extends ParsedUrlQuery {
   id: string;
 }
 
-type Props = {
-  article: Articles;
-};
-
-/* Allows you to view pet card info and delete pet card*/
-const ArticlePage = ({ article }: Props) => {
-  const router = useRouter();
-  const [message, setMessage] = useState('');
-  const handleDelete = async () => {
-    const articleID = router.query.id;
-
-    try {
-      await fetch(`/api/articles/${articleID}`, {
-        method: 'Delete',
-      });
-      router.push('/');
-    } catch (error) {
-      setMessage('Failed to delete the article.');
-    }
+interface ViewArticleProps {
+  article: {
+    _id: string;
+    title: string;
+    content: string;
+    image_url?: string;
+    created_date: string; // ISO string
+    updated_date: string; // ISO string
+    sections: string[];
+    pinned_sections: string[];
+    quick_link: boolean;
   };
-  // this is where users are taken if they click on the view button of a specific article
-  return (
-    <div>
-      <div key={article._id} className="card">
-        <Box title={article.title} innerText="">
-          <Markdown className="prose">{article.content}</Markdown>
-        </Box>
-        <div className="main-content">
-          <div className="btn-container">
-            <Link href={`/${article._id}/edit`}>
-              <button className="btn edit">Edit</button>
-            </Link>
-            <button className="btn delete" onClick={handleDelete}>
-              Delete
-            </button>
-          </div>
-        </div>
-        {message && <p>{message}</p>}
-      </div>
-      <div key={article._id} className="card">
-        <Box title={'Raw Text:'} innerText="">
-          {article.content}
-        </Box>
-        <div className="main-content">
-          <div className="btn-container">
-            <Link href={`/${article._id}/edit`}>
-              <button className="btn edit">Edit</button>
-            </Link>
-            <button className="btn delete" onClick={handleDelete}>
-              Delete
-            </button>
-          </div>
-        </div>
-        {message && <p>{message}</p>}
-      </div>
-    </div>
-  );
+}
+
+const ViewArticle: React.FC<ViewArticleProps> = ({ article }) => {
+  return <ArticleView article={article} />;
 };
 
-export const getServerSideProps: GetServerSideProps<Props, Params> = async ({
-  params,
-}: GetServerSidePropsContext) => {
+export default ViewArticle;
+
+export const getServerSideProps: GetServerSideProps<ViewArticleProps, Params> = async (context) => {
+  const { id } = context.params!;
+
   await dbConnect();
 
-  if (!params?.id) {
+  try {
+    const articleData = await Article.findById(id).lean<Articles>();
+
+    if (!articleData) {
+      return {
+        notFound: true,
+      };
+    }
+
+    // Serialize data for Next.js
+    const article = {
+      ...articleData,
+      _id: articleData._id.toString(),
+      created_date: articleData.created_date.toISOString(),
+      updated_date: articleData.updated_date.toISOString(),
+    };
+
+    return {
+      props: {
+        article,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching article:', error);
     return {
       notFound: true,
     };
   }
-
-  const article = await Article.findById(params.id).lean();
-
-  if (!article) {
-    return {
-      notFound: true,
-    };
-  }
-
-  /* Ensures all objectIds and nested objectIds are serialized as JSON data */
-  const serializedArticle = JSON.parse(JSON.stringify(article));
-
-  return {
-    props: {
-      article: serializedArticle,
-    },
-  };
 };
-
-export default ArticlePage;

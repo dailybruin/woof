@@ -1,7 +1,7 @@
-import { Articles } from '../models/article';
-import ArticleList from '../components/ArticleList';
-import PinnedArticles from '../components/PinnedArticles';
-import Quicklink from '../components/Quicklink';
+import { Articles } from '../../models/article';
+import ArticleList from './ArticleList';
+import PinnedArticles from '../PinnedArticles';
+import Quicklink from '../body/Quicklink';
 
 export type Props = {
   articles: Articles[];
@@ -23,7 +23,7 @@ export const ArticleSectionDisplay = ({
 }: Props) => {
   return (
     <div>
-      <div className="flex justify-between">
+      <div className="flex w-full">
         <ArticleList articles={articles} section={section} color={color} />
         <Quicklink articles={allArticles} />
       </div>

@@ -3,17 +3,23 @@ import { fetchArticles } from '@/fetchArticles';
 import {
   ArticleSectionDisplay,
   ArticlesProps,
-} from '../components/ArticleSectionDisplay';
+} from '../../components/body/ArticleSectionDisplay';
 import { ARTS } from '@/constants';
+import Woof_layout from '../layout';
+import { useRouter } from 'next/router';
 
 const Arts = ({ articles, allArticles }: ArticlesProps) => {
+  const route = useRouter();
+
   return (
-    <ArticleSectionDisplay
-      articles={articles}
-      allArticles={allArticles}
-      section={ARTS}
-      color="arts-color"
-    />
+    <Woof_layout pageProps={articles} router={route.route}>
+      <ArticleSectionDisplay
+        articles={articles}
+        allArticles={allArticles}
+        section={ARTS}
+        color="arts-color"
+      />
+    </Woof_layout>
   );
 };
 

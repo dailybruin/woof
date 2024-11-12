@@ -3,20 +3,26 @@ import { fetchArticles } from '@/fetchArticles';
 import {
   ArticleSectionDisplay,
   ArticlesProps,
-} from '../components/ArticleSectionDisplay';
+} from '../../components/body/ArticleSectionDisplay';
 import { NEWS } from '@/constants';
+import Woof_layout from '../layout';
+import { useRouter } from 'next/router';
 
 const News = ({ articles, allArticles }: ArticlesProps) => {
+  const route = useRouter();
+
   return (
-    <ArticleSectionDisplay
-      articles={articles}
-      allArticles={allArticles}
-      section={NEWS}
-      color="news-color"
-    />
+    <Woof_layout pageProps={articles} router={route.route}>
+      <ArticleSectionDisplay
+        articles={articles}
+        allArticles={allArticles}
+        section={NEWS}
+        color="news-color"
+      />
+    </Woof_layout>
   );
 };
-
+// calling fetchArticles on the server to be exposed to the client
 export const getServerSideProps: GetServerSideProps<
   ArticlesProps
 > = async () => {
