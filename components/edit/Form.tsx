@@ -55,7 +55,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
   /* The PUT method edits an existing entry in the mongodb database. */
   const putData = async (form: FormData) => {
     const { id } = router.query;
-    console.log(id);
+    // console.log(id);
 
     try {
       const res = await fetch(`/api/articles/${id}`, {
@@ -125,16 +125,21 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
     return err;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("Submit button clicked!")
-    e.preventDefault();
+  const handleSubmit = (e?: React.FormEvent<HTMLFormElement>) => {
+    if (e) e.preventDefault();
+    // console.log("Submit button clicked!");
+  
     const errs = formValidate();
-
+  
     if (Object.keys(errs).length === 0) {
       forNewArticle ? postData(form) : putData(form);
     } else {
-      setErrors({ errs });
+      setErrors(errs);
     }
+  };
+
+  const handleIconClick = (e: React.MouseEvent) => {
+    handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
   };
 
   const handleDelete = async () => {
@@ -181,7 +186,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
     formContainer: {
       flex: 1,
       overflow: 'hidden',
-      maxHeight: '41vmin',
+      maxHeight: '41vh',
       borderBottomWidth: '1vmin',
       borderRightWidth: '1vmin',
       borderTopWidth: '0.5vmin',
@@ -213,7 +218,9 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
             <div className="flex gap-2 p-[15px]">
               {/* <DeleteIcon onClick={() => handleDelete()} /> */}
               <DeleteIcon onClick={confirmDelete} />
-              <LocalPrintshopIcon onClick={handleSubmit} />
+              <LocalPrintshopIcon onClick={handleIconClick}></LocalPrintshopIcon>
+              {/* <LocalPrintshopIcon onClick={handleSubmit}></LocalPrintshopIcon> */}
+              {/* <div onClick={handleSubmit}><LocalPrintshopIcon /></div> */}
               {/* <LocalPrintshopIcon onClick={() => console.log("Submit clicked!")} /> */}
             </div>
           </div>

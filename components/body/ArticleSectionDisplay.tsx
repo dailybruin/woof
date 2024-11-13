@@ -23,7 +23,7 @@ export const ArticleSectionDisplay = ({
 }: Props) => {
   return (
     <div>
-      <div className="flex justify-between">
+      <div className="flex w-full">
         <ArticleList articles={articles} section={section} color={color} />
         <Quicklink articles={allArticles} />
       </div>
