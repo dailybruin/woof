@@ -181,7 +181,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
     formContainer: {
       flex: 1,
       overflow: 'hidden',
-      maxHeight: '41vh',
+      maxHeight: '41vmin',
       borderBottomWidth: '1vmin',
       borderRightWidth: '1vmin',
       borderTopWidth: '0.5vmin',
@@ -195,7 +195,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
     <div style={{ ...styles.container, flexDirection: 'row', padding: '30px' }}>
       <div
         style={styles.boxContainer}
-        className="border-4 border-black bg-white rounded-2xl h-full"
+        className=" border-black bg-white rounded-2xl h-full"
       >
         <Box title={
             
@@ -240,7 +240,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
 
       <div style={{ flex: 0.1 }}></div>
 
-      <div style={styles.formContainer} className="border-4 border-black bg-white rounded-2xl">
+      <div style={styles.formContainer} className=" border-black bg-white rounded-2xl">
         <Box 
           title = {
             <div className="flex items-center w-full">
@@ -253,7 +253,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
           } 
           innerText=""
         >
-          <form id={formId} onSubmit={handleSubmit} className="grid gap-1">
+          <form id={formId} onSubmit={handleSubmit} className="grid overflow-auto">
             {TAGS.map((tag, index) => (
               <div key={index} className="flex justify-between items-center">
                 {/* Left Column: Main Tag Checkbox */}
@@ -282,9 +282,9 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
                         });
                       }
                     }}
-                    className="w-4 h-4" 
+                    className="w-[1.5vw] h-[1.5vw] md:w-4 md:h-4" 
                   />
-                  <label className="text-gray-800 flex items-center">{tag}</label>
+                  <label className="text-gray-800 text-[1.2vw] md:text-base flex items-center">{tag}</label>
                 </div>
 
                 {/* Right Column: Pinned Checkbox */}
@@ -307,9 +307,9 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
                         });
                       }
                     }}
-                    className="w-4 h-4" // Square checkbox for Pinned
+                    className="w-[1.5vw] h-[1.5vw] md:w-4 md:h-4"
                   />
-                  <label className="text-gray-800">Pinned</label>
+                  <label className="text-gray-800 text-[1.2vw] md:text-base flex items-center">Pinned</label>
                 </div>
               </div>
             ))}
@@ -319,7 +319,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
               <input
                 type="checkbox"
                 name="allTags"
-                className="w-4 h-4"
+                className="w-[1.5vw] h-[1.5vw] md:w-4 md:h-4"
                 checked={form.sections.length === TAGS.length} // Check if all tags are selected
                 onChange={(e) => {
                   if (e.target.checked) {
@@ -339,7 +339,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
                   }
                 }}
               />
-              <label htmlFor="allTags" className="text-gray-800">Pinned to All</label>
+              <label htmlFor="allTags" className="text-gray-800 text-[1.2vw] md:text-base flex items-center">Pinned to All</label>
             </div>
 
             {/* "Add to Quick Links" Checkbox */}
@@ -347,7 +347,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
               <input
                 type="checkbox"
                 name="quick_link"
-                className="w-4 h-4"
+                className="w-[1.5vw] h-[1.5vw] md:w-4 md:h-4"
                 checked={form.quick_link}
                 onChange={(e) => {
                   setForm({
@@ -356,7 +356,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
                   });
                 }}
               />
-              <label htmlFor="quick_link" className="text-gray-800">Add to Quick Links</label>
+              <label htmlFor="quick_link" className="text-gray-800 text-[1.2vw] md:text-base flex items-center">Add to Quick Links</label>
             </div>
           </form>
 
