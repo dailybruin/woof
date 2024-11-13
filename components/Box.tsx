@@ -18,7 +18,7 @@ const Box: React.FC<BoxProps> = ({
           {title}
         </div>
       </div>
-      <div>
+      <div className =" h-full">
         {innerText}
         {children}
       </div>
