@@ -237,7 +237,7 @@ li {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  margin: 0rem 4.25rem;
+  padding: 1.5rem 4.25rem;
 }
 
 .edit-article {
