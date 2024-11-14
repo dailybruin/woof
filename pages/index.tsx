@@ -1,10 +1,17 @@
-// import { GetServerSideProps } from 'next';
-// import { fetchArticles } from '@/fetchArticles';
+import { GetServerSideProps } from 'next';
+import { fetchArticles } from '@/fetchArticles';
+// import { Props } from '../components/body/ArticleSectionDisplay';
 import Quicklink from '../components/body/Quicklink';
 import Woof from '../public/Woof_with_comment.png';
 import Image from 'next/image';
+import {Articles} from '../models/article';
 
-const Index = () => {
+interface Props {
+  articles: Articles[];
+  color?: string;
+};
+
+const Index = ({articles}: Props) => {
   // this is the root page, see article section display for the other pages
   const navLinkStyle = {
     width: '784px',
@@ -65,7 +72,7 @@ const Index = () => {
           height: '100%',
         }}>
           {/* Add props in when ready */} 
-          <Quicklink />
+          <Quicklink articles={articles} color={'accent-purple'}/>
         </div>
 
         <p
@@ -99,9 +106,10 @@ const Index = () => {
   );
 };
 
-// export const getServerSideProps: GetServerSideProps<Props> = async () => {
-//   const articles = await fetchArticles();
-//   return { props: { articles: articles } };
-// };
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const articles = await fetchArticles();
+  // const quickLinks = articles?.filter((article) => article.quick_link) || [];
+  return { props: { articles: articles } };
+};
 
 export default Index;

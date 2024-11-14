@@ -36,17 +36,6 @@
   /* border-bottom: 2px solid #000; */
 }
 
-.search-results {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-  background-color: #fff;
-  /* border-bottom: 2px solid #000; */
-  font-family: 'Rockwell', sans-serif;
-  /* position: absolute; */
-  /* z-index: -1; */
-}
-
 .higher-header {
   display: flex;
   justify-content: space-between;
@@ -276,3 +265,26 @@ li {
 .quick-links {
   font-family: 'Rockwell', sans-serif;
 }
+
+.search-results {
+  text-align: left;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-family: 'Rockwell', sans-serif;
+  font-size: 90%;
+  color: #000000;
+  border-bottom: 1px solid #eee;
+}
+
+.search-results:hover {
+  background-color: #f0f0f0;
+}
+
+.no-results {
+  text-align: left;
+  padding: 8px;
+  font-family: 'Rockwell', sans-serif;
+  font-size: 90%;
+  color: #000000;
+}
+
