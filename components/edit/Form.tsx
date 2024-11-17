@@ -55,7 +55,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
   /* The PUT method edits an existing entry in the mongodb database. */
   const putData = async (form: FormData) => {
     const { id } = router.query;
-    console.log(id);
+    // console.log(id);
 
     try {
       const res = await fetch(`/api/articles/${id}`, {
@@ -125,23 +125,22 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
     return err;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("Submit button clicked!")
-    e.preventDefault();
+  const handleSubmit = (e?: React.FormEvent<HTMLFormElement>) => {
+    if (e) e.preventDefault();
+    // console.log("Submit button clicked!");
+  
     const errs = formValidate();
-
+  
     if (Object.keys(errs).length === 0) {
       forNewArticle ? postData(form) : putData(form);
     } else {
-      setErrors({ errs });
+      setErrors(errs);
     }
   };
-// Icon click handler
-const handleIconClick = () => {
-  // Manually submit the form
-  const form = document.querySelector('form');
-  form?.dispatchEvent(new Event('submit', { cancelable: true }));
-};
+
+  const handleIconClick = (e: React.MouseEvent) => {
+    handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
+  };
 
   const handleDelete = async () => {
     const { id } = router.query;
@@ -179,10 +178,19 @@ const handleIconClick = () => {
     boxContainer: {
       flex: 4,
       overflow: 'hidden',
+      borderBottomWidth: '1vmin',
+      borderRightWidth: '1vmin',
+      borderTopWidth: '0.5vmin',
+      borderLeftWidth: '0.5vmin',
     },
     formContainer: {
       flex: 1,
       overflow: 'hidden',
+      maxHeight: '50vh',
+      borderBottomWidth: '1vmin',
+      borderRightWidth: '1vmin',
+      borderTopWidth: '0.5vmin',
+      borderLeftWidth: '0.5vmin',
     },
   };
 
@@ -192,7 +200,7 @@ const handleIconClick = () => {
     <div style={{ ...styles.container, flexDirection: 'row', padding: '30px' }}>
       <div
         style={styles.boxContainer}
-        className="border-4 border-black bg-white rounded-2xl h-full"
+        className=" border-black bg-white rounded-2xl h-full"
       >
         <Box title={
             
@@ -210,7 +218,9 @@ const handleIconClick = () => {
             <div className="flex gap-2 p-[15px]">
               {/* <DeleteIcon onClick={() => handleDelete()} /> */}
               <DeleteIcon onClick={confirmDelete} />
-              <div onClick={handleSubmit}><LocalPrintshopIcon /></div>
+              <LocalPrintshopIcon onClick={handleIconClick}></LocalPrintshopIcon>
+              {/* <LocalPrintshopIcon onClick={handleSubmit}></LocalPrintshopIcon> */}
+              {/* <div onClick={handleSubmit}><LocalPrintshopIcon /></div> */}
               {/* <LocalPrintshopIcon onClick={() => console.log("Submit clicked!")} /> */}
             </div>
           </div>
@@ -228,7 +238,7 @@ const handleIconClick = () => {
                 backgroundColor: 'transparent', 
                 border: 'none',                 
                 outline: 'none',
-                padding: '5px',
+                padding: '20px',
               }}
               required
             />
@@ -237,11 +247,11 @@ const handleIconClick = () => {
 
       <div style={{ flex: 0.1 }}></div>
 
-      <div style={styles.formContainer} className="border-4 border-black bg-white rounded-2xl">
+      <div style={styles.formContainer} className=" border-black bg-white rounded-2xl">
         <Box 
           title = {
             <div className="flex items-center w-full">
-              <p className="bg-transparent border-none outline-none text-white px-2 w-full text-left">
+              <p className="bg-transparent border-none outline-none text-white px-5 p-1 w-full text-left">
                 Tags
               </p>
               
@@ -250,11 +260,11 @@ const handleIconClick = () => {
           } 
           innerText=""
         >
-          <form id={formId} onSubmit={handleSubmit}>
-
+          <form id={formId} onSubmit={handleSubmit} className="grid h-full overflow-y-scroll pb-10">
             {TAGS.map((tag, index) => (
-              <div key={index} className="flex justify-between items-center mb-2">
-                <div className="flex items-center space-x-2">
+              <div key={index} className="flex justify-between items-center ">
+                {/* Left Column: Main Tag Checkbox */}
+                <div className="flex items-center space-x-1">
                   <input
                     type="checkbox"
                     name={tag}
@@ -271,18 +281,21 @@ const handleIconClick = () => {
                         setForm({
                           ...form,
                           sections: form.sections.filter(
-                            (section) => section !== tag,
+                            (section) => section !== tag
                           ),
                           pinned_sections: form.pinned_sections.filter(
-                            (section) => section !== tag,
+                            (section) => section !== tag
                           ),
                         });
                       }
                     }}
+                    className="w-[1.5vw] h-[1.5vw] md:w-4 md:h-4" 
                   />
-                  <label htmlFor={tag}>{tag}</label>
+                  <label className="text-gray-800 text-[2vw] mb-[10px] md:text-base flex items-center">{tag}</label>
                 </div>
-                <div className="flex items-center space-x-2">
+
+                {/* Right Column: Pinned Checkbox */}
+                <div className="flex items-center space-x-1">
                   <input
                     type="checkbox"
                     checked={form.pinned_sections.includes(tag)}
@@ -296,49 +309,52 @@ const handleIconClick = () => {
                         setForm({
                           ...form,
                           pinned_sections: form.pinned_sections.filter(
-                            (section) => section !== tag,
+                            (section) => section !== tag
                           ),
                         });
                       }
                     }}
+                    className="w-[1.5vw] h-[1.5vw] md:w-4 md:h-4"
                   />
-                  <label>Pinned</label>
+                  <label className="text-gray-800 text-[2vw] md:text-base flex items-center mb-[10px]">Pinned</label>
                 </div>
               </div>
             ))}
-            
-            <div className="flex justify-start items-center space-x-2">
-                <input
-                  type="checkbox"
-                  name="allTags"
-                  className="w-3 h-3"
-                  checked={form.sections.length === TAGS.length} // Check if all tags are selected
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      setPreviousSections(form.sections); // Save current selections
-                      setForm({
-                        ...form,
-                        sections: TAGS, // Select all tags
-                      });
-                    } else {
-                      setForm({
-                        ...form,
-                        sections: previousSections, // Restore previously selected tags
-                        pinned_sections: form.pinned_sections.filter(
-                          (section) => previousSections.includes(section)
-                        ),
-                      });
-                    }
-                  }}
-                />
-                <label htmlFor="pinned_to_all">Pinned to All</label>
+
+            {/* "Pinned to All" Checkbox */}
+            <div className="flex justify-start items-center space-x-1">
+              <input
+                type="checkbox"
+                name="allTags"
+                className="w-[1.5vw] h-[1.5vw] md:w-4 md:h-4"
+                checked={form.sections.length === TAGS.length} // Check if all tags are selected
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setPreviousSections(form.sections); // Save current selections
+                    setForm({
+                      ...form,
+                      sections: TAGS, // Select all tags
+                    });
+                  } else {
+                    setForm({
+                      ...form,
+                      sections: previousSections, // Restore previously selected tags
+                      pinned_sections: form.pinned_sections.filter(
+                        (section) => previousSections.includes(section)
+                      ),
+                    });
+                  }
+                }}
+              />
+              <label htmlFor="allTags" className="text-gray-800 text-[2vwh] md:text-base flex items-center mb-[10px]">Pinned to All</label>
             </div>
-            
-            <div className="flex justify-start items-center space-x-2">
+
+            {/* "Add to Quick Links" Checkbox */}
+            <div className="flex justify-start items-center space-x-1">
               <input
                 type="checkbox"
                 name="quick_link"
-                className="w-3 h-3"
+                className="w-[1.5vw] h-[1.5vw] md:w-4 md:h-4"
                 checked={form.quick_link}
                 onChange={(e) => {
                   setForm({
@@ -347,9 +363,14 @@ const handleIconClick = () => {
                   });
                 }}
               />
-              <label htmlFor="quick_link">Add to Quick Links</label>
+              <label htmlFor="quick_link" className="text-gray-800 text-[2vwh] md:text-base flex items-center mb-[10px]">Add to Quick Links</label>
             </div>
+            <div className="h-1"></div>
+            <div className="h-1"></div>
           </form>
+
+          
+
         </Box>
         <p>{message}</p>
         <div>
