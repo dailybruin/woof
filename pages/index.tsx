@@ -7,9 +7,6 @@ import Image from 'next/image'
 const Index = () => {
   // this is the root page, see article section display for the other pages
   const navLinkStyle = {
-    width: '784px',
-    height: '35px',
-    flexShrink: '0',
     color: '#000000',
     textAlign: 'center',
     textShadow: '0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25)',
@@ -18,28 +15,34 @@ const Index = () => {
     fontStyle: 'normal',
     fontWeight: '700',
     lineHeight: 'normal',
-    margin: '0 20px'
   } as React.CSSProperties;
 
   return (
     <div>
+      <div
+      style={{
+        display: 'flex',          
+        justifyContent: 'center', 
+        position: 'relative',     
+      }}>
         {/* Logo */}
         <Image src={Woof} alt="woof comment"
         style={{
-          position: 'absolute',
-          left: '528px',
-          top: '60px',}}></Image>
+          marginTop: '8vh',}}></Image> 
         <title>Woof</title>
+      </div>
 
         {/* Smaller nav bar with routes*/}
        <nav
           style={{
-            position: 'absolute',
-            left: '328px',
-            top: '228px',
+            display: 'flex',
+            position: 'relative',
+            justifyContent: 'center',
+            marginTop: '5vh',
+            gap: '28px',
           }}
         >
-        <div></div>
+
         <a href="#All" style={navLinkStyle}>All</a>
         <a href="#News" style={navLinkStyle}>News</a>
         <a href="#Opinion" style={navLinkStyle}>Opinion</a>
@@ -49,63 +52,83 @@ const Index = () => {
         <a href="#Troubleshooting" style={navLinkStyle}>Troubleshooting</a>
       </nav>
 
+      <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '4vh',
+      }}>
         {/* Search Bar */}
         <input
         placeholder="What can I fetch for you?"
         style={{
-          position: 'absolute',
-          left: '404px',
-          top: '282px',
-          width: '631px',
-          height: '37px',
-          flexShrink: '0',
+          maxWidth: '631px',   
+          height: '4vh',              
           borderBottom: '3px solid #000000',
           background: '#FCFCFC',
+          padding: '10px',              
+          fontSize: '1.2rem',           
+          boxSizing: 'border-box',
         }}
       />
+      </div>
       
-        {/* Quicklinks */}
-        <div 
-        style={{ 
-          position: 'absolute',
-          left: '544px',
-          top: '409px',
-          width: '335px', 
-          height: '228px', 
-          backgroundColor: '#FFFFFF', 
-          borderRadius: '16px', 
-          border: '3px solid #000000', 
-          boxShadow: '2px 2px 0px 0px #000000', 
-          flexShrink: '0'
-        }}></div>
-
-        <p
+      {/* Quicklinks */}
+      <div
         style={{
-          position: 'absolute',
-          left: '580px',
-          top: '670px',
-          color: '#000000',
-          textAlign: 'center',
-          fontFamily: 'Rockwell',
-          fontSize: '16px',
-          fontStyle: 'normal',
-          fontWeight: '700',
-          lineHeight: 'normal',
+          display: 'flex',               
+          justifyContent: 'center',      
+          alignItems: 'center',          
+          height: '45vh',               
+        }}>
+        <div
+          style={{
+          maxWidth: '335px',
+          width: '80%',                 
+          height: '25vh',
+          backgroundColor: '#FFFFFF',
+          borderRadius: '16px',
+          border: '3px solid #000000',
+          boxShadow: '2px 2px 0px 0px #000000',
+          flexShrink: '0',
         }}
-        >Need to edit or create an article?</p>
-        <p style={{
-          color: '#C077CC',
-          position: 'absolute',
-          left: '670px',
-          top: '690px',
-          textAlign: 'center',
-          fontFamily: 'Rockwell',
-          fontSize: '16px',
-          fontStyle: 'normal',
-          fontWeight: '700',
-          lineHeight: 'normal',
-        }}
-        >Click here.</p>
+        ></div>
+      </div>
+
+      <div
+        style={{
+          display: 'flex',               
+          flexDirection: 'column',       
+          justifyContent: 'center',      
+          alignItems: 'center',          
+          height: '0vh',               
+          textAlign: 'center', 
+        }}>
+        <p
+          style={{
+            color: '#000000',
+            fontFamily: 'Rockwell',
+            fontSize: '16px',
+            fontStyle: 'normal',
+            fontWeight: '700',
+            lineHeight: 'normal',
+          }}
+        >
+          Need to edit or create an article?
+        </p>
+        <p
+          style={{
+            color: '#C077CC',
+            fontFamily: 'Rockwell',
+            fontSize: '16px',
+            fontStyle: 'normal',
+            fontWeight: '700',
+            lineHeight: 'normal',
+          }}
+        >
+          Click here.
+        </p>
+      </div>
     </div>
   );
 };
