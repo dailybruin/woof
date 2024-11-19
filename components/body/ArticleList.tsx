@@ -4,6 +4,8 @@ import Markdown from 'react-markdown';
 import { Articles } from '../../models/article';
 import PinnedArticles from '../PinnedArticles';
 import { SearchResults } from "./SearchResults";
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 type Props = {
   articles: Articles[];
@@ -36,7 +38,14 @@ const ArticleList = ({
           articles.map((article) => (
             <div key={article._id}>
               <Box title={article.title} innerText="" color={color}>
+              <div className="flex justify-between items-center">
                 <Markdown className="prose">{article.content}</Markdown>
+                <div className="flex gap-2">
+                  <ModeEditIcon />
+                  <DeleteIcon />
+                </div>
+              </div>
+
               </Box>
               <div className="main-content">
                 <div className="btn-container">
@@ -48,9 +57,7 @@ const ArticleList = ({
                   >
                     <button className="btn edit">Edit</button>
                   </Link>
-                  <Link
-                    href={{ pathname: '/[id]', query: { id: article._id } }}
-                  >
+                  <Link href={{ pathname: '/[id]', query: { id: article._id } }}>
                     <button className="btn view">View</button>
                   </Link>
                 </div>
