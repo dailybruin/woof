@@ -15,7 +15,7 @@
     "@types/react-dom": "^18.2.7",
     "mongodb": "^6.10.0",
     "mongoose": "^7.4.2",
-    "next": "latest",
+    "next": "^15.0.3",
     "next-auth": "^4.24.7",
     "next-connect": "^1.0.0",
     "react": "^18.2.0",

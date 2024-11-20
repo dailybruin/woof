@@ -19,8 +19,7 @@ const Index = ({articles}: Props) => {
     flexShrink: '0',
     color: '#000000',
     textAlign: 'center',
-    textShadow:
-      '0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25)',
+    textShadow: '0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25)',
     fontFamily: 'Rockwell',
     fontSize: '20px',
     fontStyle: 'normal',
