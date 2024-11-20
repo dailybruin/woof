@@ -23,7 +23,8 @@ const Woof_layout = ({children, pageProps, router}: Woof_Props) => {
           <div className="higher-header">
             <div className="woof-img-container">
             <div className="flex items-center justify-center text-center">              
-              <Link className="page-title flex items-center justify-center text-center" href="/">
+              <Link className="page-title flex items-center justify-center text-center" href="/"
+              style={{marginTop: '0.2em'}}>
                 woof.
               </Link></div>
               <img
