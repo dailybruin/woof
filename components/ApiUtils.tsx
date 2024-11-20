@@ -36,7 +36,7 @@ export const putData = async (
       const { data } = await res.json();
   
       mutate(`/api/articles/${id}`, data, false); // Update the local data without revalidation
-      router.push('/');
+     
     } catch (error) {
       setMessage('Failed to update article');
     }

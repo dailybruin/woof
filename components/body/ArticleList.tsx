@@ -23,6 +23,7 @@ const ArticleList = ({
   color = 'accent-purple',
 }: Props) => {
 
+  const [articleList, setArticleList] = useState<Articles[]>(articles);
   const [editingArticleId, setEditingArticleId] = useState<string | null>(null);
   const [editedContent, setEditedContent] = useState<string>("");
   const [message, setMessage] = useState('');
@@ -48,6 +49,14 @@ const ArticleList = ({
 
     await putData(form, articleId, 'application/json', setMessage, router);
 
+    // i think we need a better way of doing this
+
+    setArticleList((prevArticles) =>
+        prevArticles.map((a) =>
+          a.title === article.title ? ({ ...a, content: editedContent } as Articles) : a
+        )
+      );
+
     setEditingArticleId(null);
     setEditedContent("");
   };
@@ -67,9 +76,9 @@ const ArticleList = ({
         </div>
 
         
-        <PinnedArticles articles={articles} section={section} color={color} />
-        {articles.length > 0 ? (
-          articles.map((article) => (
+        <PinnedArticles articles={articleList} section={section} color={color} />
+        {articleList.length > 0 ? (
+          articleList.map((article) => (
             <div key={article._id}>
               <div className='group'>
                 <Box title={article.title} innerText="" color={color}>
