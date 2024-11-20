@@ -6,6 +6,10 @@ import PinnedArticles from '../PinnedArticles';
 import { SearchResults } from "./SearchResults";
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/Save';
+import { useState } from 'react';
+import { putData, FormData } from '../ApiUtils';
+import { useRouter } from 'next/router';
 
 type Props = {
   articles: Articles[];
@@ -18,6 +22,36 @@ const ArticleList = ({
   section = '',
   color = 'accent-purple',
 }: Props) => {
+
+  const [editingArticleId, setEditingArticleId] = useState<string | null>(null);
+  const [editedContent, setEditedContent] = useState<string>("");
+  const [message, setMessage] = useState('');
+  const router = useRouter();
+
+  const handleEditClick = (articleId: string, currentContent: string) => {
+    setEditingArticleId(articleId);
+    setEditedContent(currentContent);
+  };
+
+  const handleSaveClick = async (articleId: string, article: Articles) => {
+    // Save the edited content logic here (e.g., API call to update the article in the database)
+    console.log("Save content for article ID:", articleId, "Content:", editedContent);
+
+    const form: FormData = {
+      title: article.title,
+      content: editedContent,
+      sections: article.sections,
+      pinned_sections: article.pinned_sections,
+      quick_link: article.quick_link,
+      image_url: article.image_url,
+    };
+
+    await putData(form, articleId, 'application/json', setMessage, router);
+
+    setEditingArticleId(null);
+    setEditedContent("");
+  };
+
   return (
     <main
       className={`flex-grow flex min-h-screen flex-col justify-between pt-8 pl-8 pb-8 pr-0`}
@@ -37,17 +71,39 @@ const ArticleList = ({
         {articles.length > 0 ? (
           articles.map((article) => (
             <div key={article._id}>
-              <Box title={article.title} innerText="" color={color}>
-              <div className="flex justify-between items-center">
-                <Markdown className="prose">{article.content}</Markdown>
-                <div className="flex gap-2">
-                  <ModeEditIcon />
+              <div className='group'>
+                <Box title={article.title} innerText="" color={color}>
+                  <div className="flex justify-between items-center">
+                  {editingArticleId === article._id ? (
+                  <textarea
+                    className="prose border rounded p-2 w-full"
+                    value={editedContent}
+                    onChange={(e) => setEditedContent(e.target.value)}
+                  />
+                ) : (
+                  <Markdown className="prose">{article.content}</Markdown>
+                )}
+                <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  {editingArticleId === article._id ? (
+                    <SaveIcon onClick={() => handleSaveClick(article._id, article)} />
+                  ) : (
+                    <ModeEditIcon
+                      onClick={() => handleEditClick(article._id, article.content)}
+                    />
+                  )}
                   <DeleteIcon />
                 </div>
+                  </div>
+                </Box>
               </div>
+            </div>
+            
 
-              </Box>
-              <div className="main-content">
+          ))
+        ) : (
+          <p>No articles available.</p>
+        )}
+        {/* <div className="main-content">
                 <div className="btn-container">
                   <Link
                     href={{
@@ -61,13 +117,7 @@ const ArticleList = ({
                     <button className="btn view">View</button>
                   </Link>
                 </div>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p>No articles available.</p>
-        )}
-
+              </div> */}
         {/* <div className="p-8">
           <ul>
             <li>How to use InDesign</li>
