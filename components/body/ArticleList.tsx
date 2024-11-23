@@ -3,7 +3,7 @@ import Box from '../Box';
 import Markdown from 'react-markdown';
 import { Articles } from '../../models/article';
 import PinnedArticles from '../PinnedArticles';
-import { SearchResults } from "./SearchResults";
+import { SearchResults } from './SearchResults';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
@@ -22,9 +22,8 @@ const ArticleList = ({
   section = '',
   color = 'accent-purple',
 }: Props) => {
-
   const [editingArticleId, setEditingArticleId] = useState<string | null>(null);
-  const [editedContent, setEditedContent] = useState<string>("");
+  const [editedContent, setEditedContent] = useState<string>('');
   const [message, setMessage] = useState('');
   const router = useRouter();
 
@@ -35,7 +34,12 @@ const ArticleList = ({
 
   const handleSaveClick = async (articleId: string, article: Articles) => {
     // Save the edited content logic here (e.g., API call to update the article in the database)
-    console.log("Save content for article ID:", articleId, "Content:", editedContent);
+    console.log(
+      'Save content for article ID:',
+      articleId,
+      'Content:',
+      editedContent,
+    );
 
     const form: FormData = {
       title: article.title,
@@ -49,7 +53,7 @@ const ArticleList = ({
     await putData(form, articleId, 'application/json', setMessage, router);
 
     setEditingArticleId(null);
-    setEditedContent("");
+    setEditedContent('');
   };
 
   return (
@@ -66,39 +70,44 @@ const ArticleList = ({
           </p>
         </div>
 
-        
         <PinnedArticles articles={articles} section={section} color={color} />
         {articles.length > 0 ? (
           articles.map((article) => (
             <div key={article._id}>
-              <div className='group'>
-                <Box title={article.title} innerText="" color={color}>
-                  <div className="flex justify-between items-center">
+              <div className="group">
+                {/* <Box title={article.title} innerText="" color={color}> */}
+                <p className="py-[1.2vmin] px-[3.7vmin] rounded-b-lg">
+                  {article.title}
+                </p>
+                <div className="flex justify-between items-center">
                   {editingArticleId === article._id ? (
-                  <textarea
-                    className="prose border rounded p-2 w-full"
-                    value={editedContent}
-                    onChange={(e) => setEditedContent(e.target.value)}
-                  />
-                ) : (
-                  <Markdown className="prose">{article.content}</Markdown>
-                )}
-                <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  {editingArticleId === article._id ? (
-                    <SaveIcon onClick={() => handleSaveClick(article._id, article)} />
-                  ) : (
-                    <ModeEditIcon
-                      onClick={() => handleEditClick(article._id, article.content)}
+                    <textarea
+                      className="prose border rounded p-2 w-full"
+                      value={editedContent}
+                      onChange={(e) => setEditedContent(e.target.value)}
                     />
+                  ) : (
+                    <div></div>
+                    // <Markdown className="prose">{article.content}</Markdown>
                   )}
-                  <DeleteIcon />
-                </div>
+                  <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    {editingArticleId === article._id ? (
+                      <SaveIcon
+                        onClick={() => handleSaveClick(article._id, article)}
+                      />
+                    ) : (
+                      <ModeEditIcon
+                        onClick={() =>
+                          handleEditClick(article._id, article.content)
+                        }
+                      />
+                    )}
+                    <DeleteIcon />
                   </div>
-                </Box>
+                </div>
+                {/* </Box> */}
               </div>
             </div>
-            
-
           ))
         ) : (
           <p>No articles available.</p>
