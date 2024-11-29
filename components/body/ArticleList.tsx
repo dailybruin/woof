@@ -46,6 +46,7 @@ const ArticleList = ({
       content: editedContent,
       sections: article.sections,
       pinned_sections: article.pinned_sections,
+      updated_date: new Date(Date.now()),
       quick_link: article.quick_link,
       image_url: article.image_url,
     };

@@ -4,8 +4,8 @@ import { mutate } from 'swr';
 export interface FormData {
     title: string;
     content: string;
-    //   created_date: Date;
-    //   updated_date: Date;
+    // created_date: Date;
+    updated_date: Date;
     sections: string[];
     pinned_sections: string[];
     quick_link: boolean;

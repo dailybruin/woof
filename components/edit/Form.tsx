@@ -11,7 +11,7 @@ export interface FormData {
   title: string;
   content: string;
   //   created_date: Date;
-  //   updated_date: Date;
+  updated_date: Date;
   sections: string[];
   pinned_sections: string[];
   quick_link: boolean;
@@ -40,12 +40,9 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
 
   const [form, setForm] = useState<FormData>({
     // created_date: articleForm.created_date,
-    // updated_date: articleForm.updated_date,
     title: articleForm.title,
     content: articleForm.content,
-    // TODO
-    // created_date: new Date(),
-    // updated_date: new Date(),
+    updated_date: new Date(),
     sections: articleForm.sections,
     pinned_sections: articleForm.pinned_sections,
     quick_link: articleForm.quick_link,
@@ -132,6 +129,10 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
     const errs = formValidate();
   
     if (Object.keys(errs).length === 0) {
+      const updatedForm = {
+        ...form,
+        updated_date: new Date(Date.now()), // Set updated_date to the current time
+      };
       forNewArticle ? postData(form) : putData(form);
     } else {
       setErrors(errs);

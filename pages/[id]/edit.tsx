@@ -29,8 +29,8 @@ const EditArticle: React.FC<EditArticleProps> = ({ article }) => {
     title: article.title || '',
     content: article.content || '',
     image_url: article.image_url || '',
-    created_date: article.created_date,
-    updated_date: article.updated_date,
+    created_date: new Date(article.created_date), // Convert ISO string to Date
+    updated_date: new Date(), // Default to the current timestamp
     sections: article.sections || [],
     pinned_sections: article.pinned_sections || [],
     quick_link: article.quick_link || false,
