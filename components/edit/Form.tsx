@@ -7,7 +7,7 @@ import Box from '../Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop';
 
-interface FormData {
+export interface FormData {
   title: string;
   content: string;
   //   created_date: Date;

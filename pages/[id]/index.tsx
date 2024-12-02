@@ -4,7 +4,7 @@ import { GetServerSideProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import dbConnect from '../../lib/dbConnect';
 import Article, { Articles } from '../../models/article';
-// import ArticleView from '../../components/view/ArticleView'; TODO
+import ArticleView from '../../components/view/ArticleView'; 
 import React from 'react';
 
 interface Params extends ParsedUrlQuery {
