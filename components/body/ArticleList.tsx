@@ -85,10 +85,21 @@ const ArticleList = ({
                   <div className="flex justify-between items-center">
                   {editingArticleId === article._id ? (
                   <textarea
-                    className="prose border rounded p-2 w-full"
-                    value={editedContent}
-                    onChange={(e) => setEditedContent(e.target.value)}
-                  />
+                  className="prose border rounded p-2 w-full resize-none overflow-hidden"
+                  value={editedContent}
+                  ref={(el) => {
+                    if (el) {
+                      el.style.height = "auto";
+                      el.style.height = `${el.scrollHeight}px`;
+                    }
+                  }}
+                  onChange={(e) => {
+                    setEditedContent(e.target.value);
+                    e.target.style.height = "auto"; 
+                    e.target.style.height = `${e.target.scrollHeight}px`; 
+                  }}
+                />
+                
                 ) : (
                   <Markdown className="prose">{article.content}</Markdown>
                 )}
