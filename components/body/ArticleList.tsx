@@ -92,48 +92,50 @@ const ArticleList = ({
           articleList.map((article) => (
             <div key={article._id}>
               <div className="group">
-                {/* <Box title={article.title} innerText="" color={color}> */}
-                <p className="py-[1.2vmin] px-[3.7vmin] rounded-b-lg">
+                <Box title={article.title} innerText="" color={color} />
+                {/* <p className="py-[1.2vmin] px-[3.7vmin] rounded-b-lg">
                   {article.title}
-                </p>
+                </p> */}
                 <div className="flex justify-between items-center">
                   {editingArticleId === article._id ? (
-                    <textarea
-                      className="prose border rounded p-2 w-full resize-none overflow-hidden"
-                      value={editedContent}
-                      ref={(el) => {
-                        if (el) {
-                          el.style.height = "auto";
-                          el.style.height = `${el.scrollHeight}px`;
-                        }
-                      }}
-                      onChange={(e) => {
-                        setEditedContent(e.target.value);
-                        e.target.style.height = "auto";
-                        e.target.style.height = `${e.target.scrollHeight}px`;
-                      }}
-                    />
+                  <textarea
+                    className="prose border rounded p-2 w-full resize-none overflow-hidden"
+                    value={editedContent}
+                    ref={(el) => {
+                      if (el) {
+                        el.style.height = "auto";
+                        el.style.height = `${el.scrollHeight}px`;
+                      }
+                    }}
+                    onChange={(e) => {
+                      setEditedContent(e.target.value);
+                      e.target.style.height = "auto"; 
+                      e.target.style.height = `${e.target.scrollHeight}px`; 
+                    }}
+                  />
+                
+                ) : (
+                  <Markdown className="prose">{article.content}</Markdown>
+                )}
+                <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  {editingArticleId === article._id ? (
+                    <SaveIcon onClick={() => handleSaveClick(article._id, article)} />
                   ) : (
-                    <Markdown className="prose">{article.content}</Markdown>
-                  )}
-                  <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                    {editingArticleId === article._id ? (
-                      <SaveIcon onClick={() => handleSaveClick(article._id, article)} />
-                    ) : (
-                      <ModeEditIcon
-                        onClick={() => handleEditClick(article._id, article.content)}
-                      />
-                    )}
-                    <DeleteIcon onClick={() => handleDeleteClick(article._id)} />
-                  </div>
+                    <ModeEditIcon
+                      onClick={() => handleEditClick(article._id, article.content)}
+                    />
+                  ) }
+                  <DeleteIcon onClick={() => handleDeleteClick(article._id)} />
                 </div>
+                  </div>
               </div>
+                {/* </Box> */}
             </div>
+            
           ))
         ) : (
           <p>No articles available.</p>
         )}
-
         {/* <div className="main-content">
                 <div className="btn-container">
                   <Link
