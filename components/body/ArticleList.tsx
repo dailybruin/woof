@@ -3,7 +3,7 @@ import Box from '../Box';
 import Markdown from 'react-markdown';
 import { Articles } from '../../models/article';
 import PinnedArticles from '../PinnedArticles';
-import { SearchResults } from "./SearchResults";
+import { SearchResults } from './SearchResults';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
@@ -25,7 +25,7 @@ const ArticleList = ({
 
   const [articleList, setArticleList] = useState<Articles[]>(articles);
   const [editingArticleId, setEditingArticleId] = useState<string | null>(null);
-  const [editedContent, setEditedContent] = useState<string>("");
+  const [editedContent, setEditedContent] = useState<string>('');
   const [message, setMessage] = useState('');
   const router = useRouter();
 
@@ -42,7 +42,12 @@ const ArticleList = ({
 
   const handleSaveClick = async (articleId: string, article: Articles) => {
     // Save the edited content logic here (e.g., API call to update the article in the database)
-    console.log("Save content for article ID:", articleId, "Content:", editedContent);
+    console.log(
+      'Save content for article ID:',
+      articleId,
+      'Content:',
+      editedContent,
+    );
 
     const form: FormData = {
       title: article.title,
@@ -64,7 +69,7 @@ const ArticleList = ({
       );
 
     setEditingArticleId(null);
-    setEditedContent("");
+    setEditedContent('');
   };
 
   return (
@@ -86,49 +91,49 @@ const ArticleList = ({
         {articleList.length > 0 ? (
           articleList.map((article) => (
             <div key={article._id}>
-              <div className='group'>
-                <Box title={article.title} innerText="" color={color}>
-                  <div className="flex justify-between items-center">
+              <div className="group">
+                {/* <Box title={article.title} innerText="" color={color}> */}
+                <p className="py-[1.2vmin] px-[3.7vmin] rounded-b-lg">
+                  {article.title}
+                </p>
+                <div className="flex justify-between items-center">
                   {editingArticleId === article._id ? (
-                  <textarea
-                  className="prose border rounded p-2 w-full resize-none overflow-hidden"
-                  value={editedContent}
-                  ref={(el) => {
-                    if (el) {
-                      el.style.height = "auto";
-                      el.style.height = `${el.scrollHeight}px`;
-                    }
-                  }}
-                  onChange={(e) => {
-                    setEditedContent(e.target.value);
-                    e.target.style.height = "auto"; 
-                    e.target.style.height = `${e.target.scrollHeight}px`; 
-                  }}
-                />
-                
-                ) : (
-                  <Markdown className="prose">{article.content}</Markdown>
-                )}
-                <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  {editingArticleId === article._id ? (
-                    <SaveIcon onClick={() => handleSaveClick(article._id, article)} />
-                  ) : (
-                    <ModeEditIcon
-                      onClick={() => handleEditClick(article._id, article.content)}
+                    <textarea
+                      className="prose border rounded p-2 w-full resize-none overflow-hidden"
+                      value={editedContent}
+                      ref={(el) => {
+                        if (el) {
+                          el.style.height = "auto";
+                          el.style.height = `${el.scrollHeight}px`;
+                        }
+                      }}
+                      onChange={(e) => {
+                        setEditedContent(e.target.value);
+                        e.target.style.height = "auto";
+                        e.target.style.height = `${e.target.scrollHeight}px`;
+                      }}
                     />
+                  ) : (
+                    <Markdown className="prose">{article.content}</Markdown>
                   )}
-                  <DeleteIcon onClick={() => handleDeleteClick(article._id)} />
-                </div>
+                  <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    {editingArticleId === article._id ? (
+                      <SaveIcon onClick={() => handleSaveClick(article._id, article)} />
+                    ) : (
+                      <ModeEditIcon
+                        onClick={() => handleEditClick(article._id, article.content)}
+                      />
+                    )}
+                    <DeleteIcon onClick={() => handleDeleteClick(article._id)} />
                   </div>
-                </Box>
+                </div>
               </div>
             </div>
-            
-
           ))
         ) : (
           <p>No articles available.</p>
         )}
+
         {/* <div className="main-content">
                 <div className="btn-container">
                   <Link

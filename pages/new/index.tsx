@@ -2,7 +2,6 @@ import Form from '../../components/edit/Form';
 import Woof_layout from '../layout';
 import { useRouter } from 'next/router';
 import { SearchProvider } from "../../components/context/SearchContext";
-import data from "../../components/layout/SearchTests.json";
 
 const NewArticle = () => {
   const articleForm = {
@@ -21,7 +20,7 @@ const NewArticle = () => {
   // empty json file {} passed into the data/articles for search bar
 
   return (
-    <SearchProvider data={data}>
+    <SearchProvider>
       <Woof_layout pageProps={{}} router={route.route}>   
         <Form formId="add-article-form" articleForm={articleForm} />
       </Woof_layout>
