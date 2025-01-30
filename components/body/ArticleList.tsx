@@ -8,7 +8,7 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
 import { useState } from 'react';
-import { putData, FormData } from '../ApiUtils';
+import { putData, FormData, deleteData } from '../ApiUtils';
 import { useRouter } from 'next/router';
 
 type Props = {
@@ -32,6 +32,12 @@ const ArticleList = ({
   const handleEditClick = (articleId: string, currentContent: string) => {
     setEditingArticleId(articleId);
     setEditedContent(currentContent);
+  };
+
+  const handleDeleteClick = async (articleId: string) => {
+    console.log("deleting this beautiful article now");
+    await deleteData(articleId, setMessage, router);
+    setArticleList((prevList) => prevList.filter(article => article._id != articleId));
   };
 
   const handleSaveClick = async (articleId: string, article: Articles) => {
@@ -111,7 +117,7 @@ const ArticleList = ({
                       onClick={() => handleEditClick(article._id, article.content)}
                     />
                   )}
-                  <DeleteIcon />
+                  <DeleteIcon onClick={() => handleDeleteClick(article._id)} />
                 </div>
                   </div>
                 </Box>

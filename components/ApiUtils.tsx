@@ -72,3 +72,28 @@ export const postData = async (
       setMessage('Failed to add article');
     }
   };
+
+
+export const deleteData = async (
+    id: string,
+    setMessage: React.Dispatch<React.SetStateAction<string>>,
+    router: any
+) => {
+    try {
+        const res = await fetch(`/api/articles/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (!res.ok) {
+            throw new Error(res.status.toString());
+        }
+
+        // Remove the deleted item from SWR cache
+        mutate(`/api/articles/${id}`, null, false);
+
+        setMessage('Article deleted successfully');
+        
+    } catch (error) {
+        setMessage('Failed to delete article');
+    }
+};
