@@ -3,7 +3,13 @@ import Box from '../Box';
 import Markdown from 'react-markdown';
 import { Articles } from '../../models/article';
 import PinnedArticles from '../PinnedArticles';
-import { SearchResults } from "./SearchResults";
+import { SearchResults } from './SearchResults';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/Save';
+import { useState } from 'react';
+import { putData, FormData, deleteData } from '../ApiUtils';
+import { useRouter } from 'next/router';
 
 type Props = {
   articles: Articles[];
@@ -16,6 +22,56 @@ const ArticleList = ({
   section = '',
   color = 'accent-purple',
 }: Props) => {
+
+  const [articleList, setArticleList] = useState<Articles[]>(articles);
+  const [editingArticleId, setEditingArticleId] = useState<string | null>(null);
+  const [editedContent, setEditedContent] = useState<string>('');
+  const [message, setMessage] = useState('');
+  const router = useRouter();
+
+  const handleEditClick = (articleId: string, currentContent: string) => {
+    setEditingArticleId(articleId);
+    setEditedContent(currentContent);
+  };
+
+  const handleDeleteClick = async (articleId: string) => {
+    console.log("deleting this beautiful article now");
+    await deleteData(articleId, setMessage, router);
+    setArticleList((prevList) => prevList.filter(article => article._id != articleId));
+  };
+
+  const handleSaveClick = async (articleId: string, article: Articles) => {
+    // Save the edited content logic here (e.g., API call to update the article in the database)
+    console.log(
+      'Save content for article ID:',
+      articleId,
+      'Content:',
+      editedContent,
+    );
+
+    const form: FormData = {
+      title: article.title,
+      content: editedContent,
+      sections: article.sections,
+      pinned_sections: article.pinned_sections,
+      quick_link: article.quick_link,
+      image_url: article.image_url,
+    };
+
+    await putData(form, articleId, 'application/json', setMessage, router);
+
+    // i think we need a better way of doing this
+
+    setArticleList((prevArticles) =>
+        prevArticles.map((a) =>
+          a.title === article.title ? ({ ...a, content: editedContent } as Articles) : a
+        )
+      );
+
+    setEditingArticleId(null);
+    setEditedContent('');
+  };
+
   return (
     <main
       className={`flex-grow flex min-h-screen flex-col justify-between pt-8 pl-8 pb-8 pr-0`}
@@ -31,14 +87,56 @@ const ArticleList = ({
         </div>
 
         
-        <PinnedArticles articles={articles} section={section} color={color} />
-        {articles.length > 0 ? (
-          articles.map((article) => (
+        <PinnedArticles articles={articleList} section={section} color={color} />
+        {articleList.length > 0 ? (
+          articleList.map((article) => (
             <div key={article._id}>
-              <Box title={article.title} innerText="" color={color}>
-                <Markdown className="prose">{article.content}</Markdown>
-              </Box>
-              <div className="main-content">
+              <div className="group">
+                <Box title={article.title} innerText="" color={color} />
+                {/* <p className="py-[1.2vmin] px-[3.7vmin] rounded-b-lg">
+                  {article.title}
+                </p> */}
+                <div className="flex justify-between items-center">
+                  {editingArticleId === article._id ? (
+                  <textarea
+                    className="prose border rounded p-2 w-full resize-none overflow-hidden"
+                    value={editedContent}
+                    ref={(el) => {
+                      if (el) {
+                        el.style.height = "auto";
+                        el.style.height = `${el.scrollHeight}px`;
+                      }
+                    }}
+                    onChange={(e) => {
+                      setEditedContent(e.target.value);
+                      e.target.style.height = "auto"; 
+                      e.target.style.height = `${e.target.scrollHeight}px`; 
+                    }}
+                  />
+                
+                ) : (
+                  <Markdown className="prose">{article.content}</Markdown>
+                )}
+                <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  {editingArticleId === article._id ? (
+                    <SaveIcon onClick={() => handleSaveClick(article._id, article)} />
+                  ) : (
+                    <ModeEditIcon
+                      onClick={() => handleEditClick(article._id, article.content)}
+                    />
+                  ) }
+                  <DeleteIcon onClick={() => handleDeleteClick(article._id)} />
+                </div>
+                  </div>
+              </div>
+                {/* </Box> */}
+            </div>
+            
+          ))
+        ) : (
+          <p>No articles available.</p>
+        )}
+        {/* <div className="main-content">
                 <div className="btn-container">
                   <Link
                     href={{
@@ -48,19 +146,11 @@ const ArticleList = ({
                   >
                     <button className="btn edit">Edit</button>
                   </Link>
-                  <Link
-                    href={{ pathname: '/[id]', query: { id: article._id } }}
-                  >
+                  <Link href={{ pathname: '/[id]', query: { id: article._id } }}>
                     <button className="btn view">View</button>
                   </Link>
                 </div>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p>No articles available.</p>
-        )}
-
+              </div> */}
         {/* <div className="p-8">
           <ul>
             <li>How to use InDesign</li>
