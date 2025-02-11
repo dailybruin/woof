@@ -33,20 +33,20 @@ export const SearchResults = ({
           </div>
           {sectionArticles.length > 0 && (
             <div className="py-[1.2vmin] px-[3.7vmin] rounded-b-lg bg-white max-h-[400px] overflow-auto">
-              {sectionArticles.map((article) => (
-                <div key={article._id.$oid} className="search-results">
+            {sectionArticles.map((article, index) => {
+              const articleId = article?._id?.$oid || String(article?._id) || `fallback-${index}`;
+              return (
+                <div key={articleId} className="search-results">
                   <Link
-                    href={{
-                      pathname: '/[id]',
-                      query: { id: article._id.$oid },
-                    }}
+                    href={`/${articleId}`}
                     style={{ color: 'blue', fontWeight: 'bold' }}
                   >
                     {article.title}
                   </Link>
                   <div>{article.content}</div>
                 </div>
-              ))}
+              );
+            })}
             </div>
           )}
           {sectionArticles.length == 0 && (
