@@ -85,25 +85,33 @@ const ArticleList = ({
             {section || 'All'}
           </p>
         </div>
-
-        
         <PinnedArticles articles={articleList} section={section} color={color} />
         {articleList.length > 0 ? (
           articleList.map((article) => (
             <div key={article._id}>
-              <div className="group">
-                <Box title={article.title} innerText="" color={color} />
+            <div className="group">
+              <Box
+                title={
+                  <Link href={`/${article._id}`}>
+                    {article.title}
+                  </Link>
+                }
+                innerText=""
+                color={color}
+              />
                 {/* <p className="py-[1.2vmin] px-[3.7vmin] rounded-b-lg">
                   {article.title}
                 </p> */}
                 <div className="flex justify-between items-center">
-                  {editingArticleId === article._id ? (
+                  {
+                  editingArticleId === article._id ? (
                   <textarea
                     className="prose border rounded p-2 w-full resize-none overflow-hidden"
                     value={editedContent}
                     ref={(el) => {
                       if (el) {
-                        el.style.height = "auto";
+                        el.style.height = "autoa";
+
                         el.style.height = `${el.scrollHeight}px`;
                       }
                     }}

@@ -1,8 +1,5 @@
-import Link from 'next/link';
-import data from './SearchTests.json';  // import json data
 import { useSearch } from "../context/SearchContext";
 
-import { useEffect, useState } from 'react';
 // declare article type
 type Article = {
   _id: { $oid: string };
