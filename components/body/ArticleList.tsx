@@ -111,6 +111,7 @@ const ArticleList = ({
                     ref={(el) => {
                       if (el) {
                         el.style.height = "autoa";
+
                         el.style.height = `${el.scrollHeight}px`;
                       }
                     }}
