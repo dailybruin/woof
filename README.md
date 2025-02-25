@@ -124,6 +124,7 @@ This command builds a docker image based on the dockerfile in the root directory
 
 
 ## How do I contribute?
+
 If you'd like to contribute:
 1. Create a branch, to standardize branch naming conventions; branches are usually named after the ticket number assigned to it.
 ```
