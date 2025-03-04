@@ -1,7 +1,7 @@
 import { TAGS } from '@/constants';
 
 export default function NavBar({ pathname }: { pathname: string }) {
-  const section = pathname.slice(1);
+  const section = pathname ? pathname.slice(1) : "";
   return (
     <nav
       className={`py-4 font-bold text-black border-b-4 border-${section}-color`}

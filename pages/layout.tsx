@@ -10,43 +10,44 @@ type Woof_Props = {
   pageProps: any;
   router: any;
 };
+import { SearchProvider } from '../components/context/SearchContext';
 
-const Woof_layout = ({children, pageProps, router}: Woof_Props) => {
-
-    return (
-    <div className="window">
-      <Head>
-        <title>Woof</title>
-      </Head>
-      <div className="stack">
-        <div className="top-bar">
-          <div className="higher-header">
-            <div className="woof-img-container">
-            <div className="flex items-center justify-center text-center">              
-              <Link className="page-title flex items-center justify-center text-center" href="/">
-                woof.
-              </Link></div>
-              <img
-                id="title"
-                src="/Woof-Logo-Bigger.png"
-                width={75}
-                height={75}
-                alt="Woof logo"
-              />
+const Woof_layout = ({ children, pageProps, router }: Woof_Props) => {
+  return (
+    <SearchProvider>
+      <div className="window">
+        <Head>
+          <title>Woof</title>
+        </Head>
+        <div className="stack">
+          <div className="top-bar">
+            <div className="higher-header">
+              <div className="woof-img-container">
+                <div className="flex items-center justify-center text-center">
+                  <Link className="page-title flex items-center justify-center text-center" href="/">
+                    woof.
+                  </Link>
+                </div>
+                <img
+                  id="title"
+                  src="/Woof-Logo-Bigger.png"
+                  width={75}
+                  height={75}
+                  alt="Woof logo"
+                />
+              </div>
+              <SearchBar articles={pageProps?.articles || []} />
             </div>
-            <SearchBar articles={pageProps.articles} />
-          </div>
-          <div className="lower-header">
-            <NavBar pathname={router} />
+            <div className="lower-header">
+              <NavBar pathname={router} />
+            </div>
           </div>
         </div>
-      </div>
-        <div className="wrapper grid body">
-            {children}
-        </div>
+        <div className="wrapper grid body">{children}</div>
         <ChangeArticle />
-    </div>
-    );
-}
+      </div>
+    </SearchProvider>
+  );
+};
 
 export default Woof_layout;
