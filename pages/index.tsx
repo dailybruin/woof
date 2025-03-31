@@ -5,6 +5,8 @@ import Quicklink from '../components/body/Quicklink';
 import Woof from '../public/Woof_with_comment.png';
 import Image from 'next/image';
 import {Articles} from '../models/article';
+import { SearchProvider, useSearch } from '../components/context/SearchContext';
+import { SearchResults } from '../components/body/SearchResults';
 
 interface Props {
   articles: Articles[];
@@ -12,6 +14,7 @@ interface Props {
 };
 
 const Index = ({articles}: Props) => {
+  const { searchTerm, setSearchTerm, filteredArticles } = useSearch();
   // this is the root page, see article section display for the other pages
   const navLinkStyle = {
     width: '784px',
@@ -82,17 +85,18 @@ const Index = ({articles}: Props) => {
           </div>
         </nav>
 
-        {/* Search Bar */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            padding: '2em 0 0 0',
-          }}
-        >
+        {/* Updated Search Bar */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          padding: '2em 0 0 0',
+          margin: '1em'
+        }}>
           <div style={{ position: 'relative', width: '631px' }}>
             <input
               placeholder="What can I fetch for you?"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               style={{
                 fontFamily: 'Rockwell',
                 padding: '0.5em 0 0 0.5em',
@@ -121,6 +125,11 @@ const Index = ({articles}: Props) => {
             </svg>
           </div>
         </div>
+
+        {/* Search Results */}
+        <div style={{ width: '631px', margin: '0 auto' }}>
+          <SearchResults />
+        </div>
       </div>
 
       {/* Quicklinks */}
@@ -131,44 +140,41 @@ const Index = ({articles}: Props) => {
           alignItems: 'end',
           height: '100%',
         }}>
-          {/* Add props in when ready */} 
           <Quicklink articles={articles} color={'accent-purple'}/>
-        </div>
-      <p
-        style={{
-          // position: 'absolute',
-          // left: '580px',
-          // top: '670px',
-          color: '#000000',
-          textAlign: 'center',
-          fontFamily: 'Rockwell',
-          fontSize: '16px',
-          fontStyle: 'normal',
-          fontWeight: '700',
-          lineHeight: 'normal',
-        }}
-      >
-        Need to edit or create an article?
-      </p>
-      <p
-        style={{
-          color: '#C077CC',
-          // position: 'absolute',
-          // left: '670px',
-          // top: '690px',
-          textAlign: 'center',
-          fontFamily: 'Rockwell',
-          fontSize: '16px',
-          fontStyle: 'normal',
-          fontWeight: '700',
-          lineHeight: 'normal',
-        }}
-      >
-        Click here.
-      </p>
+      </div>
+      <div style={{ textAlign: 'center' }}>
+        <p
+          style={{
+            color: '#000000',
+            fontFamily: 'Rockwell',
+            fontSize: '16px',
+            fontWeight: '700',
+          }}
+        >
+          Need to edit or create an article?{' '}
+          <a
+            href="/edit"
+            style={{
+              color: '#C077CC',
+              fontFamily: 'Rockwell',
+              fontSize: '16px',
+              fontWeight: '700',
+            }}
+          >
+            Click here.
+          </a>
+        </p>
+      </div>
     </div>
   );
 };
+
+// Wrap the exported component with SearchProvider
+const IndexWithSearch = ({articles}: Props) => (
+  <SearchProvider>
+    <Index articles={articles} />
+  </SearchProvider>
+);
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const articles = await fetchArticles();
@@ -176,4 +182,4 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
   return { props: { articles: articles } };
 };
 
-export default Index;
+export default IndexWithSearch;
