@@ -90,6 +90,7 @@ const Index = ({articles}: Props) => {
           display: 'flex',
           justifyContent: 'center',
           padding: '2em 0 0 0',
+          margin: '1em'
         }}>
           <div style={{ position: 'relative', width: '631px' }}>
             <input
