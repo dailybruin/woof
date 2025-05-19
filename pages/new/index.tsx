@@ -5,8 +5,8 @@ import { SearchProvider } from "../../components/context/SearchContext";
 
 const NewArticle = () => {
   const articleForm = {
-    title: 'Title goes here...',
-    content: 'Text goes here...',
+    title: 'Title goes here...',     ///changed 
+    content: 'Text goes here...',   // changed
     image_url: '',
     created_date: new Date(),
     updated_date: new Date(),

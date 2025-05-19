@@ -186,7 +186,7 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
     formContainer: {
       flex: 1,
       overflow: 'hidden',
-      maxHeight: '50vh',
+      maxHeight: '65vh',
       borderBottomWidth: '1vmin',
       borderRightWidth: '1vmin',
       borderTopWidth: '0.5vmin',
@@ -261,7 +261,45 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
           innerText=""
         >
           <form id={formId} onSubmit={handleSubmit} className="grid h-full overflow-y-scroll pb-10">
-            {TAGS.map((tag, index) => (
+            
+            {/* "Pinned to All" Checkbox */}
+            <div className="flex justify-start items-center space-x-1">
+              <input
+                type="checkbox"
+                name="allTags"
+                className="w-[1.5vw] h-[1.5vw] md:w-4 md:h-4"
+                checked={ (form.sections.length === TAGS.length) } // Check if all tags are selected
+
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setPreviousSections(form.sections); // Save current selections
+                    setForm({
+                      ...form,
+                      sections: TAGS, // Select all tags
+                      pinned_sections: TAGS, //select all "pin"
+                    });
+                  } else {
+                    setForm({
+                      ...form,
+                      sections: previousSections, // Restore previously selected tags
+                      pinned_sections: form.pinned_sections.filter(
+                        (section) => previousSections.includes(section)
+                      ),
+                    });
+                  }
+                }}
+              />
+              <label htmlFor="allTags" 
+              className="font-bold text-black-800 text-[2vwh] md:text-base flex items-center mb-[10px]">Pin to All</label>
+            </div>
+
+
+            
+            {TAGS.map((tag, index) => {
+            const isChecked = form.sections.includes(tag);
+            return (
+
+
               <div key={index} className="flex justify-between items-center ">
                 {/* Left Column: Main Tag Checkbox */}
                 <div className="flex items-center space-x-1">
@@ -295,6 +333,9 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
                 </div>
 
                 {/* Right Column: Pinned Checkbox */}
+                
+                {isChecked && ( 
+
                 <div className="flex items-center space-x-1">
                   <input
                     type="checkbox"
@@ -316,38 +357,25 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
                     }}
                     className="w-[1.5vw] h-[1.5vw] md:w-4 md:h-4"
                   />
-                  <label className="text-gray-800 text-[2vw] md:text-base flex items-center mb-[10px]">Pinned</label>
+                  <label className="text-gray-800 text-[2vw] md:text-base flex items-center mb-[10px]">Pin</label>
                 </div>
-              </div>
-            ))}
 
-            {/* "Pinned to All" Checkbox */}
-            <div className="flex justify-start items-center space-x-1">
-              <input
-                type="checkbox"
-                name="allTags"
-                className="w-[1.5vw] h-[1.5vw] md:w-4 md:h-4"
-                checked={form.sections.length === TAGS.length} // Check if all tags are selected
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setPreviousSections(form.sections); // Save current selections
-                    setForm({
-                      ...form,
-                      sections: TAGS, // Select all tags
-                    });
-                  } else {
-                    setForm({
-                      ...form,
-                      sections: previousSections, // Restore previously selected tags
-                      pinned_sections: form.pinned_sections.filter(
-                        (section) => previousSections.includes(section)
-                      ),
-                    });
-                  }
-                }}
-              />
-              <label htmlFor="allTags" className="text-gray-800 text-[2vwh] md:text-base flex items-center mb-[10px]">Pinned to All</label>
-            </div>
+
+                )}
+              </div>
+            );
+            })}
+            
+
+
+
+
+          
+            {/* ─── Separator for Global Options ─── */}
+            <hr className="my-4 border-gray-300" />
+            <p className="text-sm font-semibold text-gray-700 mb-2">Other Options:</p>
+
+          
 
             {/* "Add to Quick Links" Checkbox */}
             <div className="flex justify-start items-center space-x-1">
@@ -365,6 +393,9 @@ const Form = ({ formId, articleForm, forNewArticle = true }: Props) => {
               />
               <label htmlFor="quick_link" className="text-gray-800 text-[2vwh] md:text-base flex items-center mb-[10px]">Add to Quick Links</label>
             </div>
+
+            <div className="h-1"></div>
+            <div className="h-1"></div>
             <div className="h-1"></div>
             <div className="h-1"></div>
           </form>
